@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>La marca — paso</title>
+  <meta name="description" content="paso diseña objetos industriales para una forma de vivir más flexible. Piezas móviles, simples y honestas.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+    :root {
+      --color-bg: #EFE9DC;
+      --paso-avena: #EFE9DC;
+      --paso-madera: #9B8065;
+      --paso-carbon: #2A2623;
+      --color-text: #2A2623;
+      --color-muted: #9B8065;
+      --paso-arcilla: #B88B7A;
+      --paso-salvia: #8C9677;
+      --paso-cielo: #9AAABC;
+      --paso-borgona: #6F2A2A;
+      --font-display: 'All Round Gothic','Poppins',sans-serif;
+      --font-body: 'Poppins',sans-serif;
+      --margin-side: 48px;
+      --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    body { background: #ffffff; }
+
+    /* ── NAVBAR ── */
+
+    /* ── INTRO ── */
+    #intro-sticky { background: #ffffff; }
+    #sn-intro-card { background: #E8E8E8; border-radius:48px 48px 0 0; margin-top:-48px; position:relative; z-index:2; box-shadow:0 -8px 40px rgba(42,38,35,0.13); width:90%; margin-left:5%; will-change:width,border-radius,margin-left; }
+    .sn-intro__title { color: var(--paso-carbon); }
+    .sn-intro p { font-family:var(--font-body); font-size:16px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── TERRITORIO / ARGENTINA ── */
+    .sn-duo { background: #ffffff; }
+    .sn-duo__img img { border-radius: 12px; }
+    .sn-duo .label { font-family:var(--font-body); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color: #b92717; display:block; margin-bottom:12px; }
+    .sn-duo h2 { font-family:Georgia,serif; font-weight:400; font-style:italic; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; margin-bottom:20px; color: var(--paso-carbon); }
+    .sn-duo p { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── FOTO ANCHA ── */
+    .sn-fullimg { margin-bottom: 80px; }
+    .sn-fullimg img { border-radius: 16px; }
+
+    /* ── MANIFIESTO ── */
+    .sn-manifesto { border-top: 0.5px solid rgba(42,38,35,0.15); }
+    .sn-manifesto__title { font-family:var(--font-display); font-weight:400; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; color: var(--paso-carbon); margin-bottom:24px; }
+    .sn-manifesto__title em { color: #b92717; font-style:italic; font-family:Georgia,serif; }
+    .sn-manifesto__text { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── CIERRE ── */
+    .sn-cierre { border-top: 0.5px solid rgba(42,38,35,0.15); }
+    .sn-cierre h2 { font-family:Georgia,serif; font-weight:400; font-style:italic; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; color: var(--paso-carbon); }
+    .sn-cierre p { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); margin-bottom:12px; }
+    .sn-cierre .btn { border-color: #b92717; color: #b92717; }
+    .sn-cierre .btn:hover { background: #b92717; color: #ffffff; }
+
+    /* ── INTRO ANIMACIÓN ── */
+    #intro-section { position:relative; height:250vh; z-index:1; }
+    #intro-sticky { position:sticky; top:0; height:100vh; overflow:hidden; }
+    #intro-tagline { position:absolute; top:140px; right:var(--margin-side); max-width:340px; font-family:var(--font-display); font-weight:400; font-size:clamp(18px,1.8vw,26px); line-height:1.3; letter-spacing:-0.01em; color:var(--color-text); opacity:0; transform:translateY(12px); transition:opacity 0.6s var(--ease),transform 0.6s var(--ease); }
+    #intro-tagline em { font-style:italic; font-family:Georgia,serif; color: #2A2623; }
+    #intro-tagline.visible { opacity:1; transform:translateY(0); }
+    #intro-word { position:absolute; bottom:var(--margin-side); left:var(--margin-side); font-family:var(--font-display); font-weight:500; font-size:clamp(100px,19vw,260px); letter-spacing:-0.02em; color:var(--color-text); line-height:0.9; display:flex; align-items:flex-end; }
+    .intro-letter { display:inline-block; opacity:0; transform:translateY(20px); animation:letterIn 0.5s var(--ease) forwards; will-change:transform,opacity; }
+    @keyframes letterIn { to { opacity:1; transform:translateY(0); } }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      /* Nav */
+      #navbar { padding: 14px 24px !important; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex !important; z-index: 1003 !important; position: relative !important; }
+      .nav-mobile-menu { background: #ffffff !important; padding: 80px 24px 40px !important; z-index: 1001 !important; display: none !important; }
+      .nav-mobile-menu.open { display: flex !important; }
+      .nav-mobile-menu a { font-family: 'Poppins', sans-serif !important; font-size: 18px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; padding: 14px 0 !important; color: #2A2623 !important; }
+
+      /* Intro — sección más corta pero sticky para que la animación de letras funcione */
+      #intro-section { height: 130vh !important; }
+      #intro-sticky { position: sticky !important; top: 0 !important; height: 100svh !important; overflow: hidden !important; }
+      #intro-tagline {
+        top: auto !important;
+        bottom: 200px !important;
+        left: 24px !important;
+        right: 24px !important;
+        max-width: none !important;
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      #intro-word {
+        bottom: 96px !important;
+        left: 20px !important;
+        font-size: 22vw !important;
+        line-height: 0.85 !important;
+      }
+
+      /* Card "La casa cambió" — bloquear JS inline styles con !important */
+      #sn-intro-card {
+        width: 100% !important; margin-left: 0 !important;
+        border-radius: 20px 20px 0 0 !important;
+        margin-top: -20px !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+      .sn-intro { padding: 28px 24px 32px !important; text-align: left !important; margin: 0 !important; max-width: none !important; color: var(--color-text) !important; }
+      .sn-intro h2 { font-size: 24px !important; margin-bottom: 12px !important; }
+      .sn-intro p { font-size: 13px !important; margin-bottom: 6px !important; }
+      .sn-intro p + p { margin-top: 6px !important; }
+
+      /* Foto ancha */
+      .sn-fullimg { margin: 0 !important; padding: 0 !important; }
+      .sn-fullimg img { border-radius: 0 !important; width: 100% !important; height: 60vw !important; object-fit: cover !important; display: block !important; }
+
+      /* Duo — columna: foto arriba, texto abajo */
+      .sn-duo { display: flex !important; flex-direction: column !important; gap: 0 !important; padding: 0 !important; min-height: 0 !important; border-top: none !important; }
+      .sn-duo--reverse { flex-direction: column !important; }
+      .sn-duo__img { width: 100% !important; min-height: 0 !important; }
+      .sn-duo--reverse .sn-duo__img { order: 1 !important; }
+      .sn-duo__img img { width: 100% !important; aspect-ratio: 4/3 !important; height: auto !important; object-fit: cover !important; border-radius: 0 !important; display: block !important; }
+      .sn-duo__text { width: 100% !important; padding: 20px 24px 24px !important; border: none !important; }
+      .sn-duo h2 { font-size: 20px !important; margin-bottom: 8px !important; line-height: 1.2 !important; }
+      .sn-duo p { font-size: 13px !important; line-height: 1.6 !important; max-width: none !important; }
+
+      /* Manifiesto — fondo diferenciado, texto centrado */
+      .sn-manifesto { padding: 36px 24px !important; text-align: center !important; background: var(--paso-carbon) !important; border-top: none !important; }
+      .sn-manifesto__title { font-size: 20px !important; margin-bottom: 16px !important; line-height: 1.3 !important; text-align: center !important; color: var(--paso-avena) !important; }
+      .sn-manifesto__title em { color: var(--paso-avena) !important; }
+      .sn-manifesto__text { font-size: 13px !important; line-height: 1.7 !important; text-align: center !important; color: rgba(239,233,220,0.7) !important; }
+
+      /* Cierre — centrado */
+      .sn-cierre { display: flex !important; flex-direction: column !important; padding: 36px 24px 48px !important; gap: 12px !important; min-height: 0 !important; text-align: center !important; align-items: center !important; }
+      .sn-cierre__left { padding: 0 !important; }
+      .sn-cierre__right { padding: 0 !important; }
+      .sn-cierre h2 { font-size: 20px !important; line-height: 1.2 !important; margin-bottom: 0 !important; text-align: center !important; }
+      .sn-cierre p { font-size: 13px !important; line-height: 1.6 !important; margin-bottom: 6px !important; color: var(--color-muted) !important; text-align: center !important; }
+      .sn-cierre .btn { border-color: var(--color-text) !important; color: var(--color-text) !important; margin-top: 16px !important; display: inline-block !important; }
+
+      .v2home-footer { padding: 40px 24px 24px !important; }
+      .v2home-footer > div:first-child { flex-direction: column !important; align-items: center !important; justify-content: center !important; text-align: center !important; gap: 24px !important; }
+      .footer-left { align-items: center !important; text-align: center !important; }
+      .footer-links { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 8px !important; }
+      .footer-social { justify-content: center !important; margin-top: 8px !important; }
+      .footer-bottom-copy { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ── NAVBAR ── -->
+  <div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+  <header id="navbar">
+    <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+    <ul class="nav-links">
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="sobre-nosotros.html" class="active">La marca</a></li>
+      <li><a href="carrito.html">Carrito <span id="cart-count">0</span></a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </header>
+  <!-- ── MOBILE MENU ── -->
+  <nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+    <ul>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="sobre-nosotros.html">La marca</a></li>
+      <li><a href="carrito.html">Carrito</a></li>
+    </ul>
+  </nav>
+<main>
+
+  <!-- ── INTRO (igual al home) ── -->
+  <section id="intro-section">
+    <div id="intro-sticky">
+      <p id="intro-tagline">Una marca de objetos<br>hechos para moverse con vos</p>
+      <div id="intro-word">
+        <span class="intro-letter" style="animation-delay:0.15s">p</span>
+        <span class="intro-letter" style="animation-delay:0.28s">a</span>
+        <span class="intro-letter" style="animation-delay:0.41s">s</span>
+        <span class="intro-letter" style="animation-delay:0.54s">o</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. INTRO — La casa cambió ── -->
+  <div id="sn-intro-card">
+  <div class="sn-intro">
+    <h2 class="sn-intro__title" style="font-family:Georgia,serif; font-style:italic; font-weight:400;">La casa cambió</h2>
+    <p>Trabajamos donde antes descansábamos, comemos donde antes leíamos y nos reunimos en espacios que no estaban pensados para eso. Pero muchos objetos siguen respondiendo a ideas viejas</p>
+    <p>paso diseña desde ese problema</p>
+  </div>
+  </div>
+
+
+  <!-- ── 4. FOTO ANCHA ── -->
+  <div class="sn-fullimg">
+    <img src="assets/images/balcon-verde.png" alt="paso · 01 en balcón" loading="lazy">
+  </div>
+
+  <!-- ── 5. BLOQUE: Territorio ── -->
+  <div class="sn-duo">
+    <div class="sn-duo__text">
+      <h2>Diseño claro,<br>temperatura local</h2>
+      <p>paso vive entre la precisión del diseño industrial y la calidez de una casa real. Tomamos referencias contemporáneas y las traducimos a objetos cercanos, funcionales y pensados para convivir con el uso cotidiano</p>
+    </div>
+    <div class="sn-duo__img">
+      <img src="assets/images/cocina-negro.png" alt="paso · 01 en cocina" loading="lazy">
+    </div>
+  </div>
+
+  <!-- ── 6. BLOQUE: Argentina ── -->
+  <div class="sn-duo sn-duo--reverse">
+    <div class="sn-duo__text">
+      <h2>Fabricado en<br>Argentina</h2>
+      <p>Diseñamos desde una forma de habitar concreta: espacios más pequeños, usos más flexibles y objetos que necesitan adaptarse a distintas situaciones durante el día. paso nace desde esa lógica</p>
+    </div>
+    <div class="sn-duo__img">
+      <img src="assets/images/living-azul-2.png" alt="paso · 01 en living" loading="lazy">
+    </div>
+  </div>
+
+  <!-- ── 7. MANIFIESTO ── -->
+  <div class="sn-manifesto">
+    <h2 class="sn-manifesto__title" style="font-family:Georgia,serif; font-style:italic; font-weight:400;">Los objetos también deberían<br>poder cambiar</h2>
+    <p class="sn-manifesto__text">Durante años, la casa fue pensada como un lugar fijo. Hoy funciona distinto. Se trabaja, se descansa, se comparte y se habita de formas nuevas.<br><br>paso diseña objetos preparados para acompañar ese movimiento: estructuras simples, móviles y funcionales que permiten que los espacios se adapten a las personas, y no al revés</p>
+  </div>
+
+  <!-- ── 8. CIERRE ── -->
+  <div class="sn-cierre">
+    <div class="sn-cierre__left">
+      <h2>Diseño industrial<br>para la vida cotidiana</h2>
+    </div>
+    <div class="sn-cierre__right">
+      <p>paso combina movilidad, claridad estructural y uso real en objetos pensados para convivir naturalmente con una casa contemporánea</p>
+      <p>No buscamos seguir tendencias ni decorar espacios.<br>Diseñamos piezas que funcionan, se mueven y permanecen</p>
+      <div style="margin-top:var(--space-xl);">
+        <a href="producto.html" class="btn">Ver paso · 01</a>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());</script>
+<script src="main.js"></script>
+<script src="scroll.js"></script>
+<script>
+  const introSection = document.getElementById('intro-section');
+  const introTagline = document.getElementById('intro-tagline');
+  const letters = Array.from(document.querySelectorAll('.intro-letter'));
+
+  setTimeout(() => {
+    letters.forEach(l => { l.style.opacity='1'; l.style.transform='translateY(0)'; l.style.animation='none'; });
+  }, 1200);
+
+  function onScroll() {
+    const rect = introSection.getBoundingClientRect();
+    const scrollable = introSection.offsetHeight - window.innerHeight;
+    const scrolled = Math.max(0, -rect.top);
+    const progress = Math.min(1, scrolled / scrollable);
+
+    if (progress > 0.05) introTagline.classList.add('visible');
+    else introTagline.classList.remove('visible');
+
+    const exitStart = 0.45;
+    if (progress > exitStart) {
+      const exitP = (progress - exitStart) / (1 - exitStart);
+      letters.forEach((l, i) => {
+        const stagger = i * 0.18;
+        const lp = Math.max(0, Math.min(1, (exitP - stagger) / (1 - stagger)));
+        l.style.transform = `translateY(${-lp * 130}%)`;
+        l.style.opacity = String(1 - lp);
+      });
+    } else {
+      letters.forEach(l => { l.style.transform='translateY(0)'; l.style.opacity='1'; });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ── SOLAPA: 90% → 100% ── */
+  const snCard = document.getElementById('sn-intro-card');
+  function onCardScroll() {
+    if (window.innerWidth <= 768) return;
+    const rect = snCard.getBoundingClientRect();
+    const winH = window.innerHeight;
+    const p = Math.min(1, Math.max(0, 1 - rect.top / winH));
+    const w = 90 + p * 10;
+    snCard.style.width = `${w}%`;
+    snCard.style.marginLeft = `${(100 - w) / 2}%`;
+    snCard.style.borderRadius = `${48 * (1 - p)}px ${48 * (1 - p)}px 0 0`;
+  }
+  window.addEventListener('scroll', onCardScroll, { passive: true });
+  onCardScroll();
+</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.getElementById("nav-hamburger");
+      const mobileMenu = document.getElementById("nav-mobile-menu");
+      const mobileClose = document.getElementById("nav-mobile-close");
+      function closeMobileMenu() {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      if (hamburger && mobileMenu) {
+        hamburger.addEventListener("click", () => {
+          hamburger.classList.toggle("open");
+          mobileMenu.classList.toggle("open");
+          document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+        });
+        if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+        mobileMenu.querySelectorAll("a").forEach(a => {
+          a.addEventListener("click", closeMobileMenu);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

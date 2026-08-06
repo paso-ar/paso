@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>shop — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+    :root { --color-bg: #ffffff; }
+    body { background: #ffffff; }
+    .config-layout { grid-template-columns: 42% 58%; }
+    .config-panel { padding: 16px 32px; overflow-y: hidden; }
+    .config-acc-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .config-acc-card__img-wrap { aspect-ratio: 1/1; height: auto; }
+    .config-acc-card__img-wrap img { object-fit: contain; height: 100%; width: 100%; padding: 8px; }
+    .config-acc-card__name { font-size: 10px; margin-bottom: 4px; }
+    .config-acc-card__price { font-size: 12px; }
+    .config-price-orig { font-size: 10px; }
+    .config-acc-card__footer { padding: 4px 8px 8px; }
+    .config-acc-qty-btn { width: 20px; height: 20px; font-size: 13px; border-radius: 50%; }
+    .config-acc-qty-num { font-size: 11px; min-width: 16px; }
+    .config-footer__total-price { font-size: 17px; }
+    .config-back { color: #b92717; }
+    .config-cat-header { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+    .config-no-thanks { color: #b92717; background: none; border: none; cursor: pointer; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0; }
+    .config-footer { margin-top: auto; padding-top: 10px; }
+    .config-cat-title { font-weight: 700; font-family: var(--font-body); }
+
+    @media (max-width: 768px) {
+      /* ── NAV ── */
+      #navbar { padding: 14px 24px !important; z-index: 1002 !important; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex !important; z-index: 1003 !important; position: relative !important; }
+      .nav-mobile-menu { background: #ffffff !important; padding: 80px 24px 40px !important; z-index: 1001 !important; display: none !important; }
+      .nav-mobile-menu.open { display: flex !important; }
+      .nav-mobile-menu a { font-family: 'Poppins', sans-serif !important; font-size: 18px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; padding: 14px 0 !important; color: #2A2623 !important; }
+
+      /* ── BODY / LAYOUT ── */
+      html, body { overflow-x: hidden !important; }
+      main.config-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+
+      /* ── MODELO (grande, altura fija) ── */
+      .config-visual { position: relative !important; top: 0 !important; height: 52svh !important; width: 100% !important; overflow: hidden !important; flex-shrink: 0 !important; }
+      #config-canvas { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; }
+      #config-canvas-overlay { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; }
+      .config-visual__label { left: 16px !important; top: 12px !important; }
+      .config-visual__label > div { flex-direction: row !important; gap: 6px !important; margin-top: 6px !important; }
+      .estructura-color-btn { width: 14px !important; height: 14px !important; border-radius: 50% !important; flex-shrink: 0 !important; }
+
+      /* ── PANEL (sin scroll propio, fluye en la página) ── */
+      .config-panel { height: auto !important; min-height: 0 !important; padding: 16px 16px 90px !important; overflow: visible !important; width: 100% !important; }
+      .config-cat-header { display: none !important; }
+
+      /* ── CARRUSEL HORIZONTAL ── */
+      .config-acc-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        grid-template-columns: none !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        gap: 10px !important;
+        padding-bottom: 4px !important;
+      }
+      .config-acc-grid::-webkit-scrollbar { display: none !important; }
+
+      /* ── CARDS GRANDES ── */
+      .config-acc-card { width: 44vw !important; flex-shrink: 0 !important; scroll-snap-align: start !important; border-radius: 8px !important; overflow: hidden !important; background: #EBEBEB !important; display: flex !important; flex-direction: column !important; }
+      .config-acc-card__img-wrap { width: 100% !important; aspect-ratio: 1/1 !important; height: auto !important; background: #EBEBEB !important; }
+      .config-acc-card__img-wrap img { padding: 14px !important; width: 100% !important; height: 100% !important; object-fit: contain !important; }
+      .config-acc-card__body { padding: 8px 10px 12px !important; display: flex !important; flex-direction: column !important; gap: 4px !important; }
+      .config-acc-card__header { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; gap: 6px !important; }
+      .config-acc-card__name { font-size: 11px !important; font-weight: 600 !important; padding: 0 !important; margin: 0 0 4px !important; white-space: normal !important; line-height: 1.3 !important; }
+      .config-acc-card__price { display: block !important; font-size: 10px !important; color: var(--color-muted) !important; margin: 0 !important; }
+      .config-price-badge { display: none !important; }
+      .config-acc-card__qty { display: flex !important; align-items: center !important; gap: 5px !important; flex-shrink: 0 !important; }
+      .config-acc-qty-btn { width: 20px !important; height: 20px !important; font-size: 14px !important; border-radius: 50% !important; }
+      .config-acc-qty-num { font-size: 11px !important; min-width: 12px !important; text-align: center !important; }
+
+      /* ── FOOTER FIJO ── */
+      .config-footer { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 200 !important; background: var(--color-bg) !important; padding: 10px 16px 14px !important; border-top: 0.5px solid rgba(42,38,35,0.2) !important; }
+      .config-footer__rows { display: none !important; }
+      .config-footer__divider { display: none !important; }
+      .config-footer__total { display: flex !important; justify-content: space-between !important; align-items: baseline !important; margin-bottom: 6px !important; }
+      .config-footer__total-label { font-size: 10px !important; text-transform: uppercase !important; letter-spacing: 0.06em !important; }
+      .config-footer__total-price { font-size: 15px !important; font-weight: 600 !important; }
+      .config-footer__cuotas { font-size: 9px !important; color: var(--color-muted) !important; margin-bottom: 8px !important; }
+      #config-submit { width: 100% !important; font-size: 11px !important; padding: 12px !important; }
+    }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- ── NAVBAR ── -->
+  <div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+  <header id="navbar" style="opacity:1;">
+    <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+    <ul class="nav-links">
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="sobre-nosotros.html">La marca</a></li>
+      <li><a href="carrito.html">Carrito <span id="cart-count">0</span></a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </header>
+  <!-- ── MOBILE MENU ── -->
+  <nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+    <ul>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="sobre-nosotros.html">La marca</a></li>
+      <li><a href="carrito.html">Carrito</a></li>
+    </ul>
+  </nav>
+<main class="config-layout">
+
+  <!-- ── LEFT: producto ── -->
+  <div class="config-visual">
+    <canvas id="config-canvas"></canvas>
+    <div id="config-canvas-overlay"></div>
+    <div class="config-visual__label">
+      <span class="label">paso · 01</span>
+      <div style="display:flex; flex-direction:column; gap:5px; margin-top:10px;">
+        <button class="estructura-color-btn active" data-color="navy" data-name="Azul"
+          style="width:44px;height:14px;border-radius:7px;background:#1E367B;border:none;cursor:pointer;outline:2px solid #1E367B;outline-offset:2px;" aria-label="Azul"></button>
+        <button class="estructura-color-btn" data-color="esmeralda" data-name="Esmeralda"
+          style="width:44px;height:14px;border-radius:7px;background:#2D6A4F;border:none;cursor:pointer;outline:2px solid transparent;outline-offset:2px;" aria-label="Esmeralda"></button>
+        <button class="estructura-color-btn" data-color="negro" data-name="Negro"
+          style="width:44px;height:14px;border-radius:7px;background:#1A1A1A;border:none;cursor:pointer;outline:2px solid transparent;outline-offset:2px;" aria-label="Negro"></button>
+        <button class="estructura-color-btn" data-color="gris" data-name="Gris"
+          style="width:44px;height:14px;border-radius:7px;background:#828282;border:none;cursor:pointer;outline:2px solid transparent;outline-offset:2px;" aria-label="Gris"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RIGHT: configuración ── -->
+  <div class="config-panel">
+
+    <!-- Accesorios header — "← paso · 01 / No gracias" -->
+    <div class="config-cat-header">
+      <a href="producto.html" class="config-back">← paso · 01</a>
+    </div>
+
+    <!-- Card grid -->
+    <div class="config-acc-grid" id="config-acc-grid">
+
+      <div class="config-acc-card" data-id="estante" data-price="49999" data-name="Estante · 01">
+        <div class="config-acc-card__img-wrap">
+          <img src="assets/images/accesorios%20azul/acc-estante.png" alt="Estante · 01" loading="lazy">
+        </div>
+        <div class="config-acc-card__body">
+          <div class="config-acc-card__name">Estante · 01</div>
+          <div class="config-acc-card__header">
+            <span class="config-acc-card__price">$49.999</span>
+            <div class="config-acc-card__qty">
+              <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
+              <span class="config-acc-qty-num">0</span>
+              <button class="config-acc-qty-btn plus" aria-label="Agregar uno">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-acc-card" data-id="control" data-price="24999" data-name="Montaje control remoto">
+        <div class="config-acc-card__img-wrap">
+          <img src="assets/images/accesorios%20azul/acc-control.png" alt="Montaje control remoto" loading="lazy">
+        </div>
+        <div class="config-acc-card__body">
+          <div class="config-acc-card__name">Montaje control remoto</div>
+          <div class="config-acc-card__header">
+            <span class="config-acc-card__price">$24.999</span>
+            <div class="config-acc-card__qty">
+              <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
+              <span class="config-acc-qty-num">0</span>
+              <button class="config-acc-qty-btn plus" aria-label="Agregar uno">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-acc-card" data-id="play" data-price="19999" data-name="Soporte play/xbox">
+        <div class="config-acc-card__img-wrap">
+          <div class="img-placeholder" style="background:var(--paso-madera);" role="img" aria-label="Soporte play/xbox"></div>
+        </div>
+        <div class="config-acc-card__body">
+          <div class="config-acc-card__name">Soporte play/xbox</div>
+          <div class="config-acc-card__header">
+            <span class="config-acc-card__price">$19.999</span>
+            <div class="config-acc-card__qty">
+              <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
+              <span class="config-acc-qty-num">0</span>
+              <button class="config-acc-qty-btn plus" aria-label="Agregar uno">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-acc-card" data-id="gancho" data-price="19999" data-name="Soporte joystick">
+        <div class="config-acc-card__img-wrap">
+          <div class="img-placeholder" style="background:var(--paso-madera);" role="img" aria-label="Soporte joystick"></div>
+        </div>
+        <div class="config-acc-card__body">
+          <div class="config-acc-card__name">Soporte joystick</div>
+          <div class="config-acc-card__header">
+            <span class="config-acc-card__price">$19.999</span>
+            <div class="config-acc-card__qty">
+              <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
+              <span class="config-acc-qty-num">0</span>
+              <button class="config-acc-qty-btn plus" aria-label="Agregar uno">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-acc-card" data-id="soporte" data-price="14999" data-name="Soporte de cable">
+        <div class="config-acc-card__img-wrap">
+          <div class="img-placeholder" style="background:var(--paso-madera);" role="img" aria-label="Soporte de cable"></div>
+        </div>
+        <div class="config-acc-card__body">
+          <div class="config-acc-card__name">Soporte de cable</div>
+          <div class="config-acc-card__header">
+            <span class="config-acc-card__price">$14.999</span>
+            <div class="config-acc-card__qty">
+              <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
+              <span class="config-acc-qty-num">0</span>
+              <button class="config-acc-qty-btn plus" aria-label="Agregar uno">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer: total + CTA -->
+    <div class="config-footer">
+      <div class="config-footer__rows" id="config-footer-rows"></div>
+      <div class="config-footer__divider"></div>
+      <div class="config-footer__total">
+        <span class="config-footer__total-label">Total</span>
+        <span class="config-footer__total-price" id="config-grand-total">ARS $450.000</span>
+      </div>
+      <div class="config-footer__cuotas">12 cuotas sin interés · Envío gratis</div>
+      <button class="btn btn--dark btn--full" id="config-submit">Agregar al carrito</button>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── CART DRAWER ── -->
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<aside id="cart-drawer" class="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer__header">
+    <div>
+      <div class="cart-drawer__title">Tu pedido</div>
+      <div class="cart-drawer__count" id="cart-drawer-count"></div>
+    </div>
+    <button class="cart-drawer__close" id="cart-drawer-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="cart-drawer__items" id="cart-drawer-items"></div>
+  <div class="cart-drawer__footer">
+    <div class="cart-drawer__total-row">
+      <span class="cart-drawer__total-label">Total</span>
+      <span class="cart-drawer__total-price" id="cart-drawer-total"></span>
+    </div>
+    <div class="cart-drawer__cuotas">12 cuotas sin interés · Envío gratis</div>
+    <a href="checkout.html" class="btn btn--dark btn--full">Ir al checkout</a>
+    <a href="carrito.html" class="cart-drawer__view-cart">Ver carrito</a>
+  </div>
+</aside>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());</script>
+<script src="main.js"></script>
+<script src="scroll.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader }   from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader }  from 'three/addons/loaders/DRACOLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ── NOMBRES DE NODOS (deben coincidir con los objetos en Blender) ──
+const NODE_NAMES = {
+  estante: 'Estante',
+  control: 'Control',
+  play:    'Soporte_Play',
+  gancho:  'Soporte_Joystick',
+  soporte: 'Soporte_Cable',
+};
+
+let noThanks = false;
+
+// ── THREE.JS SETUP ──
+const container = document.querySelector('.config-visual');
+const canvas    = document.getElementById('config-canvas');
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type    = THREE.PCFSoftShadowMap;
+
+const threeScene = new THREE.Scene();
+const camera     = new THREE.PerspectiveCamera(42, 1, 0.01, 1000);
+
+const controls = new OrbitControls(camera, document.getElementById('config-canvas-overlay'));
+controls.enableDamping   = true;
+controls.dampingFactor   = 0.06;
+controls.autoRotate      = true;
+controls.autoRotateSpeed = 1.5;
+controls.minPolarAngle   = Math.PI * 0.1;
+controls.maxPolarAngle   = Math.PI * 0.85;
+controls.minDistance     = 1.5;   // no se puede acercar más de esto
+controls.maxDistance     = 5;     // no se puede alejar más de esto
+controls.enablePan       = false; // sin paneo — el modelo siempre queda centrado
+controls.addEventListener('start', () => { controls.autoRotate = false; });
+
+threeScene.add(new THREE.AmbientLight(0xffffff, 2.5));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+keyLight.position.set(3, 6, 4);
+keyLight.castShadow            = true;
+keyLight.shadow.mapSize.width  = 2048;
+keyLight.shadow.mapSize.height = 2048;
+keyLight.shadow.camera.near    = 0.5;
+keyLight.shadow.camera.far     = 20;
+keyLight.shadow.camera.left    = -5;
+keyLight.shadow.camera.right   = 5;
+keyLight.shadow.camera.top     = 5;
+keyLight.shadow.camera.bottom  = -5;
+keyLight.shadow.bias           = -0.001;
+keyLight.shadow.radius         = 8;
+threeScene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0xfff5ee, 0.8);
+fillLight.position.set(-4, 2, -3);
+threeScene.add(fillLight);
+
+/* Plano receptor de sombra — invisible, solo recibe sombra */
+const shadowPlane = new THREE.Mesh(
+  new THREE.PlaneGeometry(10, 10),
+  new THREE.ShadowMaterial({ opacity: 0.12 })
+);
+shadowPlane.rotation.x  = -Math.PI / 2;
+shadowPlane.position.y  = -1.2;
+shadowPlane.receiveShadow = true;
+threeScene.add(shadowPlane);
+
+function resizeRenderer() {
+  const w = container.clientWidth, h = container.clientHeight;
+  if (w === 0 || h === 0) return;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resizeRenderer);
+new ResizeObserver(resizeRenderer).observe(container);
+requestAnimationFrame(resizeRenderer);
+
+// ── COLORES DE PRODUCTO ──
+const PRODUCT_COLORS = {
+  navy:      new THREE.Color(0x1E367B),
+  esmeralda: new THREE.Color(0x2D6A4F),
+  negro:     new THREE.Color(0x3A3835),
+  gris:      new THREE.Color(0x828282),
+};
+const bodyMeshes = [];
+const accMeshes  = {}; // { id: [mesh, ...] }
+
+const WHEEL_MESHES = new Set(['Cuerpo3','Cuerpo3_1','Cuerpo3_2','Cuerpo3_3','Cuerpo4','Cuerpo4_1','Cuerpo4_2','Cuerpo4_3','Cuerpo1_10','Cuerpo1_11','Cuerpo1_12','Cuerpo1_13']);
+const TV_MESHES   = new Set(['55','Cuerpo1_34']);
+const BLACK  = new THREE.Color(0x111111);
+const SCREEN = new THREE.Color(0x050508);
+
+function applyColorToMeshes(meshes, key) {
+  const color = PRODUCT_COLORS[key] || PRODUCT_COLORS.navy;
+  meshes.forEach(node => {
+    const isWheel = WHEEL_MESHES.has(node.name);
+    const isTV    = TV_MESHES.has(node.name);
+    const mats = Array.isArray(node.material) ? node.material : [node.material];
+    mats.forEach(mat => {
+      if (isTV) {
+        mat.color.set(SCREEN); mat.metalness = 0.1; mat.roughness = 0.02; mat.envMapIntensity = 2.0;
+      } else if (isWheel) {
+        mat.color.set(BLACK); mat.roughness = 0.7; mat.metalness = 0.3;
+      } else {
+        mat.color.set(color);
+        mat.roughness = key === "negro" ? 0.6 : 0.4;
+        mat.metalness = key === "negro" ? 0.3 : 0.45;
+      }
+    });
+  });
+}
+
+function updateModelColor(key) { applyColorToMeshes(bodyMeshes, key); }
+
+function updateAccessoryColor(id, key) {
+  if (accMeshes[id]) applyColorToMeshes(accMeshes[id], key);
+}
+
+// ── CARGAR GLB ──
+const nodeMap = {};
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader(dracoLoader);
+gltfLoader.load('assets/models/paso-01-full.glb', gltf => {
+  const model  = gltf.scene;
+  const box    = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3());
+  const size   = box.getSize(new THREE.Vector3());
+  const scale  = 2.2 / Math.max(size.x, size.y, size.z);
+
+  model.scale.setScalar(scale);
+  model.position.copy(center).negate().multiplyScalar(scale);
+  threeScene.add(model);
+
+  // Piso exactamente en la base del modelo
+  const floorY = -size.y * scale / 2;
+  shadowPlane.position.y = floorY;
+
+  model.traverse(node => {
+    if (node.name) nodeMap[node.name] = node;
+    if (node.isMesh) {
+      node.material = Array.isArray(node.material)
+        ? node.material.map(m => { const c = m.clone(); c.metalness = 0.85; c.roughness = 0.3; return c; })
+        : (() => { const c = node.material.clone(); c.metalness = 0.85; c.roughness = 0.3; return c; })();
+      node.castShadow    = true;
+      node.receiveShadow = true;
+    }
+  });
+
+  // Separar meshes de accesorios del cuerpo principal
+  const accMeshSet = new Set();
+  Object.entries(NODE_NAMES).forEach(([id, name]) => {
+    accMeshes[id] = [];
+    if (nodeMap[name]) {
+      nodeMap[name].traverse(child => {
+        if (child.isMesh) { accMeshes[id].push(child); accMeshSet.add(child); }
+      });
+    } else console.warn('[paso] Nodo no encontrado:', name);
+  });
+  model.traverse(node => {
+    if (node.isMesh && !accMeshSet.has(node)) bodyMeshes.push(node);
+  });
+
+  console.log('[paso] Nodos cargados:', Object.keys(nodeMap));
+  updateModelColor(colorKey);
+
+  Object.values(NODE_NAMES).forEach(name => {
+    if (nodeMap[name]) nodeMap[name].visible = false;
+  });
+
+  const fov  = 42 * Math.PI / 180;
+  const dist = (2.2 / 2) / Math.tan(fov / 2) * 2.0;
+  camera.position.set(0, size.y * scale * 0.1, dist);
+  controls.target.set(0, 0, 0);
+  controls.update();
+  resizeRenderer();
+}, undefined, e => console.error('[paso] Error GLB:', e));
+
+function updateVisibility() {
+  Object.entries(NODE_NAMES).forEach(([id, name]) => {
+    const visible = !noThanks && (quantities[id] || 0) > 0;
+    if (nodeMap[name]) nodeMap[name].visible = visible;
+    if (visible) updateAccessoryColor(id, accColors[id] || colorKey);
+  });
+}
+
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(threeScene, camera);
+})();
+
+// ── LÓGICA DE CONFIGURADOR ──
+
+  const colorMeta   = {
+    navy:      { name: 'Azul',      bg: '#1E367B', panelBg: 'var(--color-bg)' },
+    esmeralda: { name: 'Esmeralda', bg: '#2D6A4F', panelBg: 'var(--color-bg)' },
+    negro:     { name: 'Negro',     bg: '#1A1A1A', panelBg: 'var(--color-bg)' },
+    gris:    { name: 'Gris',     bg: '#828282', panelBg: 'var(--color-bg)' },
+  };
+  const accImgs = {
+    navy:    { estante: 'assets/images/accesorios%20azul/acc-estante.png', control: 'assets/images/accesorios%20azul/acc-control.png', play: 'assets/images/accesorios%20azul/acc-playbox-azul.png', gancho: 'assets/images/accesorios%20azul/acc-gancho-azul.png', soporte: 'assets/images/accesorios%20azul/acc-soporte-azul.png' },
+    esmeralda: { estante: 'assets/images/accesorios%20gris/acc-estante-gris.png', control: 'assets/images/accesorios%20gris/acc-control-gris.png', play: 'assets/images/accesorios%20gris/acc-playbox-gris.png', gancho: 'assets/images/accesorios%20gris/acc-gancho-gris.png', soporte: 'assets/images/accesorios%20gris/acc-soporte-gris.png' },
+    negro:     { estante: 'assets/images/accesorios%20gris/acc-estante-gris.png', control: 'assets/images/accesorios%20gris/acc-control-gris.png', play: 'assets/images/accesorios%20gris/acc-playbox-gris.png', gancho: 'assets/images/accesorios%20gris/acc-gancho-gris.png', soporte: 'assets/images/accesorios%20gris/acc-soporte-gris.png' },
+    gris:    { estante: 'assets/images/accesorios%20gris/acc-estante-gris.png', control: 'assets/images/accesorios%20gris/acc-control-gris.png', play: 'assets/images/accesorios%20gris/acc-playbox-gris.png', gancho: 'assets/images/accesorios%20gris/acc-gancho-gris.png', soporte: 'assets/images/accesorios%20gris/acc-soporte-gris.png' },
+  };
+  const accFilters = {
+    navy:      'none',
+    esmeralda: 'hue-rotate(-65deg) saturate(0.85) brightness(0.95)',
+    negro:     'brightness(0.55) contrast(1.1) saturate(0)',
+    gris:      'grayscale(100%) brightness(1.05)',
+  };
+
+  function updateAccImage(card) {
+    const id    = card.dataset.id;
+    const color = accColors[id] || colorKey;
+    // Siempre usar imagen azul como base y aplicar filtro
+    const src   = accImgs.navy[id];
+    const wrap  = card.querySelector('.config-acc-card__img-wrap');
+    const img   = wrap.querySelector('img');
+    if (src) {
+      if (img) { img.src = src; img.style.filter = accFilters[color] || 'none'; }
+      else {
+        const el = document.createElement('img');
+        el.src = src; el.alt = card.dataset.name; el.loading = 'lazy';
+        el.style.filter = accFilters[color] || 'none';
+        wrap.innerHTML = ''; wrap.appendChild(el);
+      }
+    } else if (img) {
+      wrap.innerHTML = `<div class="img-placeholder" style="background:var(--paso-madera);" role="img" aria-label="${card.dataset.name}"></div>`;
+    }
+  }
+
+  const PRODUCT_PRICE = 450000;
+  const params  = new URLSearchParams(window.location.search);
+  let colorKey  = colorMeta[params.get('color')] ? params.get('color') : 'navy';
+  const qty     = Math.max(1, parseInt(params.get('qty')) || 1);
+
+  const quantities = {};
+  const accColors  = {};
+  document.querySelectorAll('.config-acc-card').forEach(card => {
+    const id = card.dataset.id;
+    quantities[id] = 0;
+    accColors[id]  = colorKey;
+    const picker = document.createElement('div');
+    picker.className = 'acc-color-picker';
+    picker.setAttribute('role', 'radiogroup');
+    picker.innerHTML = [
+      { c: 'navy',      bg: '#1E367B', border: '' },
+      { c: 'esmeralda', bg: '#2D6A4F', border: '' },
+      { c: 'negro',     bg: '#1A1A1A', border: '' },
+      { c: 'gris',    bg: '#828282', border: '' },
+    ].map(o => `<button class="color-option${o.c === colorKey ? ' active' : ''}" data-color="${o.c}" style="background:${o.bg};${o.border}" role="radio" aria-checked="${o.c === colorKey}" aria-label="${colorMeta[o.c].name}"></button>`).join('');
+    card.querySelector('.config-acc-card__name').after(picker);
+    picker.querySelectorAll('.color-option').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        accColors[id] = btn.dataset.color;
+        picker.querySelectorAll('.color-option').forEach(b => {
+          b.classList.toggle('active', b.dataset.color === btn.dataset.color);
+          b.setAttribute('aria-checked', String(b.dataset.color === btn.dataset.color));
+        });
+        updateAccImage(card);
+        updateCardBorder(card);
+        updateAccessoryColor(id, btn.dataset.color);
+      });
+    });
+  });
+
+  function fmt(n) { return 'ARS $' + n.toLocaleString('es-AR'); }
+
+  function setColor(key) {
+    colorKey = key;
+    const meta = colorMeta[key];
+    document.querySelector('.config-visual').style.background = meta.panelBg;
+    updateModelColor(key);
+    updateVisibility();
+  }
+  setColor(colorKey);
+  document.querySelectorAll('.config-acc-card').forEach(card => updateAccImage(card));
+
+  // Selector de color de estructura
+  document.querySelectorAll('.estructura-color-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.estructura-color-btn').forEach(b => {
+        b.style.outlineColor = 'transparent';
+      });
+      btn.style.outlineColor = btn.style.background;
+      setColor(btn.dataset.color);
+    });
+  });
+  // Marcar activo según colorKey inicial
+  document.querySelectorAll('.estructura-color-btn').forEach(btn => {
+    if (btn.dataset.color === colorKey) btn.style.outlineColor = btn.style.background;
+  });
+
+  function renderTotal() {
+    let total = PRODUCT_PRICE * qty;
+    let html  = `<div class="config-footer__row"><span>paso · 01 × ${qty}</span><span>${fmt(PRODUCT_PRICE * qty)}</span></div>`;
+    if (!noThanks) {
+      Object.entries(quantities).forEach(([id, q]) => {
+        if (q < 1) return;
+        const card  = document.querySelector(`.config-acc-card[data-id="${id}"]`);
+        const price = parseInt(card.dataset.price);
+        total += price * q;
+        html  += `<div class="config-footer__row"><span>${card.dataset.name} × ${q}</span><span>${fmt(price * q)}</span></div>`;
+      });
+    }
+    document.getElementById('config-footer-rows').innerHTML = html;
+    document.getElementById('config-grand-total').textContent = fmt(total);
+    const stockEl = document.getElementById('config-stock');
+    const stockV = parseInt(localStorage.getItem('paso_stock'));
+    const stockN = (!isNaN(stockV) && stockV >= 0) ? stockV : 20;
+    if (stockEl) stockEl.textContent = stockN;
+    document.querySelectorAll('.announcement-stock').forEach(el => el.textContent = stockN);
+  }
+
+  const borderColorMap = { navy: '#1E367B', esmeralda: '#2D6A4F', negro: '#1A1A1A', gris: '#828282' };
+
+  function updateCardBorder(card) {
+    const id = card.dataset.id;
+    if (card.classList.contains('selected')) {
+      card.style.setProperty('--card-border-color', borderColorMap[accColors[id] || colorKey]);
+    }
+  }
+
+  function updateCardQty(card, delta) {
+    if (noThanks) return;
+    const id  = card.dataset.id;
+    const num = Math.max(0, (quantities[id] || 0) + delta);
+    quantities[id] = num;
+    card.querySelector('.config-acc-qty-num').textContent = num;
+    card.querySelector('.config-acc-qty-btn.minus').classList.toggle('hidden', num === 0);
+    card.classList.toggle('selected', num > 0);
+    updateCardBorder(card);
+    updateVisibility();
+    renderTotal();
+  }
+
+  document.querySelectorAll('.config-acc-card').forEach(card => {
+    card.querySelector('.config-acc-qty-btn.plus').addEventListener('click', e => {
+      e.stopPropagation();
+      updateCardQty(card, 1);
+    });
+    card.querySelector('.config-acc-qty-btn.minus').addEventListener('click', e => {
+      e.stopPropagation();
+      updateCardQty(card, -1);
+    });
+    card.querySelector('.config-acc-card__img-wrap').addEventListener('click', () => {
+      if (!noThanks) updateCardQty(card, 1);
+    });
+  });
+
+
+  renderTotal();
+
+  // Add to cart
+  document.getElementById('config-submit').addEventListener('click', () => {
+    const meta = colorMeta[colorKey];
+    const configItems = [
+      { id:'paso-01', name:'paso · 01', variant:'Soporte TV con ruedas', color:colorKey, colorName:meta.name, price:PRODUCT_PRICE, qty }
+    ];
+    Object.entries(quantities).forEach(([id, q]) => {
+      if (q < 1) return;
+      const card = document.querySelector(`.config-acc-card[data-id="${id}"]`);
+      const aC   = accColors[id] || colorKey;
+      configItems.push({ id:`acc-${id}`, name:card.dataset.name, variant:'Accesorio', color:aC, colorName:colorMeta[aC].name, price:parseInt(card.dataset.price), qty:q });
+    });
+    Cart.replaceConfig(configItems);
+    const cur = parseInt(localStorage.getItem('paso_stock'));
+    const stock = (!isNaN(cur) && cur >= 0) ? cur : 20;
+    localStorage.setItem('paso_stock', Math.max(0, stock - qty));
+    openCartDrawer();
+  });
+</script>
+<script>
+  const colorSwatches = {
+    navy: '#1E367B', esmeralda: '#2D6A4F', negro: '#1A1A1A', gris: '#828282'
+  };
+
+  window.openCartDrawer = function openCartDrawer() {
+    const items = Cart.get();
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-drawer-overlay');
+    const itemsEl = document.getElementById('cart-drawer-items');
+    const countEl = document.getElementById('cart-drawer-count');
+    const totalEl = document.getElementById('cart-drawer-total');
+
+    const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+    countEl.textContent = `${items.length} artículo${items.length !== 1 ? 's' : ''}`;
+    totalEl.textContent = 'ARS $' + total.toLocaleString('es-AR');
+
+    itemsEl.innerHTML = items.map(item => `
+      <div class="cart-drawer__item">
+        <div class="cart-drawer__item-color" style="background:${colorSwatches[item.color] || '#9B8065'}"></div>
+        <div class="cart-drawer__item-info">
+          <div class="cart-drawer__item-name">${item.name}</div>
+          <div class="cart-drawer__item-variant">${item.colorName}${item.qty > 1 ? ' · ×' + item.qty : ''}</div>
+        </div>
+        <div class="cart-drawer__item-price">ARS $${(item.price * item.qty).toLocaleString('es-AR')}</div>
+      </div>
+    `).join('');
+
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  window.closeCartDrawer = function closeCartDrawer() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-drawer-overlay');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('cart-drawer-close').addEventListener('click', closeCartDrawer);
+  document.getElementById('cart-drawer-overlay').addEventListener('click', closeCartDrawer);
+</script>
+  <script>
+    const hamburger = document.getElementById("nav-hamburger");
+    const mobileMenu = document.getElementById("nav-mobile-menu");
+    const mobileClose = document.getElementById("nav-mobile-close");
+    function closeMobileMenu() {
+      hamburger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+        document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+      });
+      if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+      mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+    }
+  </script>
+</body>
+</html>

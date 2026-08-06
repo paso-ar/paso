@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>paso · 01 — Soporte TV con ruedas</title>
+  <meta name="description" content="paso · 01: soporte móvil para televisores de 42&quot; a 65&quot;. Acero pintado al horno, dos patas bifurcadas, cuatro ruedas con freno. 8.3 kg.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+<body>
+<div class="promo-bar" aria-label="Oferta de lanzamiento">
+  <div class="promo-bar__track">
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+    <span>paso · 01 — Lanzamiento · 60% OFF · Solo por tiempo limitado · </span>
+  </div>
+</div>
+
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <a href="index.html" class="header__logo"><img src="assets/images/logo.png" alt="paso"></a>
+  <nav class="header__nav" aria-label="Principal">
+    <a href="paso-01.html">paso · 01</a>
+    <a href="producto.html">Configurar</a>
+    <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+    <a href="sobre-nosotros.html">La marca</a>
+  </nav>
+  <div class="header__actions">
+    <a href="carrito.html" class="cart-btn" aria-label="Carrito de compras">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil">
+  <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Cerrar menú">✕</button>
+  <a href="paso-01.html">paso · 01</a>
+  <a href="producto.html">Configurar</a>
+  <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+  <a href="sobre-nosotros.html">La marca</a>
+  <a href="carrito.html">Carrito</a>
+</nav>
+
+<main>
+
+  <!-- ── GALLERY ── -->
+  <div class="pdp-gallery" id="pdp-gallery">
+    <!-- imágenes inyectadas por JS -->
+  </div>
+
+  <!-- ── PANEL HORIZONTAL ── -->
+  <div class="pdp-panel">
+
+    <!-- Col 1: nombre + precio -->
+    <div class="pdp-col">
+      <span class="label">Soporte TV con ruedas</span>
+      <h1 class="pdp-title">paso · 01</h1>
+      <div class="pdp-price">
+        ARS $450.000
+        <span class="pdp-price-badge">Precio de lanzamiento · 20 unidades disponibles</span>
+        <span style="display:block; font-family:var(--font-body); font-size:11px; color:var(--color-muted); margin-top:4px; letter-spacing:0.03em;">12 cuotas | envío gratis</span>
+      </div>
+    </div>
+
+    <!-- Col 2: color -->
+    <div class="pdp-col">
+      <span class="pdp-section-label">Color</span>
+      <div class="color-options" role="radiogroup" aria-label="Seleccionar color" style="margin-top:6px;">
+        <button class="color-option active" data-color="navy" style="background:#1E367B;" role="radio" aria-checked="true" aria-label="Azul Navy"></button>
+        <button class="color-option" data-color="durazno" style="background:#F5E6D3; border-color:rgba(42,38,35,0.25);" role="radio" aria-checked="false" aria-label="Durazno"></button>
+        <button class="color-option" data-color="gris" style="background:#828282;" role="radio" aria-checked="false" aria-label="Gris"></button>
+      </div>
+    </div>
+
+    <!-- Col 3: cantidad + CTA en fila -->
+    <div class="pdp-col">
+      <span class="pdp-section-label">Cantidad</span>
+      <div class="pdp-qty-cta">
+        <div class="stage-qty-wrap" role="group" aria-label="Cantidad">
+          <button class="qty-btn" id="qty-minus" aria-label="Restar uno">−</button>
+          <div class="qty-display" id="qty-display" aria-live="polite">1</div>
+          <button class="qty-btn" id="qty-plus" aria-label="Sumar uno">+</button>
+        </div>
+        <button class="btn btn--navy" id="pdp-select">Seleccionar</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── BANNER ── -->
+  <div class="pdp-banner">
+    <span class="pdp-banner__item">Fabricado en Argentina</span>
+    <div class="pdp-banner__sep" aria-hidden="true"></div>
+    <span class="pdp-banner__item">Dos años de garantía</span>
+    <div class="pdp-banner__sep" aria-hidden="true"></div>
+    <span class="pdp-banner__item">Envío a todo el país</span>
+  </div>
+
+  <!-- ── DÚO DE FOTOS ── -->
+  <div class="pdp-duo">
+    <div class="pdp-duo__img"><img src="assets/images/uso-01.png" alt="paso · 01 en uso" loading="lazy"></div>
+    <div class="pdp-duo__img"><img src="assets/images/uso-02.png" alt="paso · 01 en uso" loading="lazy"></div>
+  </div>
+
+  <!-- ── PIN SECTION ── -->
+  <div class="pdp-pin">
+    <div class="pdp-pin__sticky">
+      <img class="pdp-pin__img" src="assets/images/producto-fondo-azul3.png" alt="paso · 01">
+    </div>
+    <div class="pdp-pin__list">
+      <div class="pdp-pin__item active">
+        <span class="label">01</span>
+        <h3>Estructura de acero<br>pintado al horno</h3>
+        <p>Acero SAE 1020 con terminación powder coat. Sin soldaduras a la vista, estructuralmente preparado para durar</p>
+      </div>
+      <div class="pdp-pin__item">
+        <span class="label">02</span>
+        <h3>Cuatro ruedas<br>con freno</h3>
+        <p>Dos ruedas con sistema de bloqueo. Lo movés cuando querés y lo fijás cuando necesitás</p>
+      </div>
+      <div class="pdp-pin__item">
+        <span class="label">03</span>
+        <h3>Compatible con TVs<br>de 42″ a 65″</h3>
+        <p>VESA 100×100 mm hasta 400×400 mm. Funciona con la gran mayoría de los televisores del mercado</p>
+      </div>
+      <div class="pdp-pin__item">
+        <span class="label">04</span>
+        <h3>8.3 kg</h3>
+        <p>Estructuralmente sólido sin sacrificar movilidad. Se mueve y se instala sin esfuerzo</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RENDER 3D ── -->
+  <div class="pdp-render">
+    <model-viewer
+      src="assets/models/paso-01.glb"
+      alt="paso · 01 — Soporte TV con ruedas"
+      auto-rotate
+      auto-rotate-delay="0"
+      rotation-per-second="20deg"
+      camera-controls
+      touch-action="pan-y"
+      shadow-intensity="1"
+      shadow-softness="0.8"
+      environment-image="neutral"
+      exposure="1.1"
+      camera-orbit="225deg 75deg auto"
+      style="width:100%;height:100vh;background-color:#cedcff;"
+    ></model-viewer>
+  </div>
+
+  <!-- ── FICHA TÉCNICA ── -->
+  <div class="pdp-bottom">
+    <section class="pdp-specs">
+      <span class="label">Ficha técnica</span>
+      <table class="specs-table" aria-label="Especificaciones técnicas de paso · 01">
+        <tbody>
+          <tr><td>Modelo</td><td>paso · 01</td></tr>
+          <tr><td>Categoría</td><td>Soporte de TV con ruedas</td></tr>
+          <tr><td>Material</td><td>Acero SAE 1020 · terminación powder coat</td></tr>
+          <tr><td>Colores</td><td>Azul Navy · Durazno · Gris</td></tr>
+          <tr><td>Medidas generales</td><td>Alto 120 cm · Ancho 70 cm · Profundidad 50 cm</td></tr>
+          <tr><td>Peso del soporte</td><td>8.3 kg</td></tr>
+          <tr><td>Carga máxima</td><td>50 kg</td></tr>
+          <tr><td>Compatibilidad VESA</td><td>100×100 mm — 400×400 mm</td></tr>
+          <tr><td>TV compatibles</td><td>42" a 65"</td></tr>
+          <tr><td>Ruedas</td><td>4 unidades poliuretano · 2 con freno de bloqueo</td></tr>
+          <tr><td>Patas</td><td>2 patas bifurcadas en acero</td></tr>
+          <tr><td>Ensamble</td><td>Requiere ensamble simple · Herramientas incluidas</td></tr>
+          <tr><td>Garantía</td><td>24 meses por defectos de fabricación</td></tr>
+          <tr><td>Origen</td><td>Fabricado en Córdoba, Argentina</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script src="main.js"></script>
+<script src="scroll.js"></script>
+<script>
+(function () {
+  const colorMap = {
+    navy:    { name: 'Azul Navy', imgs: ['galeria-azul-estructura.png', 'galeria-azul-tv.png'],     duo: ['galeria-azul-estructura.png', 'galeria-azul-tv.png'],         render: 'render-azul.png',    bg: '#1E367B' },
+    durazno: { name: 'Durazno',  imgs: ['galeria-crema-estructura.png', 'galeria-crema-frente.png', 'galeria-crema-tv.png'], duo: ['galeria-crema-estructura.png', 'galeria-crema-frente.png'], render: 'render-durazno.png', bg: '#EFE9DC' },
+    gris:    { name: 'Gris',     imgs: ['galeria-gris-estructura.png', 'galeria-gris-tv.png'],       duo: ['galeria-gris-estructura.png', 'galeria-gris-tv.png'],         render: 'render-gris.png',    bg: '#828282' },
+  };
+  const sharedImgs = [
+    'detalle-ruedas.png',
+    'uso-01.png', 'uso-02.png', 'uso-03.png',
+    'uso-04.png', 'uso-05.png',
+  ];
+
+  let selectedColor = 'navy';
+  let qty = 1;
+
+  /* ── CAROUSEL ── */
+  const BASE    = 0.6;   // px por frame a 60fps
+  let pos       = 0;
+  let speed     = BASE;
+  let dragging  = false;
+  let lastX     = 0;
+  let SLIDE_W   = 0;
+  let LOOP      = 0;
+  let track     = null;
+
+  function buildGallery(key) {
+    const gallery = document.getElementById('pdp-gallery');
+    const imgs    = [...colorMap[key].imgs, ...sharedImgs];
+
+    gallery.innerHTML =
+      `<div class="pdp-gallery-track" id="pdp-track">` +
+      [...imgs, ...imgs].map((f, i) =>
+        `<div class="pdp-gallery-slide"><img src="assets/images/${f}" alt="paso · 01" loading="${i < 2 ? 'eager' : 'lazy'}"></div>`
+      ).join('') +
+      `</div>`;
+
+    track = document.getElementById('pdp-track');
+    pos   = 0;
+    speed = BASE;
+
+    // Compute SLIDE_W after paint so offsetWidth is available
+    requestAnimationFrame(() => {
+      const slide = track.querySelector('.pdp-gallery-slide');
+      if (slide) {
+        SLIDE_W = slide.offsetWidth + 4;   // width + margin-right
+        LOOP    = imgs.length * SLIDE_W;
+      }
+    });
+
+    /* drag */
+    gallery.addEventListener('mousedown',  e => { dragging = true; lastX = e.clientX; track.classList.add('dragging'); e.preventDefault(); });
+    gallery.addEventListener('touchstart', e => { dragging = true; lastX = e.touches[0].clientX; }, { passive: true });
+  }
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    speed = BASE + (lastX - e.clientX) * 0.3;
+    lastX = e.clientX;
+  });
+  document.addEventListener('mouseup',   () => { dragging = false; if (track) track.classList.remove('dragging'); });
+  document.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    speed = BASE + (lastX - e.touches[0].clientX) * 0.3;
+    lastX = e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend',  () => { dragging = false; });
+
+  (function frame() {
+    if (track && LOOP > 0) {
+      if (!dragging) speed += (BASE - speed) * 0.04;
+      pos = (pos + speed + LOOP) % LOOP;
+      track.style.transform = `translateX(-${pos}px)`;
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  /* ── COLOR ── */
+  function setColor(key) {
+    selectedColor = key;
+    document.querySelectorAll('.color-option').forEach(btn => {
+      const on = btn.dataset.color === key;
+      btn.classList.toggle('active', on);
+      btn.setAttribute('aria-checked', String(on));
+    });
+    buildGallery(key);
+  }
+
+  document.querySelectorAll('.color-option').forEach(btn => {
+    btn.addEventListener('click', () => setColor(btn.dataset.color));
+  });
+
+  /* ── CANTIDAD ── */
+  document.getElementById('qty-minus').addEventListener('click', () => {
+    if (qty > 1) { qty--; document.getElementById('qty-display').textContent = qty; }
+  });
+  document.getElementById('qty-plus').addEventListener('click', () => {
+    qty++;
+    document.getElementById('qty-display').textContent = qty;
+  });
+
+  /* ── CTA ── */
+  document.getElementById('pdp-select').addEventListener('click', () => {
+    window.location.href = `configurar.html?color=${selectedColor}&qty=${qty}`;
+  });
+
+  buildGallery('navy');
+})();
+
+// ── PIN SECTION ACTIVATION ──
+(function () {
+  const items = document.querySelectorAll('.pdp-pin__item');
+  if (!items.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach(i => i.classList.remove('active'));
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  items.forEach(i => observer.observe(i));
+})();
+
+// ── CURSOR 3D TILT ──
+(function () {
+  const render = document.querySelector('.pdp-render');
+  if (!render) return;
+  const img = render.querySelector('.pdp-render__img');
+  if (!img) return;
+
+  const MAX_Y = 18;
+  const MAX_X = 12;
+
+  render.addEventListener('mousemove', e => {
+    const rect = render.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+    img.style.transition = 'transform 0.06s linear';
+    img.style.transform  = `rotateY(${x * MAX_Y}deg) rotateX(${-y * MAX_X}deg)`;
+  });
+
+  render.addEventListener('mouseleave', () => {
+    img.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)';
+    img.style.transform  = 'rotateY(0deg) rotateX(0deg)';
+  });
+})();
+</script>
+</body>
+</html>

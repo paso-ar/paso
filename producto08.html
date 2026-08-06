@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>paso · 01 — Seleccionar</title>
+  <meta name="description" content="paso · 01: soporte móvil para televisores de 42&quot; a 65&quot;. Acero pintado al horno, dos patas bifurcadas, cuatro ruedas con freno. 8.3 kg.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+    body { background: #ffffff; }
+    .stage-gallery, .stage-info { background: #ffffff; }
+    .product-stage,
+    .product-stage *,
+    .product-stage *::before,
+    .product-stage *::after {
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header id="navbar">
+  <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="producto08.html">Personalizá</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito <span id="cart-count">0</span></a></li>
+  </ul>
+</header>
+
+<main>
+
+  <!-- ── PRODUCT STAGE ── -->
+  <section class="product-stage">
+
+    <div class="stage-gallery" id="stage-gallery">
+      <canvas id="config-canvas" style="width:100%;height:100%;display:block;"></canvas>
+    </div>
+
+    <div class="stage-info">
+      <div class="stage-info__left">
+        <span class="label">Soporte TV con ruedas</span>
+        <div class="stage-title">paso · 01</div>
+      </div>
+      <div class="stage-info__right">
+        <div class="stage-meta">
+          <div class="stage-price">
+            <span class="pdp-price-original">ARS $1.333.330</span>
+            ARS $450.000
+            <span class="pdp-price-badge">−70%</span>
+            <span class="price-note">IVA incl</span>
+          </div>
+        </div>
+        <div class="stage-controls">
+          <div class="color-options" role="radiogroup" aria-label="Seleccionar color">
+            <button class="color-option active" data-color="navy"
+              style="background:#1E367B;" role="radio" aria-checked="true" aria-label="Azul"></button>
+            <button class="color-option" data-color="verde"
+              style="background:#2D6A4F;" role="radio" aria-checked="false" aria-label="Verde"></button>
+            <button class="color-option" data-color="gris"
+              style="background:#828282;" role="radio" aria-checked="false" aria-label="Gris"></button>
+            <button class="color-option" data-color="negro"
+              style="background:#1A1A1A;" role="radio" aria-checked="false" aria-label="Negro"></button>
+          </div>
+          <div class="stage-qty-wrap" role="group" aria-label="Cantidad">
+            <button class="qty-btn" id="qty-minus" aria-label="Restar uno">−</button>
+            <div class="qty-display" id="qty-display" aria-live="polite">1</div>
+            <button class="qty-btn" id="qty-plus" aria-label="Sumar uno">+</button>
+          </div>
+          <div class="stage-cta">
+            <button class="btn btn--dark" id="add-to-cart">Seleccionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  /* ── MOBILE NAV ── */
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileClose = document.getElementById('mobile-nav-close');
+  if (menuBtn && mobileNav) {
+    menuBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') mobileNav.classList.remove('open');
+    });
+  }
+
+  /* ── QUANTITY & CART ── */
+  let selectedColor = 'navy';
+  let qty = 1;
+
+  document.querySelectorAll('.color-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedColor = btn.dataset.color;
+      document.querySelectorAll('.color-option').forEach(b => {
+        b.classList.toggle('active', b.dataset.color === selectedColor);
+        b.setAttribute('aria-checked', String(b.dataset.color === selectedColor));
+      });
+      if (window.updateModelColor) window.updateModelColor(selectedColor);
+    });
+  });
+
+  document.getElementById('qty-minus').addEventListener('click', () => {
+    if (qty > 1) { qty--; document.getElementById('qty-display').textContent = qty; }
+  });
+  document.getElementById('qty-plus').addEventListener('click', () => {
+    qty++;
+    document.getElementById('qty-display').textContent = qty;
+  });
+
+  document.getElementById('add-to-cart').addEventListener('click', () => {
+    window.location.href = 'configurar.html?color=' + selectedColor + '&qty=' + qty;
+  });
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader }    from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader }   from 'three/addons/loaders/DRACOLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const container = document.getElementById('stage-gallery');
+const canvas    = document.getElementById('config-canvas');
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type    = THREE.PCFSoftShadowMap;
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 1000);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping   = true;
+controls.dampingFactor   = 0.06;
+controls.autoRotate      = true;
+controls.autoRotateSpeed = 1.5;
+controls.minPolarAngle   = Math.PI * 0.1;
+controls.maxPolarAngle   = Math.PI * 0.85;
+controls.minDistance     = 1.5;
+controls.maxDistance     = 5;
+controls.enablePan       = false;
+controls.addEventListener('start', () => { controls.autoRotate = false; });
+
+scene.add(new THREE.AmbientLight(0xffffff, 2.5));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+keyLight.position.set(3, 6, 4);
+keyLight.castShadow = true;
+keyLight.shadow.mapSize.width = keyLight.shadow.mapSize.height = 2048;
+keyLight.shadow.camera.near = 0.5; keyLight.shadow.camera.far = 20;
+keyLight.shadow.camera.left = -5; keyLight.shadow.camera.right = 5;
+keyLight.shadow.camera.top = 5; keyLight.shadow.camera.bottom = -5;
+keyLight.shadow.bias = -0.001; keyLight.shadow.radius = 8;
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0xfff5ee, 0.8);
+fillLight.position.set(-4, 2, -3);
+scene.add(fillLight);
+
+const shadowPlane = new THREE.Mesh(
+  new THREE.PlaneGeometry(10, 10),
+  new THREE.ShadowMaterial({ opacity: 0.12 })
+);
+shadowPlane.rotation.x = -Math.PI / 2;
+shadowPlane.position.y = -1.2;
+shadowPlane.receiveShadow = true;
+scene.add(shadowPlane);
+
+function resizeRenderer() {
+  const w = container.clientWidth, h = container.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resizeRenderer);
+resizeRenderer();
+
+const PRODUCT_COLORS = {
+  navy:  new THREE.Color(0x1E367B),
+  verde: new THREE.Color(0x2D6A4F),
+  gris:  new THREE.Color(0x828282),
+  negro: new THREE.Color(0x1A1A1A),
+};
+const WHEEL_MESHES = new Set(['Cuerpo3','Cuerpo3_1','Cuerpo3_2','Cuerpo3_3','Cuerpo4','Cuerpo4_1','Cuerpo4_2','Cuerpo4_3','Cuerpo1_10','Cuerpo1_11','Cuerpo1_12','Cuerpo1_13']);
+const TV_MESHES    = new Set(['55','Cuerpo1_34']);
+const BLACK  = new THREE.Color(0x111111);
+const SCREEN = new THREE.Color(0x050508);
+const bodyMeshes = [];
+
+function updateModelColor(key) {
+  const color = PRODUCT_COLORS[key] || PRODUCT_COLORS.navy;
+  bodyMeshes.forEach(node => {
+    const isWheel = WHEEL_MESHES.has(node.name);
+    const isTV    = TV_MESHES.has(node.name);
+    const mats = Array.isArray(node.material) ? node.material : [node.material];
+    mats.forEach(mat => {
+      if (isTV) {
+        mat.color.set(SCREEN); mat.metalness = 0.1; mat.roughness = 0.02;
+      } else if (isWheel) {
+        mat.color.set(BLACK); mat.roughness = 0.7; mat.metalness = 0.3;
+      } else {
+        mat.color.set(color);
+        mat.roughness = key === 'negro' ? 0.85 : 0.4;
+        mat.metalness = key === 'negro' ? 0.05 : 0.45;
+      }
+    });
+  });
+}
+window.updateModelColor = updateModelColor;
+
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader(dracoLoader);
+gltfLoader.load('assets/models/paso-01-full.glb', gltf => {
+  const model = gltf.scene;
+  const box   = new THREE.Box3().setFromObject(model);
+  const size  = box.getSize(new THREE.Vector3());
+  const scale = 2.2 / Math.max(size.x, size.y, size.z);
+  model.scale.setScalar(scale);
+  model.position.copy(box.getCenter(new THREE.Vector3())).negate().multiplyScalar(scale);
+  scene.add(model);
+  shadowPlane.position.y = -size.y * scale / 2;
+  model.traverse(node => {
+    if (node.isMesh) {
+      node.material = Array.isArray(node.material)
+        ? node.material.map(m => { const c = m.clone(); c.metalness = 0.85; c.roughness = 0.3; return c; })
+        : (() => { const c = node.material.clone(); c.metalness = 0.85; c.roughness = 0.3; return c; })();
+      node.castShadow = node.receiveShadow = true;
+      bodyMeshes.push(node);
+    }
+  });
+  updateModelColor('navy');
+  const fov  = 42 * Math.PI / 180;
+  const dist = (2.2 / 2) / Math.tan(fov / 2) * 2.0;
+  camera.position.set(0, size.y * scale * 0.1, dist);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}, undefined, e => console.error('[paso] Error GLB:', e));
+
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+})();
+</script>
+
+</body>
+</html>

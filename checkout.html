@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>Checkout — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+
+    body { background:#ffffff; }
+
+    /* ── LAYOUT ── */
+    .checkout-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 48px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── STEPS ── */
+    .checkout-steps {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .checkout-step {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(42,38,35,0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .checkout-step.active { color: #2A2623; }
+    .checkout-step.done { color: #b92717; }
+    .step-sep { color: rgba(42,38,35,0.2); }
+    .checkout-step__num { font-family: var(--font-body); font-weight: 500; font-size: 13px; }
+
+    /* ── FORM ── */
+    .form-section__title {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: clamp(22px, 3vw, 36px);
+      letter-spacing: -0.01em;
+      color: #2A2623;
+      margin-bottom: 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9B8065;
+    }
+    .form-input, .form-select {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: #2A2623;
+      border: none;
+      border-bottom: 0.5px solid rgba(42,38,35,0.3);
+      padding: 10px 0;
+      background: none;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus { border-bottom-color: #2A2623; }
+    .form-select { cursor: pointer; }
+
+    /* ── SHIPPING & PAYMENT OPTIONS ── */
+    .option-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      border: 0.5px solid rgba(42,38,35,0.2);
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+    }
+    .option-row:has(input:checked) { border-color: #2A2623; }
+    .option-row input[type="radio"] { margin-top: 2px; accent-color: #b92717; }
+    .option-row__title { font-family: var(--font-body); font-size: 13px; font-weight: 500; color: #2A2623; margin-bottom: 3px; }
+    .option-row__sub { font-family: var(--font-body); font-size: 11px; color: #9B8065; }
+
+    /* ── BUTTONS ── */
+    .btn-v2 {
+      display: inline-block;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-v2--primary { background: #b92717; color: #ffffff; }
+    .btn-v2--primary:hover { background: #9e1f10; }
+    .btn-v2--outline { background: none; border: 0.5px solid #2A2623; color: #2A2623; }
+    .btn-v2--outline:hover { background: #2A2623; color: #ffffff; }
+    .btn-row { display: flex; gap: 12px; margin-top: 28px; }
+
+    /* ── SUMMARY ── */
+    .checkout-summary {
+      position: sticky;
+      top: 88px;
+      border: 0.5px solid rgba(42,38,35,0.15);
+      padding: 28px;
+      background: #fafafa;
+    }
+    .checkout-summary__title {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: #2A2623;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 0.5px solid rgba(42,38,35,0.1);
+    }
+    .checkout-summary-item {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.08);
+    }
+    .checkout-summary-item__img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: #f0f0f0;
+    }
+    .checkout-summary-item__name { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: #2A2623; }
+    .checkout-summary-item__variant { font-family: var(--font-body); font-size: 10px; color: #9B8065; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .checkout-summary-item__price { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: #2A2623; }
+    .checkout-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #2A2623;
+      padding: 8px 0;
+    }
+    .checkout-total-row.final { font-weight: 600; font-size: 15px; border-top: 0.5px solid rgba(42,38,35,0.15); margin-top: 8px; padding-top: 14px; }
+
+    @media (max-width: 768px) {
+      #navbar { padding: 14px 24px !important; z-index: 1002 !important; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex !important; z-index: 1003 !important; position: relative !important; }
+      .nav-mobile-menu { background: #ffffff !important; padding: 80px 24px 40px !important; z-index: 1001 !important; display: none !important; }
+      .nav-mobile-menu.open { display: flex !important; }
+      .nav-mobile-menu a { font-family: 'Poppins', sans-serif !important; font-size: 18px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; padding: 14px 0 !important; color: #2A2623 !important; }
+
+      .checkout-wrap { grid-template-columns: 1fr !important; padding: 20px 16px 60px !important; gap: 32px !important; }
+      .form-row { grid-template-columns: 1fr !important; }
+
+      .checkout-steps { gap: 6px !important; margin-bottom: 24px !important; flex-wrap: wrap !important; }
+      .checkout-step { font-size: 10px !important; gap: 4px !important; }
+      .step-sep { font-size: 10px !important; }
+      .checkout-step__num { width: auto !important; height: auto !important; border: none !important; border-bottom: 1px solid currentColor !important; display: inline !important; font-size: 10px !important; padding: 0 !important; }
+
+      .form-section__title { font-size: 22px !important; margin-bottom: 20px !important; }
+      .btn-row { flex-direction: column !important; gap: 8px !important; }
+      .btn-v2 { width: 100% !important; text-align: center !important; padding: 14px !important; }
+
+      .checkout-summary { position: static !important; padding: 20px !important; }
+      .checkout-summary-item { grid-template-columns: 44px 1fr auto !important; gap: 10px !important; }
+      .checkout-summary-item__img { width: 44px !important; height: 44px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+  <div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+<header id="navbar">
+  <a href="index.html" class="nav-logo">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito <span id="cart-count-nav">0</span></a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+</header>
+<nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+  <ul>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+</nav>
+
+<main class="checkout-wrap">
+
+  <!-- ── FORMULARIO ── -->
+  <div>
+    <div class="checkout-steps" aria-label="Pasos del checkout">
+      <div class="checkout-step active" id="step-indicator-1">
+        <span class="checkout-step__num">01</span> Datos
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-2">
+        <span class="checkout-step__num">02</span> Dirección
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-3">
+        <span class="checkout-step__num">03</span> Envío
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-4">
+        <span class="checkout-step__num">04</span> Pago
+      </div>
+    </div>
+
+    <!-- Paso 1 -->
+    <div id="step-1">
+      <div class="form-section__title">Datos personales</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-input" type="text" id="nombre" autocomplete="given-name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="apellido">Apellido</label>
+          <input class="form-input" type="text" id="apellido" autocomplete="family-name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" autocomplete="email" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="telefono">Teléfono</label>
+        <input class="form-input" type="tel" id="telefono" autocomplete="tel">
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(2)">Continuar → Dirección</button>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div id="step-2" style="display:none;">
+      <div class="form-section__title">Dirección de envío</div>
+      <div class="form-group">
+        <label class="form-label" for="calle">Calle y número</label>
+        <input class="form-input" type="text" id="calle" autocomplete="street-address" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="piso">Piso / Depto (opcional)</label>
+          <input class="form-input" type="text" id="piso">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cp">Código postal</label>
+          <input class="form-input" type="text" id="cp" autocomplete="postal-code" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="provincia">Provincia</label>
+          <select class="form-select" id="provincia" required>
+            <option value="">Seleccioná</option>
+            <option>Buenos Aires (CABA)</option>
+            <option>Buenos Aires (provincia)</option>
+            <option>Córdoba</option>
+            <option>Santa Fe</option>
+            <option>Mendoza</option>
+            <option>Rosario</option>
+            <option>Otra</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="localidad">Localidad</label>
+          <input class="form-input" type="text" id="localidad" autocomplete="address-level2" required>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(1)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(3)">Continuar → Envío</button>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div id="step-3" style="display:none;">
+      <div class="form-section__title">Opciones de envío</div>
+      <label class="option-row">
+        <input type="radio" name="envio" value="estandar" checked>
+        <div>
+          <div class="option-row__title">Envío estándar — <span style="color:#2A8048; font-weight:600;">Gratis</span></div>
+          <div class="option-row__sub">5–7 días hábiles · Todo el país</div>
+        </div>
+      </label>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(2)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(4)">Continuar → Pago</button>
+      </div>
+    </div>
+
+    <!-- Paso 4 -->
+    <div id="step-4" style="display:none;">
+      <div class="form-section__title">Pago</div>
+      <div style="margin-bottom: 32px;">
+        <p style="font-family:var(--font-body); font-size:13px; line-height:1.7; color:var(--color-text); margin-bottom:20px;">
+          Al confirmar tu compra vas a ser redirigido a <strong>Mercado Pago</strong>, donde podés pagar con:
+        </p>
+        <ul style="font-family:var(--font-body); font-size:13px; line-height:2; color:#2A2623; padding-left:0; list-style:none; margin-bottom:20px;">
+          <li>· Tarjeta de crédito — hasta 12 cuotas sin interés</li>
+          <li>· Tarjeta de débito</li>
+          <li>· Transferencia bancaria</li>
+          <li>· Cuenta de Mercado Pago</li>
+        </ul>
+        <p style="font-family:var(--font-body); font-size:11px; color:#9B8065; letter-spacing:0.03em;">
+          Tus datos de pago son procesados de forma segura por Mercado Pago · paso nunca accede a tu información bancaria.
+        </p>
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(3)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="completarCompra()">Completar compra</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESUMEN ── -->
+  <div class="checkout-summary">
+    <div class="checkout-summary__title">Tu pedido</div>
+    <div id="checkout-items"></div>
+    <div id="checkout-totals"></div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  let currentStep = 1;
+
+  function goToStep(n) {
+    document.getElementById(`step-${currentStep}`).style.display = 'none';
+    document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-indicator-${currentStep}`).classList.add('done');
+    currentStep = n;
+    document.getElementById(`step-${n}`).style.display = 'block';
+    document.getElementById(`step-indicator-${n}`).classList.remove('done');
+    document.getElementById(`step-indicator-${n}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function completarCompra() {
+    const btn = document.querySelector('#step-4 .btn-v2--primary');
+    btn.textContent = 'Procesando...';
+    btn.disabled = true;
+
+    const external_reference = 'P' + Date.now().toString().slice(-6);
+    localStorage.setItem('paso-last-order', external_reference);
+
+    const payload = {
+      external_reference,
+      items: Cart.items.map(item => ({
+        id: item.id,
+        name: item.name,
+        qty: item.qty,
+        price: item.price,
+      })),
+      payer: {
+        name:    document.getElementById('nombre')?.value || '',
+        surname: document.getElementById('apellido')?.value || '',
+        email:   document.getElementById('email')?.value || '',
+        phone:   document.getElementById('telefono')?.value || '',
+      },
+      shipping: {
+        street: document.getElementById('calle')?.value || '',
+        zip:    document.getElementById('cp')?.value || '',
+      },
+    };
+
+    try {
+      const res = await fetch('/api/create-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Error al crear preferencia');
+
+      // En testing usar sandbox_init_point, en producción init_point
+      window.location.href = data.sandbox_init_point || data.init_point;
+    } catch (err) {
+      alert('Hubo un problema al procesar el pago. Intentá de nuevo.');
+      btn.textContent = 'Completar compra';
+      btn.disabled = false;
+    }
+  }
+
+  const itemImgMap = {
+    'paso-01':     { navy: 'assets/images/render-azul.png', durazno: 'assets/images/render-crema.png', gris: 'assets/images/render-gris.png' },
+    'acc-estante': { navy: 'assets/images/accesorios%20azul/acc-estante.png', durazno: 'assets/images/accesorios%20crema/acc-estante-crema.png', gris: 'assets/images/accesorios%20gris/acc-estante-gris.png' },
+    'acc-control': { navy: 'assets/images/accesorios%20azul/acc-control.png', durazno: 'assets/images/accesorios%20crema/acc-control-crema.png', gris: 'assets/images/accesorios%20gris/acc-control-gris.png' },
+    'acc-play':    { navy: 'assets/images/accesorios%20azul/acc-playbox-azul.png', durazno: 'assets/images/accesorios%20crema/acc_playbox_crema.png', gris: 'assets/images/accesorios%20gris/acc-playbox-gris.png' },
+    'acc-gancho':  { navy: 'assets/images/accesorios%20azul/acc-gancho-azul.png', durazno: 'assets/images/accesorios%20crema/acc_gancho_crema.png', gris: 'assets/images/accesorios%20gris/acc-gancho-gris.png' },
+    'acc-soporte': { navy: 'assets/images/accesorios%20azul/acc-soporte-azul.png', durazno: 'assets/images/accesorios%20crema/acc_soporte_crema.png', gris: 'assets/images/accesorios%20gris/acc-soporte-gris.png' },
+  };
+
+  function renderSummary() {
+    const nav = document.getElementById('cart-count-nav');
+    if (nav) nav.textContent = Cart.count();
+
+    document.getElementById('checkout-items').innerHTML = Cart.items.map(item => {
+      const m = itemImgMap[item.id];
+      const src = m ? (m[item.color] || m['navy']) : null;
+      return `
+        <div class="checkout-summary-item">
+          ${src ? `<img class="checkout-summary-item__img" src="${src}" alt="${item.name}">` : `<div class="checkout-summary-item__img"></div>`}
+          <div>
+            <div class="checkout-summary-item__name">${item.name} ×${item.qty}</div>
+            ${item.variant ? `<div class="checkout-summary-item__variant">${item.variant}</div>` : ''}
+          </div>
+          <div class="checkout-summary-item__price">${Cart.formatPrice(item.price * item.qty)}</div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('checkout-totals').innerHTML = `
+      <div class="checkout-total-row"><span>Subtotal</span><span>${Cart.formatPrice(Cart.total())}</span></div>
+      <div class="checkout-total-row"><span>Envío</span><span style="color:#2A8048; font-weight:500;">Gratis</span></div>
+      <div class="checkout-total-row final"><span>Total</span><span>${Cart.formatPrice(Cart.total())}</span></div>`;
+  }
+
+  renderSummary();
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("nav-hamburger");
+    const mobileMenu = document.getElementById("nav-mobile-menu");
+    const mobileClose = document.getElementById("nav-mobile-close");
+    function closeMobileMenu() {
+      hamburger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+        document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+      });
+      if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+      mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+    }
+  });
+</script>
+</body>
+</html>

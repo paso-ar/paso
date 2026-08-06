@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>Carrito — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --paso-carbon: #2A2623;
+      --paso-madera: #9B8065;
+      --paso-avena: #EFE9DC;
+      --color-text: #2A2623;
+      --color-muted: #9B8065;
+      --font-display: 'All Round Gothic','Poppins',sans-serif;
+      --font-body: 'Poppins',sans-serif;
+      --margin-side: 48px;
+      --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    body { background: #ffffff; margin: 0; }
+
+    /* ── NAVBAR ── */
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+    .nav-cart { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#b92717; text-decoration:none; }
+
+    /* ── CARRITO ── */
+    .cart-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .cart-heading {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(32px, 4vw, 56px);
+      letter-spacing: -0.02em;
+      color: var(--paso-carbon);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .cart-count-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--paso-madera);
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    /* Items */
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.15);
+    }
+    .cart-item__img { width: 100px; height: 100px; object-fit: contain; }
+    .cart-item__name { font-family: var(--font-display); font-weight: 500; font-size: 15px; letter-spacing: -0.01em; color: var(--paso-carbon); margin-bottom: 4px; }
+    .cart-item__variant { font-family: var(--font-body); font-size: 11px; color: var(--paso-madera); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .cart-item__controls { display: flex; align-items: center; gap: 0; border: 0.5px solid rgba(42,38,35,0.3); width: fit-content; }
+    .cart-qty-btn { width: 32px; height: 32px; background: none; border: none; cursor: pointer; font-size: 16px; color: var(--paso-carbon); display: flex; align-items: center; justify-content: center; }
+    .cart-qty-btn:hover { background: rgba(42,38,35,0.05); }
+    .cart-item__qty { min-width: 32px; text-align: center; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--paso-carbon); }
+    .cart-item__remove { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--paso-madera); background: none; border: none; cursor: pointer; padding: 0; margin-top: 10px; display: block; }
+    .cart-item__remove:hover { color: #b92717; }
+    .cart-item__price { font-family: var(--font-body); font-weight: 500; font-size: 15px; color: var(--paso-carbon); text-align: right; white-space: nowrap; }
+    .cart-item__price-orig { font-family: var(--font-body); font-size: 11px; color: #9B8065; text-decoration: line-through; display: block; text-align: right; }
+
+    /* Summary */
+    .cart-summary {
+      position: sticky;
+      top: 80px;
+      border: 0.5px solid rgba(42,38,35,0.2);
+      padding: 32px;
+    }
+    .cart-summary__title { font-family: var(--font-display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; color: var(--paso-carbon); margin-bottom: 24px; }
+    .cart-summary__row { display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 13px; color: var(--paso-carbon); padding: 10px 0; border-bottom: 0.5px solid rgba(42,38,35,0.1); }
+    .cart-summary__row.total { font-weight: 600; font-size: 15px; border-bottom: none; padding-top: 16px; }
+    .cart-summary__btn {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      background: #b92717;
+      color: #ffffff;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .cart-summary__btn:hover { background: #9e1f10; }
+    .cart-summary__btn--outline {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      background: none;
+      color: var(--paso-carbon);
+      border: 0.5px solid var(--paso-carbon);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-decoration: none;
+    }
+    .cart-summary__btn--outline:hover { background: var(--paso-carbon); color: #ffffff; }
+
+    /* Cuotas */
+    .cart-cuotas {
+      margin: 20px 0 0;
+      border-top: 0.5px solid rgba(42,38,35,0.12);
+      padding-top: 20px;
+    }
+    .cart-cuotas__label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--paso-madera);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .cuotas-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .cuota-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.08);
+      gap: 12px;
+    }
+    .cuota-option:last-child { border-bottom: none; }
+    .cuota-option__name {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--paso-carbon);
+    }
+    .cuota-option__name small {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--paso-madera);
+      margin-top: 1px;
+    }
+    .cuota-option__amount {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--paso-carbon);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .cart-cuotas__note {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--paso-madera);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* Vacío */
+    .cart-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 120px 0;
+    }
+    .cart-empty__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px,6vw,80px); letter-spacing: -0.02em; color: var(--paso-carbon); margin-bottom: 16px; }
+    .cart-empty__sub { font-family: var(--font-body); font-size: 13px; color: var(--paso-madera); margin-bottom: 40px; }
+    .cart-empty__cta {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #b92717;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+    .cart-empty__cta:hover { background: #9e1f10; }
+
+    /* ── FOOTER ── */
+    .v2-footer {
+      background: #E8E8E8;
+      color: #2A2623;
+      padding: 60px 48px 48px;
+      border-top: 0.5px solid rgba(42,38,35,0.15);
+      display: flex;
+      flex-direction: column;
+    }
+    .v2-footer__top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .v2-footer__logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:48px; letter-spacing:0.05em; line-height:1; color:#b92717; }
+    .v2-footer__tagline { margin-top:12px; font-size:13px; color:#9B8065; font-style:italic; }
+    .v2-footer__icons { display:flex; gap:16px; margin-top:16px; }
+    .v2-footer__icons a { color:#b92717; }
+    .v2-footer__nav { display:flex; flex-direction:column; gap:12px; text-align:right; }
+    .v2-footer__nav a { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#9B8065; text-decoration:none; }
+    .v2-footer__bottom { margin-top:48px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .v2-footer__bottom a { color:#b92717; }
+    .v2-footer__legal { font-size:10px; color:#9B8065; }
+
+    @media (max-width: 768px) {
+      #navbar { padding: 14px 24px !important; z-index: 1002 !important; }
+      .nav-links { display: none !important; }
+      .nav-hamburger { display: flex !important; z-index: 1003 !important; position: relative !important; }
+      .nav-mobile-menu { background: #ffffff !important; padding: 80px 24px 40px !important; z-index: 1001 !important; display: none !important; }
+      .nav-mobile-menu.open { display: flex !important; }
+      .nav-mobile-menu a { font-family: 'Poppins', sans-serif !important; font-size: 18px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; padding: 14px 0 !important; color: #2A2623 !important; }
+
+      .cart-wrap { grid-template-columns: 1fr !important; padding: 24px 16px 80px !important; gap: 32px !important; }
+
+      .cart-heading { font-size: 28px !important; margin-bottom: 4px !important; }
+      .cart-count-label { margin-bottom: 20px !important; }
+
+      .cart-item { grid-template-columns: 80px 1fr !important; gap: 14px !important; padding: 16px 0 !important; }
+      .cart-item__img { width: 80px !important; height: 80px !important; }
+      .cart-item__price { font-size: 13px !important; }
+      .cart-item__price-orig { font-size: 10px !important; }
+
+      .cart-summary { position: static !important; padding: 20px !important; }
+      .cart-summary__btn { width: 100% !important; text-align: center !important; padding: 14px !important; font-size: 11px !important; }
+      .cart-summary__btn--outline { width: 100% !important; text-align: center !important; padding: 14px !important; font-size: 11px !important; }
+
+      .cart-cuotas { padding: 16px 0 !important; }
+      .cuotas-options { gap: 8px !important; }
+      .cuota-option { padding: 12px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+  <div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+<header id="navbar">
+  <a href="index.html" class="nav-logo">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html" class="active nav-cart">Carrito <span id="cart-count-nav">0</span></a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </header>
+  <!-- ── MOBILE MENU ── -->
+  <nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+    <ul>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="accesorios.html">Accesorios</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="sobre-nosotros.html">La marca</a></li>
+      <li><a href="carrito.html">Carrito</a></li>
+    </ul>
+  </nav>
+
+<main>
+  <div class="cart-wrap" id="cart-root"></div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  const itemImgMap = {
+    'paso-01':     { navy: 'assets/images/render-azul.png', durazno: 'assets/images/render-crema.png', gris: 'assets/images/render-gris.png', esmeralda: 'assets/images/render-azul.png', negro: 'assets/images/render-gris.png' },
+    'acc-estante': { navy: 'assets/images/accesorios%20azul/acc-estante.png', durazno: 'assets/images/accesorios%20crema/acc-estante-crema.png', gris: 'assets/images/accesorios%20gris/acc-estante-gris.png' },
+    'acc-control': { navy: 'assets/images/accesorios%20azul/acc-control.png', durazno: 'assets/images/accesorios%20crema/acc-control-crema.png', gris: 'assets/images/accesorios%20gris/acc-control-gris.png' },
+    'acc-play':    { navy: 'assets/images/accesorios%20azul/acc-playbox-azul.png', durazno: 'assets/images/accesorios%20crema/acc_playbox_crema.png', gris: 'assets/images/accesorios%20gris/acc-playbox-gris.png' },
+    'acc-gancho':  { navy: 'assets/images/accesorios%20azul/acc-gancho-azul.png', durazno: 'assets/images/accesorios%20crema/acc_gancho_crema.png', gris: 'assets/images/accesorios%20gris/acc-gancho-gris.png' },
+    'acc-soporte': { navy: 'assets/images/accesorios%20azul/acc-soporte-azul.png', durazno: 'assets/images/accesorios%20crema/acc_soporte_crema.png', gris: 'assets/images/accesorios%20gris/acc-soporte-gris.png' },
+  };
+
+  function getItemImg(item) {
+    const m = itemImgMap[item.id];
+    return m ? (m[item.color] || m['navy'] || null) : null;
+  }
+
+  function updateNavCount() {
+    const el = document.getElementById('cart-count-nav');
+    if (el) el.textContent = Cart.count();
+  }
+
+  function renderCart() {
+    const root = document.getElementById('cart-root');
+    updateNavCount();
+
+    if (Cart.items.length === 0) {
+      root.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty__title">No hay nada.</div>
+          <p class="cart-empty__sub">Empezá el recorrido.</p>
+          <a href="configurar.html" class="cart-empty__cta">Configurar paso · 01</a>
+        </div>
+      `;
+      return;
+    }
+
+    const itemsHtml = Cart.items.map(item => {
+      const imgSrc = getItemImg(item);
+      return `
+        <div class="cart-item" data-id="${item.id}" data-color="${item.color}">
+          ${imgSrc
+            ? `<img class="cart-item__img" src="${imgSrc}" alt="${item.name}">`
+            : `<div style="width:100px;height:100px;background:#E8E8E8;" role="img" aria-label="${item.name}"></div>`
+          }
+          <div>
+            <div class="cart-item__name">${item.name}</div>
+            <div class="cart-item__variant">${item.variant || ''}</div>
+            <div class="cart-item__controls">
+              <button class="cart-qty-btn" onclick="changeQty('${item.id}','${item.color}',-1)" aria-label="Restar uno">−</button>
+              <span class="cart-item__qty">${item.qty}</span>
+              <button class="cart-qty-btn" onclick="changeQty('${item.id}','${item.color}',1)" aria-label="Sumar uno">+</button>
+            </div>
+            <button class="cart-item__remove" onclick="removeItem('${item.id}','${item.color}')">Eliminar</button>
+          </div>
+          <div class="cart-item__price">${Cart.formatPrice(item.price * item.qty)}</div>
+        </div>
+      `;
+    }).join('');
+
+    const total = Cart.total();
+    const cuota12 = Math.round(total / 12);
+    const cuota6  = Math.round(total / 6);
+    const cuota3  = Math.round(total / 3);
+
+    root.innerHTML = `
+      <div>
+        <h1 class="cart-heading">Carrito</h1>
+        <span class="cart-count-label">${Cart.count()} ${Cart.count() === 1 ? 'producto' : 'productos'}</span>
+        <div id="cart-items">${itemsHtml}</div>
+      </div>
+      <div class="cart-summary">
+        <div class="cart-summary__title">Resumen</div>
+        <div class="cart-summary__row">
+          <span>Subtotal</span>
+          <span>${Cart.formatPrice(total)}</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>Envío</span>
+          <span style="color:#2A8048; font-weight:500;">Gratis</span>
+        </div>
+        <div class="cart-summary__row total">
+          <span>Total</span>
+          <span>${Cart.formatPrice(total)}</span>
+        </div>
+
+        <!-- Selector de cuotas -->
+        <div class="cart-cuotas">
+          <span class="cart-cuotas__label">Forma de pago</span>
+          <div class="cuotas-options" id="cuotas-options">
+            <div class="cuota-option">
+              <div class="cuota-option__name">Pago único</div>
+              <span class="cuota-option__amount">${Cart.formatPrice(total)}</span>
+            </div>
+            <div class="cuota-option">
+              <div class="cuota-option__name">3 cuotas<small>sin interés</small></div>
+              <span class="cuota-option__amount">${Cart.formatPrice(cuota3)} x 3</span>
+            </div>
+            <div class="cuota-option">
+              <div class="cuota-option__name">6 cuotas<small>sin interés</small></div>
+              <span class="cuota-option__amount">${Cart.formatPrice(cuota6)} x 6</span>
+            </div>
+            <div class="cuota-option">
+              <div class="cuota-option__name">12 cuotas<small>sin interés</small></div>
+              <span class="cuota-option__amount">${Cart.formatPrice(cuota12)} x 12</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="checkout.html" class="cart-summary__btn" id="checkout-btn">Ir al checkout</a>
+        <a href="shop.html" class="cart-summary__btn--outline">Seguir comprando</a>
+      </div>
+    `;
+  }
+
+  function changeQty(id, color, delta) {
+    const item = Cart.items.find(i => i.id === id && i.color === color);
+    if (!item) return;
+    const newQty = item.qty + delta;
+    if (newQty < 1) Cart.remove(id, color);
+    else Cart.updateQty(id, color, newQty);
+    renderCart();
+  }
+
+  function removeItem(id, color) {
+    Cart.remove(id, color);
+    renderCart();
+  }
+
+  function selectCuota(btn) {
+    document.querySelectorAll('.cuota-option').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const cuotas = btn.dataset.cuotas;
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+      checkoutBtn.href = `checkout.html?cuotas=${cuotas}`;
+    }
+  }
+
+  renderCart();
+</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.getElementById("nav-hamburger");
+      const mobileMenu = document.getElementById("nav-mobile-menu");
+      const mobileClose = document.getElementById("nav-mobile-close");
+      function closeMobileMenu() {
+        hamburger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      if (hamburger && mobileMenu) {
+        hamburger.addEventListener("click", () => {
+          hamburger.classList.toggle("open");
+          mobileMenu.classList.toggle("open");
+          document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+        });
+        if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+        mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+      }
+    });
+  </script>
+</body>
+</html>

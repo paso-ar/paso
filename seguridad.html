@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>Seguridad y privacidad — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #ffffff; }
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:var(--color-text); text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:var(--color-muted); text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--color-text); }
+
+    .legal-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--margin-side);
+    }
+    .legal-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      margin-bottom: var(--space-sm);
+    }
+    .legal-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+      line-height: 1.1;
+    }
+    .legal-divider {
+      height: 0.5px;
+      background: var(--color-text);
+      opacity: 0.15;
+      margin-bottom: var(--space-md);
+    }
+    .legal-body p {
+      font-family: var(--font-body);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+    .legal-body h2 {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+    .legal-body a {
+      color: var(--color-text);
+      text-decoration: underline;
+    }
+    .legal-date {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--color-muted);
+      margin-top: var(--space-lg);
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+<header id="navbar">
+  <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito <span id="cart-count">0</span></a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+</header>
+<nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+  <ul>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="legal-wrap">
+    <div class="legal-label">Legal</div>
+    <h1 class="legal-title">Seguridad y privacidad</h1>
+    <div class="legal-divider"></div>
+
+    <div class="legal-body">
+      <p>En paso tomamos la seguridad de tus datos en serio. Esta página explica cómo protegemos tu información y cómo procesamos tus compras de forma segura.</p>
+
+      <h2>Pagos seguros</h2>
+      <p>Todas las transacciones se procesan a través de <strong>Mercado Pago</strong>, plataforma certificada con los más altos estándares de seguridad (PCI DSS). En ningún momento almacenamos datos de tarjetas de crédito o débito en nuestros servidores.</p>
+
+      <h2>Tus datos personales</h2>
+      <p>Los datos que nos proporcionás al realizar una compra (nombre, dirección, email) se usan exclusivamente para procesar y enviar tu pedido. No los compartimos con terceros salvo los necesarios para completar la entrega.</p>
+
+      <h2>Comunicaciones</h2>
+      <p>Solo te contactamos en relación a tu compra o si nos escribís vos primero. No enviamos correo no solicitado.</p>
+
+      <h2>Tus derechos</h2>
+      <p>Podés solicitar en cualquier momento el acceso, rectificación o eliminación de tus datos personales escribiéndonos a <a href="mailto:info.paso.ar@gmail.com">info.paso.ar@gmail.com</a>. Respondemos en un plazo máximo de 10 días hábiles.</p>
+
+      <h2>Contacto</h2>
+      <p>Para cualquier consulta sobre seguridad o privacidad, escribinos a <a href="mailto:info.paso.ar@gmail.com">info.paso.ar@gmail.com</a></p>
+
+      <p class="legal-date">Última actualización: mayo 2026</p>
+    </div>
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());</script>
+<script src="main.js"></script>
+<script src="scroll.js"></script>
+</body>
+</html>

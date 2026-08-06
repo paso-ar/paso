@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>Orden confirmada — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover { color:#b92717; }
+    body { background: #ffffff; }
+    .confirm-wrap { max-width:680px; margin:0 auto; padding:96px 48px 80px; text-align:center; }
+    .confirm-label { font-family:var(--font-body); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:#b92717; margin-bottom:24px; display:block; }
+    .confirm-title { font-family:var(--font-display); font-weight:500; font-size:clamp(36px,6vw,72px); letter-spacing:-0.02em; line-height:1; color:#2A2623; margin-bottom:24px; }
+    .confirm-sub { font-family:var(--font-body); font-size:14px; line-height:1.7; color:#9B8065; margin-bottom:8px; }
+    .confirm-id { font-family:var(--font-body); font-weight:500; font-size:13px; letter-spacing:0.06em; color:rgba(42,38,35,0.35); margin-bottom:48px; }
+    .confirm-divider { width:40px; height:0.5px; background:rgba(42,38,35,0.2); margin:40px auto; }
+    .confirm-info { display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; text-align:left; margin-bottom:48px; }
+    .confirm-info__label { font-family:var(--font-body); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#9B8065; margin-bottom:6px; }
+    .confirm-info__val { font-family:var(--font-body); font-size:13px; color:#2A2623; line-height:1.5; }
+    .confirm-cta { display:inline-block; padding:14px 36px; background:#b92717; color:#ffffff; font-family:var(--font-body); font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; text-decoration:none; margin-right:12px; }
+    .confirm-cta:hover { background:#9e1f10; }
+    .confirm-cta--outline { display:inline-block; padding:14px 36px; border:0.5px solid #2A2623; color:#2A2623; font-family:var(--font-body); font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; text-decoration:none; }
+    .confirm-cta--outline:hover { background:#2A2623; color:#ffffff; }
+    @media (max-width:768px) {
+      .confirm-wrap { padding:40px 16px; }
+      .confirm-info { grid-template-columns:1fr; gap:20px; }
+      #navbar { padding:14px 24px !important; z-index:1002 !important; }
+      .nav-links { display:none !important; }
+      .nav-hamburger { display:flex !important; z-index:1003 !important; position:relative !important; }
+      .nav-mobile-menu { background:#ffffff !important; padding:80px 24px 40px !important; z-index:1001 !important; display:none !important; }
+      .nav-mobile-menu.open { display:flex !important; }
+      .nav-mobile-menu a { font-family:'Poppins',sans-serif !important; font-size:18px !important; font-weight:500 !important; letter-spacing:0.04em !important; padding:14px 0 !important; color:#2A2623 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement-bar"><div class="announcement-bar__track"><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span><span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span></div></div>
+
+
+<header id="navbar">
+  <a href="index.html" class="nav-logo">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+</header>
+<nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+  <ul>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+</nav>
+
+<main class="confirm-wrap">
+  <span class="confirm-label">Orden confirmada</span>
+  <h1 class="confirm-title">Tu orden está<br>en movimiento</h1>
+  <p class="confirm-sub">Recibiste un email con los detalles del pedido,<br>nos ponemos en contacto para coordinar la entrega</p>
+  <div class="confirm-id" id="confirm-order-id">— orden #——————</div>
+  <div class="confirm-divider"></div>
+  <div class="confirm-info">
+    <div>
+      <div class="confirm-info__label">Próximo paso</div>
+      <div class="confirm-info__val">Te escribimos en las próximas 24 h para coordinar el envío</div>
+    </div>
+    <div>
+      <div class="confirm-info__label">Contacto</div>
+      <div class="confirm-info__val">hola@paso.ar<br>info.paso.ar@gmail.com</div>
+    </div>
+    <div>
+      <div class="confirm-info__label">Seguinos</div>
+      <div class="confirm-info__val">@paso.ar_ en Instagram para ver novedades</div>
+    </div>
+  </div>
+  <a href="index.html" class="confirm-cta">Volver al inicio</a>
+  <a href="accesorios.html" class="confirm-cta--outline">Ver accesorios</a>
+</main>
+
+<footer class="v2home-footer">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
+    <div class="footer-left">
+      <div class="footer-logo">.paso</div>
+      <p class="footer-tagline">Hecho para moverse con vos</p>
+    </div>
+    <div class="footer-links">
+      <a href="producto.html">Producto</a>
+      <a href="accesorios.html">Accesorios</a>
+      <a href="shop.html">Shop</a>
+      <a href="sobre-nosotros.html">La marca</a>
+      <a href="carrito.html">Carrito</a>
+      <div class="footer-social" style="justify-content:flex-end;">
+        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-copy" style="gap:16px;">
+    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
+    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
+  </div>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || localStorage.getItem('paso-last-order') || '——————';
+  document.getElementById('confirm-order-id').textContent = `— orden #${id}`;
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const hamburger = document.getElementById("nav-hamburger");
+    const mobileMenu = document.getElementById("nav-mobile-menu");
+    const mobileClose = document.getElementById("nav-mobile-close");
+    function closeMobileMenu() {
+      hamburger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.toggle("open");
+        document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+      });
+      if (mobileClose) mobileClose.addEventListener("click", closeMobileMenu);
+      mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+    }
+  });
+</script>
+</body>
+</html>

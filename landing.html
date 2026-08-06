@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>paso · 01 — soporte de TV con ruedas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── NAVBAR (igual a index.html) ── */
+    #navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: #ffffff;
+      border-bottom: 0.5px solid #2A2623;
+      position: sticky;
+      top: 36px;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      color: #b92717;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+      margin: 0; padding: 0;
+    }
+    .nav-links a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2A2623;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #b92717; }
+    @media (max-width: 768px) {
+      #navbar { padding: 16px 20px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      max-height: 900px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      background: #EBEBEB;
+      border-radius: 0 0 0 0;
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 12px 48px 48px;
+    }
+    .hero-ordinal {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: clamp(24px, 3vw, 42px);
+      letter-spacing: -0.02em;
+      color: #b92717;
+      line-height: 1;
+    }
+    .hero-tagline {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(22px, 2.5vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+    .hero-tagline em { font-style: italic; font-family: Georgia, serif; }
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: #D8D3CC;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+    .hero-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image-placeholder span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(42,38,35,0.4);
+    }
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; height: auto; }
+      .hero-image { min-height: 60vw; }
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: #ffffff;
+      border-radius: 36px 36px 0 0;
+      margin-top: -60px;
+      position: relative;
+      z-index: 3;
+      width: 92%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #9B8065;
+      margin-bottom: 20px;
+    }
+    .about-quote {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(28px, 3.2vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .about-quote em { font-style: italic; font-family: Georgia, serif; }
+    .about-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #9B8065;
+      margin-bottom: 32px;
+    }
+    .about-specs {
+      display: flex;
+      flex-direction: column;
+      border-top: 0.5px solid rgba(42,38,35,0.15);
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.1);
+    }
+    .spec-key {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9B8065;
+    }
+    .spec-val {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: #2A2623;
+    }
+    @media (max-width: 768px) {
+      #about { grid-template-columns: 1fr; padding: 48px 24px; gap: 40px; width: 100%; border-radius: 24px 24px 0 0; margin-top: -24px; }
+    }
+
+    /* ── EDITORIAL ── */
+    #editorial {
+      display: grid;
+      grid-template-columns: 1.7fr 2.7fr;
+      align-items: start;
+      background: #ffffff;
+      padding: 0 64px 80px;
+      gap: 32px;
+    }
+    .ed-card {
+      background: #F4F4F4;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .ed-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 3/4;
+      object-fit: contain;
+      padding: 24px;
+    }
+    .ed-card-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #F4F4F4;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ed-card-placeholder span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(42,38,35,0.3);
+    }
+    .ed-card-info {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-top: 0.5px solid rgba(42,38,35,0.12);
+    }
+    .ed-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #2A2623;
+    }
+    .ed-price {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: #b92717;
+      font-weight: 500;
+    }
+    .ed-right-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #D8D3CC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ed-right-img span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(42,38,35,0.4);
+    }
+    .ed-caption {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      color: #9B8065;
+      letter-spacing: 0.06em;
+      margin-top: 12px;
+    }
+    @media (max-width: 768px) {
+      #editorial { grid-template-columns: 1fr; padding: 0 20px 48px; }
+    }
+
+    /* ── MANIFESTO ── */
+    #manifesto {
+      background: #ffffff;
+      padding: 64px 64px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 640px;
+    }
+    .manifesto-quote {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(22px, 2.6vw, 38px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .manifesto-quote em { font-style: italic; font-family: Georgia, serif; }
+    .manifesto-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2A2623;
+    }
+    @media (max-width: 768px) { #manifesto { padding: 48px 24px; } }
+
+    /* ── COLORES ── */
+    #colores {
+      background: #ffffff;
+      padding: 80px 64px;
+    }
+    .colores-title {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: clamp(40px, 6vw, 80px);
+      letter-spacing: -0.02em;
+      text-align: center;
+      margin-bottom: 48px;
+      color: #2A2623;
+    }
+    .colores-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .color-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .color-card-img {
+      position: relative;
+      background: #EBEBEB;
+      border-radius: 8px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .color-card-img img {
+      width: 85%;
+      object-fit: contain;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .color-card-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .color-card-img-placeholder span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(42,38,35,0.3);
+    }
+    .color-dot {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .color-card-hover {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.92);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 8px;
+    }
+    .color-card:hover .color-card-hover { opacity: 1; }
+    .color-card:hover .color-card-img img { transform: scale(1.04); }
+    .color-card-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #2A2623;
+    }
+    .color-card-spec {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: #9B8065;
+    }
+    .color-card-cta {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #2A2623;
+      border-bottom: 0.5px solid #2A2623;
+      padding-bottom: 2px;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .color-card-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: #2A2623;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .colores-footer {
+      text-align: center;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) {
+      .colores-grid { grid-template-columns: repeat(2, 1fr); }
+      #colores { padding: 48px 20px; }
+    }
+
+    /* ── POR QUÉ ── */
+    #porque {
+      background: #ffffff;
+      padding: 80px 64px;
+      border-top: 0.5px solid rgba(42,38,35,0.12);
+    }
+    .porque-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .porque-titulo {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 40px);
+      letter-spacing: -0.01em;
+    }
+    .porque-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 0.5px solid rgba(42,38,35,0.15);
+    }
+    .porque-item {
+      padding: 36px 28px 36px 0;
+      border-right: 0.5px solid rgba(42,38,35,0.12);
+    }
+    .porque-item:last-child { border-right: none; }
+    .porque-item:not(:first-child) { padding-left: 28px; }
+    .porque-num {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      color: #9B8065;
+      margin-bottom: 16px;
+    }
+    .porque-titulo-item {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      color: #2A2623;
+    }
+    .porque-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #9B8065;
+    }
+    @media (max-width: 768px) {
+      .porque-grid { grid-template-columns: 1fr; }
+      .porque-item { border-right: none; border-bottom: 0.5px solid rgba(42,38,35,0.12); padding: 28px 0; }
+      .porque-item:not(:first-child) { padding-left: 0; }
+      #porque { padding: 48px 20px; }
+    }
+
+    /* ── PRECIO / CTA ── */
+    #cta {
+      background: #EBEBEB;
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .cta-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #9B8065;
+      margin-bottom: 12px;
+    }
+    .cta-titulo {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: clamp(48px, 8vw, 96px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .cta-precio {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 64px);
+      letter-spacing: -0.02em;
+      color: #b92717;
+      margin-bottom: 4px;
+    }
+    .cta-nota {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: #9B8065;
+      margin-top: 8px;
+    }
+    .cta-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2A2623;
+      margin-bottom: 32px;
+    }
+    .cta-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    @media (max-width: 768px) {
+      #cta { grid-template-columns: 1fr; padding: 48px 20px; gap: 40px; }
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: #ffffff;
+      padding: 80px 64px;
+      border-top: 0.5px solid rgba(42,38,35,0.12);
+    }
+    .faq-titulo {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 38px);
+      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+    }
+    .faq-list { max-width: 720px; }
+    .faq-item {
+      border-top: 0.5px solid rgba(42,38,35,0.2);
+      padding: 18px 0;
+      cursor: pointer;
+    }
+    .faq-item:last-child { border-bottom: 0.5px solid rgba(42,38,35,0.2); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-q-text {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+    .faq-toggle {
+      font-size: 18px;
+      color: #9B8065;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      line-height: 1;
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #9B8065;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.3s;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+    @media (max-width: 768px) { #faq { padding: 48px 20px; } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #EBEBEB;
+      color: #2A2623;
+      padding: 60px 64px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-top: 0.5px solid rgba(42,38,35,0.15);
+    }
+    .footer-logo {
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 48px;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      color: #2A2623;
+    }
+    .footer-tagline {
+      margin-top: 12px;
+      font-family: 'All Round Gothic', 'Poppins', sans-serif;
+      font-size: 13px;
+      color: #9B8065;
+      font-style: italic;
+    }
+    .footer-copy {
+      margin-top: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      color: #9B8065;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: right;
+    }
+    .footer-links a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9B8065;
+      transition: color 0.25s;
+    }
+    .footer-links a:hover { color: #2A2623; }
+    @media (max-width: 768px) {
+      footer { flex-direction: column; gap: 32px; padding: 48px 20px; }
+      .footer-links { text-align: left; }
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT BAR ── -->
+<div class="announcement-bar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;·&nbsp; 20 unidades disponibles</span>
+  </div>
+</div>
+
+<!-- ── NAVBAR ── -->
+<header id="navbar">
+  <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+</header>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-text">
+    <span class="hero-ordinal">paso · 01</span>
+    <div>
+      <h1 class="hero-tagline">
+        Un soporte de TV <em>hecho para moverse con vos</em>
+      </h1>
+      <a href="producto.html" class="link-underline">Ver producto</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="assets/images/render_45_con.png" alt="paso · 01 — soporte de TV con ruedas" onerror="this.style.display='none'">
+    <div class="hero-image-placeholder"><span>imagen principal</span></div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="fade-in">
+    <p class="about-label">paso · 01</p>
+    <h2 class="about-quote">
+      Para que la tele vaya a donde estás,<br><em>no al revés</em>
+    </h2>
+  </div>
+  <div class="fade-in">
+    <p class="about-body">
+      No es un rack, tampoco un mueble. Es un soporte con ruedas porque tiene que rodar con vos — de la cocina al cuarto, del cuarto al balcón, del balcón al living, sin marcar el piso.
+    </p>
+    <div class="about-specs">
+      <div class="spec-row">
+        <span class="spec-key">Material</span>
+        <span class="spec-val">Acero pintado al horno</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">TV compatibles</span>
+        <span class="spec-val">40″ — 85″</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Ruedas</span>
+        <span class="spec-val">Con freno · giratorias 360°</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Fabricado en</span>
+        <span class="spec-val">Argentina</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Colores</span>
+        <span class="spec-val">Azul · Gris · Verde · Negro</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EDITORIAL ── -->
+<section id="editorial">
+  <div class="ed-left fade-in">
+    <div class="ed-card">
+      <img src="assets/images/render_45_con.png" alt="paso · 01" onerror="this.style.display='none'">
+      <div class="ed-card-placeholder" style="display:none"><span>render</span></div>
+      <div class="ed-card-info">
+        <span class="ed-label">paso · 01</span>
+        <span class="ed-price">$450.000 · 12 cuotas sin interés</span>
+      </div>
+    </div>
+  </div>
+  <div class="ed-right fade-in">
+    <img src="assets/images/living-azul.png" alt="paso · 01 en living" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'">
+    <div class="ed-right-img" style="display:none"><span>editorial</span></div>
+    <p class="ed-caption">paso · 01 — soporte de TV simple y pensado para moverse con vos</p>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ── -->
+<section id="manifesto" class="fade-in">
+  <p class="manifesto-quote"><em>Objetos para una casa<br><strong>en movimiento</strong></em></p>
+  <p class="manifesto-body">
+    Fabricado en acero. Ruedas con freno. Diseño que dura y acompaña el día, no que lo decora.
+  </p>
+  <a href="sobre-nosotros.html" class="link-underline">La marca</a>
+</section>
+
+<!-- ── COLORES ── -->
+<section id="colores">
+  <h2 class="colores-title fade-in">paso · 01</h2>
+  <div class="colores-grid">
+
+    <a href="configurar.html?color=navy" class="color-card fade-in">
+      <div class="color-card-img">
+        <span class="color-dot" style="background:#1E367B"></span>
+        <img src="assets/images/render-azul.png" alt="paso · 01 — Azul" onerror="this.parentNode.querySelector('.color-card-img-placeholder').style.display='flex';this.style.display='none'">
+        <div class="color-card-img-placeholder" style="display:none"><span>azul</span></div>
+        <div class="color-card-hover">
+          <p class="color-card-name">paso · 01 — Azul</p>
+          <p class="color-card-spec">Acero · Ruedas 360°</p>
+          <span class="color-card-cta">Ver producto →</span>
+        </div>
+      </div>
+      <p class="color-card-label">Azul</p>
+    </a>
+
+    <a href="configurar.html?color=gris" class="color-card fade-in">
+      <div class="color-card-img">
+        <span class="color-dot" style="background:#828282"></span>
+        <img src="assets/images/render-gris.png" alt="paso · 01 — Gris" onerror="this.parentNode.querySelector('.color-card-img-placeholder').style.display='flex';this.style.display='none'">
+        <div class="color-card-img-placeholder" style="display:none"><span>gris</span></div>
+        <div class="color-card-hover">
+          <p class="color-card-name">paso · 01 — Gris</p>
+          <p class="color-card-spec">Acero · Ruedas 360°</p>
+          <span class="color-card-cta">Ver producto →</span>
+        </div>
+      </div>
+      <p class="color-card-label">Gris</p>
+    </a>
+
+    <a href="configurar.html?color=esmeralda" class="color-card fade-in">
+      <div class="color-card-img">
+        <span class="color-dot" style="background:#2D6A4F"></span>
+        <img src="assets/images/render-verde.png" alt="paso · 01 — Verde" onerror="this.parentNode.querySelector('.color-card-img-placeholder').style.display='flex';this.style.display='none'">
+        <div class="color-card-img-placeholder" style="display:none"><span>verde</span></div>
+        <div class="color-card-hover">
+          <p class="color-card-name">paso · 01 — Verde</p>
+          <p class="color-card-spec">Acero · Ruedas 360°</p>
+          <span class="color-card-cta">Ver producto →</span>
+        </div>
+      </div>
+      <p class="color-card-label">Verde</p>
+    </a>
+
+    <a href="configurar.html?color=negro" class="color-card fade-in">
+      <div class="color-card-img">
+        <span class="color-dot" style="background:#1A1A1A"></span>
+        <img src="assets/images/render-negro.png" alt="paso · 01 — Negro" onerror="this.parentNode.querySelector('.color-card-img-placeholder').style.display='flex';this.style.display='none'">
+        <div class="color-card-img-placeholder" style="display:none"><span>negro</span></div>
+        <div class="color-card-hover">
+          <p class="color-card-name">paso · 01 — Negro</p>
+          <p class="color-card-spec">Acero · Ruedas 360°</p>
+          <span class="color-card-cta">Ver producto →</span>
+        </div>
+      </div>
+      <p class="color-card-label">Negro</p>
+    </a>
+
+  </div>
+  <div class="colores-footer fade-in">
+    <a href="configurar.html" class="link-underline">Personalizá el tuyo</a>
+  </div>
+</section>
+
+<!-- ── POR QUÉ PASO ── -->
+<section id="porque">
+  <div class="porque-header fade-in">
+    <h2 class="porque-titulo">Por qué paso · 01</h2>
+  </div>
+  <div class="porque-grid">
+    <div class="porque-item fade-in">
+      <div class="porque-num">01</div>
+      <h3 class="porque-titulo-item">Se mueve con vos</h3>
+      <p class="porque-desc">Ruedas con freno que permiten moverlo entre cuartos sin esfuerzo. Sin desarmar, sin ayuda.</p>
+    </div>
+    <div class="porque-item fade-in">
+      <div class="porque-num">02</div>
+      <h3 class="porque-titulo-item">Acero que dura</h3>
+      <p class="porque-desc">Estructura de caño de acero pintado al horno. Sin plástico, sin MDF. Fabricado para años de uso.</p>
+    </div>
+    <div class="porque-item fade-in">
+      <div class="porque-num">03</div>
+      <h3 class="porque-titulo-item">Hecho en Argentina</h3>
+      <p class="porque-desc">Producción local, entrega directa. Cada paso · 01 se fabrica con control de calidad propio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRECIO / CTA ── -->
+<section id="cta">
+  <div class="fade-in">
+    <p class="cta-label">Precio de lanzamiento</p>
+    <div class="cta-titulo">paso · 01</div>
+    <div class="cta-precio">$450.000</div>
+    <p style="font-family:'All Round Gothic','Poppins',sans-serif; font-size:clamp(13px,1.4vw,18px); letter-spacing:-0.01em; color:#2A2623; margin-top:4px;">12 cuotas sin interés de $37.500</p>
+    <p class="cta-nota">Envío gratis · 20 unidades disponibles</p>
+  </div>
+  <div class="fade-in">
+    <p class="cta-desc">
+      Elegí tu color y empezá el recorrido. Envío gratis en todo el país. Próximamente con tarjeta en 12 cuotas sin interés.
+    </p>
+    <div class="cta-btns">
+      <a href="producto.html" class="btn btn--dark">Pedir paso · 01</a>
+      <a href="accesorios.html" class="link-underline">Ver accesorios</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <h2 class="faq-titulo fade-in">Preguntas frecuentes</h2>
+  <div class="faq-list">
+    <div class="faq-item fade-in" data-faq>
+      <div class="faq-q">
+        <span class="faq-q-text">¿Qué tamaño de TV admite?</span>
+        <span class="faq-toggle">+</span>
+      </div>
+      <p class="faq-a">El paso · 01 es compatible con TVs de 40″ a 85″ con soporte VESA estándar. Si tenés dudas con tu modelo específico, escribinos.</p>
+    </div>
+    <div class="faq-item fade-in" data-faq>
+      <div class="faq-q">
+        <span class="faq-q-text">¿Cómo son las ruedas?</span>
+        <span class="faq-toggle">+</span>
+      </div>
+      <p class="faq-a">Las ruedas son giratorias 360° con freno individual. Permiten mover el soporte con la TV puesta y bloquearlo cuando lo necesitás.</p>
+    </div>
+    <div class="faq-item fade-in" data-faq>
+      <div class="faq-q">
+        <span class="faq-q-text">¿Hacen envíos a todo el país?</span>
+        <span class="faq-toggle">+</span>
+      </div>
+      <p class="faq-a">Sí. Enviamos a todo el territorio argentino por correo o transporte. El costo y tiempo de envío se calcula al momento de la compra según tu ubicación.</p>
+    </div>
+    <div class="faq-item fade-in" data-faq>
+      <div class="faq-q">
+        <span class="faq-q-text">¿Cuánto tiempo demora el armado?</span>
+        <span class="faq-toggle">+</span>
+      </div>
+      <p class="faq-a">El paso · 01 viene casi armado de fábrica. En menos de 15 minutos ya está listo para usar, con instrucciones incluidas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div class="footer-logo">paso</div>
+    <p class="footer-tagline">Hecho para moverse con vos.</p>
+    <p class="footer-copy">© 2026 paso · Studio Blu · info.paso.ar@gmail.com</p>
+  </div>
+  <div class="footer-links">
+    <a href="sobre-nosotros.html">Sobre la marca</a>
+    <a href="accesorios.html">Accesorios</a>
+    <a href="shop.html">Shop</a>
+    <a href="carrito.html">Carrito</a>
+    <a href="contacto.html">Contacto</a>
+  </div>
+</footer>
+
+<script>
+  // ── FADE IN on scroll ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  // ── FAQ accordion ──
+  document.querySelectorAll('[data-faq]').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('[data-faq]').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
