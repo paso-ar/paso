@@ -449,8 +449,7 @@
 
       if (!res.ok) throw new Error(data.error || 'Error al crear preferencia');
 
-      // En testing usar sandbox_init_point, en producción init_point
-      window.location.href = data.sandbox_init_point || data.init_point;
+      window.location.href = data.init_point;
     } catch (err) {
       alert('Hubo un problema al procesar el pago. Intentá de nuevo.');
       btn.textContent = 'Completar compra';
