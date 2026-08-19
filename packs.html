@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — Packs | Armá tu setup completo.">
+  <title>Packs — paso</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html, body { height: 100%; overflow: hidden; background: #ffffff; }
+    body { display: flex; flex-direction: column; }
+
+    /* Todos los elementos fijos no deben comprimir el área de packs */
+    .announcement-bar, #navbar, .shop-subnav { flex-shrink: 0; }
+
+    /* ── SHOP SUB-NAV ── */
+    .shop-subnav {
+      display: flex;
+      border-bottom: 0.5px solid #2A2623;
+      background: #ffffff;
+      padding: 0 48px;
+    }
+    .shop-subnav__tab {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(42,38,35,0.4);
+      text-decoration: none;
+      padding: 12px 0;
+      margin-right: 32px;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .shop-subnav__tab:hover { color: #2A2623; }
+    .shop-subnav__tab.active { color: #2A2623; border-bottom-color: #2A2623; }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 48px; background:#ffffff;
+      border-bottom:0.5px solid #2A2623;
+      position:relative; z-index:200;
+    }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
+    .nav-links a { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#2A2623; text-decoration:none; transition:color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color:#b92717; }
+
+    /* ── LAYOUT OUTER ── */
+    .packs-scroll-outer {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── FULL PANEL ── */
+    .packs-sticky {
+      flex: 1;
+      display: flex;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    /* ── LEFT PANEL: fixed hero content ── */
+    .packs-left {
+      width: 46%;
+      flex-shrink: 0;
+      border-right: 0.5px solid rgba(42,38,35,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 56px;
+      position: relative;
+    }
+    .packs-left__eyebrow {
+      font-family:'Poppins',sans-serif; font-size:10px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.14em; color:#9B8065;
+    }
+    .packs-left__title {
+      font-family:'Poppins',sans-serif; font-weight:600;
+      font-size: clamp(36px, 4.5vw, 64px);
+      letter-spacing:-0.025em; line-height:1.05;
+      color:#2A2623; margin:0;
+    }
+    .packs-left__title em {
+      font-style:normal; color:rgba(42,38,35,0.28);
+    }
+    .packs-left__sub {
+      font-family:'Poppins',sans-serif; font-size:11px;
+      color:#2A2623; line-height:1.7; max-width:280px;
+    }
+    .packs-left__counter {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .packs-left__num {
+      font-family:'Poppins',sans-serif; font-weight:600;
+      font-size:13px; color:#2A2623; min-width:28px;
+    }
+    .packs-left__progress-track {
+      flex:1; height:1px; background:rgba(42,38,35,0.1); position:relative;
+    }
+    .packs-left__progress-fill {
+      position:absolute; left:0; top:0; height:100%; background:#2A2623;
+      transition: width 0.3s ease;
+    }
+    /* Color selector */
+    .packs-color {
+      margin-bottom: 24px;
+    }
+    .packs-color__label {
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.1em; color:#2A2623;
+      margin-bottom:10px; display:block;
+    }
+    .packs-color__options {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    }
+    .packs-color__opt {
+      display: flex; align-items: center; gap: 6px;
+      cursor: pointer; padding: 6px 10px;
+      border: 0.5px solid rgba(42,38,35,0.2);
+      transition: border-color 0.2s, background 0.2s;
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.06em; color:#2A2623;
+      background: transparent;
+    }
+    .packs-color__opt:hover { border-color: #2A2623; }
+    .packs-color__opt.selected {
+      border-color: #2A2623;
+      background: rgba(42,38,35,0.04);
+    }
+    .packs-color__swatch {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+      border: 0.5px solid rgba(42,38,35,0.15);
+    }
+
+    .packs-left__total {
+      font-family:'Poppins',sans-serif; font-size:11px; color:rgba(42,38,35,0.3);
+    }
+
+    /* ── RIGHT PANEL: native horizontal scroll ── */
+    .packs-right {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    .packs-right::-webkit-scrollbar { display: none; }
+    /* Fade hint on right — shows more cards beyond */
+    .packs-right::after {
+      content:'';
+      position:fixed; right:0; top:0; bottom:0; width:80px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
+      pointer-events:none; z-index:2;
+    }
+
+    /* Track: ocupa toda la altura disponible */
+    .packs-track {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      padding-left: 0;
+      padding-right: 0;
+      flex-shrink: 0;
+      width: max-content;
+    }
+
+    /* ── CARDS ── */
+    .pack-card {
+      flex-shrink: 0;
+      width: 260px;
+      border: 0.5px solid rgba(42,38,35,0.15);
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .pack-card:first-child { margin-left: 48px; }
+    .pack-card:last-child  { margin-right: 48px; }
+    .pack-card + .pack-card { margin-left: 16px; }
+
+    /* Image area — 65% of card height */
+    .pack-img {
+      flex: 0 0 65%;
+      background: #EDEBE7;
+      position: relative;
+      overflow: hidden;
+    }
+    .pack-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .pack-img__gift {
+      position:absolute; top:10px; left:10px;
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:600;
+      text-transform:uppercase; letter-spacing:0.08em;
+      background:#2A2623; color:#ffffff;
+      padding: 4px 9px;
+    }
+
+    /* Card info — remaining 35% */
+    .pack-info {
+      flex: 1;
+      min-height: 0;
+      padding: 14px 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-top: 0.5px solid rgba(42,38,35,0.1);
+    }
+    .pack-info__num {
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.1em; color:#9B8065;
+      margin-bottom:6px;
+    }
+    .pack-info__name {
+      font-family:'Poppins',sans-serif; font-weight:600; font-size:11px;
+      letter-spacing:-0.01em; color:#2A2623; margin:0; line-height:1.3;
+      white-space: nowrap;
+    }
+    /* Gift tag inside pack-info */
+    .pack-info__gift {
+      display:inline-block; margin-bottom:8px;
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:600;
+      text-transform:uppercase; letter-spacing:0.08em;
+      background:#2A2623; color:#ffffff; padding:3px 8px;
+    }
+
+    /* Scroll hint */
+    .packs-scroll-hint {
+      margin-top:16px;
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.1em; color:rgba(42,38,35,0.3);
+      display:flex; align-items:center; gap:6px;
+    }
+    .packs-scroll-hint::after {
+      content:''; display:inline-block;
+      width:20px; height:1px; background:rgba(42,38,35,0.2);
+    }
+
+    /* Button with price baked in */
+    .pack-card__btn {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:11px 16px; margin: auto 16px 14px;
+      background:transparent; border:0.5px solid #2A2623; color:#2A2623;
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.08em; flex-shrink:0;
+      cursor:pointer; transition:background 0.2s, color 0.2s; width:calc(100% - 32px);
+      text-align:left;
+    }
+    .pack-card__btn span { font-weight:600; font-size:11px; letter-spacing:0; text-transform:none; }
+    .pack-card__btn:hover { background:#2A2623; color:#ffffff; }
+
+    /* Wrap que contiene el botón o el stepper */
+    .pack-card__btn-wrap {
+      margin: auto 16px 14px;
+      flex-shrink: 0;
+    }
+    .pack-card__btn-wrap .pack-card__btn {
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Stepper (aparece al agregar) */
+    .pack-stepper {
+      display:flex; align-items:center; justify-content:space-between;
+      margin: auto 16px 14px; flex-shrink:0;
+      border:0.5px solid #2A2623; width:calc(100% - 32px);
+    }
+    .pack-stepper__btn {
+      background:transparent; border:none; color:#2A2623;
+      font-family:'Poppins',sans-serif; font-size:16px; font-weight:300;
+      cursor:pointer; padding:9px 16px; transition:background 0.2s, color 0.2s;
+      line-height:1;
+    }
+    .pack-stepper__btn:hover { background:#2A2623; color:#ffffff; }
+    .pack-stepper__qty {
+      font-family:'Poppins',sans-serif; font-size:12px; font-weight:600;
+      color:#2A2623; min-width:32px; text-align:center;
+    }
+
+    /* ── NOTE ── */
+    .packs-note {
+      padding: 20px 56px; border-top: 0.5px solid rgba(42,38,35,0.12);
+      font-family:'Poppins',sans-serif; font-size:10px; color:#9B8065; line-height:1.6;
+    }
+    .packs-note a { color:#2A2623; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      /* ── NAV ── */
+      #navbar { padding:14px 20px !important; }
+      .nav-links { display:none !important; }
+      .nav-hamburger { display:flex !important; }
+      .nav-mobile-menu { background:#ffffff !important; padding:80px 24px 40px !important; z-index:1001 !important; }
+      .nav-mobile-menu a { font-family:'Poppins',sans-serif !important; font-size:18px !important; font-weight:500 !important; padding:14px 0 !important; color:#2A2623 !important; }
+      .shop-subnav { padding:0 20px !important; }
+
+      /* ── LAYOUT: columna — header compacto + cards ── */
+      .packs-sticky {
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+
+      /* ── LEFT: header compacto en la parte superior ── */
+      .packs-left {
+        width: 100% !important;
+        flex-shrink: 0 !important;
+        border-right: none !important;
+        border-bottom: 0.5px solid rgba(42,38,35,0.12) !important;
+        padding: 20px 20px 16px !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
+      }
+      .packs-left__title {
+        font-size: clamp(28px, 8vw, 40px) !important;
+        line-height: 1.05 !important;
+        /* en mobile lo ponemos en una sola línea */
+        white-space: nowrap;
+      }
+      .br-desktop { display: none !important; }
+      .packs-left__sub { font-size: 10px !important; max-width: none !important; margin: 0 !important; }
+      .packs-color { margin-bottom: 0 !important; }
+      .packs-color__label { margin-bottom: 6px !important; }
+      .packs-color__opt { padding: 5px 9px !important; font-size: 8px !important; }
+      .packs-scroll-hint { margin-top: 8px !important; font-size: 8px !important; }
+
+      /* ── RIGHT: ocupa todo lo que queda, scroll horizontal con snap ── */
+      .packs-right {
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      .packs-right::after {
+        position: fixed !important;
+        width: 48px !important;
+      }
+
+      /* ── TRACK ── */
+      .packs-track {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        align-items: stretch !important;
+        height: 100% !important;
+      }
+
+      /* ── CARDS: 60vw, snap al centro, peek de la siguiente ── */
+      .pack-card {
+        width: 60vw !important;
+        margin-top: 16px !important;
+        margin-bottom: 16px !important;
+        scroll-snap-align: center !important;
+      }
+      .pack-card:first-child { margin-left: 20px !important; }
+      .pack-card:last-child  { margin-right: 20vw !important; }
+      .pack-card + .pack-card { margin-left: 10px !important; }
+
+      /* ── IMAGEN: menos altura para dejar espacio a la info ── */
+      .pack-img { flex: 0 0 54% !important; }
+
+      /* ── PACK INFO ── */
+      .pack-info {
+        padding: 10px 14px 6px !important;
+        gap: 3px !important;
+        flex: 1 !important;
+      }
+      .pack-info__num { font-size: 8px !important; margin-bottom: 2px !important; }
+      .pack-info__name { font-size: 10px !important; white-space: normal !important; line-height: 1.2 !important; }
+      .pack-info__gift {
+        font-size: 7px !important;
+        padding: 2px 6px !important;
+        display: inline-block !important;
+        margin-top: 2px !important;
+      }
+
+      /* ── BOTÓN ── */
+      .pack-card__btn-wrap { margin: 8px 14px 12px !important; }
+      .pack-card__btn {
+        font-size: 8px !important;
+        padding: 9px 12px !important;
+        width: 100% !important;
+      }
+      .pack-card__btn span { font-size: 10px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement-bar" id="announcement-bar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span>
+    <span class="announcement-bar__item">Precio de lanzamiento &nbsp;&middot;&nbsp; <span class="announcement-stock">20</span>&nbsp;unidades disponibles</span>
+  </div>
+</div>
+
+<header id="navbar">
+  <a href="index.html" class="nav-logo" aria-label="paso inicio">.paso</a>
+  <ul class="nav-links">
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito <span id="cart-count">0</span></a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+</header>
+<nav class="nav-mobile-menu" id="nav-mobile-menu" aria-label="Menú mobile">
+  <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Cerrar menú">✕</button>
+  <ul>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="accesorios.html">Accesorios</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="carrito.html">Carrito</a></li>
+  </ul>
+</nav>
+
+<!-- Sub-nav de shop -->
+<nav class="shop-subnav">
+  <a href="shop.html" class="shop-subnav__tab">Configurar</a>
+  <a href="packs.html" class="shop-subnav__tab active">Packs</a>
+</nav>
+
+<!-- STICKY SCROLL SECTION -->
+<div class="packs-scroll-outer" id="packs-scroll-outer">
+  <div class="packs-sticky" id="packs-sticky">
+
+    <!-- LEFT: fixed hero -->
+    <div class="packs-left">
+      <div>
+        <h1 class="packs-left__title">
+          Armá<br class="br-desktop">
+          tu<br class="br-desktop">
+          setup<br>
+          <em>completo.</em>
+        </h1>
+      </div>
+      <div>
+        <p class="packs-left__sub">Elegí tu pack completo y ahorrá hasta $14.999.</p>
+        <div class="packs-color" style="margin-top:20px;">
+          <span class="packs-color__label">Color del set</span>
+          <div class="packs-color__options">
+            <button class="packs-color__opt selected" data-color="azul" onclick="selectColor(this)">
+              <span class="packs-color__swatch" style="background:#1E367B;"></span> Azul
+            </button>
+            <button class="packs-color__opt" data-color="negro" onclick="selectColor(this)">
+              <span class="packs-color__swatch" style="background:#2A2623;"></span> Negro
+            </button>
+            <button class="packs-color__opt" data-color="verde" onclick="selectColor(this)">
+              <span class="packs-color__swatch" style="background:#4A5C3F;"></span> Verde
+            </button>
+            <button class="packs-color__opt" data-color="gris" onclick="selectColor(this)">
+              <span class="packs-color__swatch" style="background:#828282;"></span> Gris
+            </button>
+          </div>
+        </div>
+        <div class="packs-scroll-hint">Scrolleá para ver los packs</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: sliding track -->
+    <div class="packs-right" id="packs-right">
+    <div class="packs-track" id="packs-track">
+
+      <!-- Pack 01 -->
+      <div class="pack-card" id="pack-card-0">
+        <div class="pack-img">
+          <img id="pack-img-1" src="assets/images/pack1_azul_detalle.png" alt="Pack 01 · rack + control + cable">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Pack 01</span>
+          <h2 class="pack-info__name">rack + control + cable</h2>
+          <span class="pack-info__gift">Soporte control remoto · Gratis</span>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-0">
+          <button class="pack-card__btn" onclick="addPack(0,'pack-01','Pack 01 · rack + control + cable',455000)">Agregar al carrito <span>$455.000</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 02 -->
+      <div class="pack-card" id="pack-card-1">
+        <div class="pack-img">
+          <img id="pack-img-2" src="assets/images/pack2_azul_detalle.png" alt="Pack 02 · rack + control + estante">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Pack 02</span>
+          <h2 class="pack-info__name">rack + control + estante</h2>
+          <span class="pack-info__gift">Soporte control remoto · Gratis</span>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-1">
+          <button class="pack-card__btn" onclick="addPack(1,'pack-02','Pack 02 · rack + control + estante',485000)">Agregar al carrito <span>$485.000</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 03 -->
+      <div class="pack-card" id="pack-card-2">
+        <div class="pack-img">
+          <img id="pack-img-3" src="assets/images/pack3_azul_detalle.png" alt="Pack 03 · rack + estante">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Pack 03</span>
+          <h2 class="pack-info__name">rack + estante</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-2">
+          <button class="pack-card__btn" onclick="addPack(2,'pack-03','Pack 03 · rack + estante',489999)">Agregar al carrito <span>$489.999</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 04 -->
+      <div class="pack-card" id="pack-card-3">
+        <div class="pack-img">
+          <img id="pack-img-4" src="assets/images/pack4_azul_detalle.png" alt="Pack 04 · rack + play + joystick">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Pack 04</span>
+          <h2 class="pack-info__name">rack + play + joystick</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-3">
+          <button class="pack-card__btn" onclick="addPack(3,'pack-04','Pack 04 · rack + play + joystick',479999)">Agregar al carrito <span>$479.999</span></button>
+        </div>
+      </div>
+
+    </div><!-- /packs-track -->
+    </div><!-- /packs-right -->
+  </div><!-- /packs-sticky -->
+</div><!-- /packs-scroll-outer -->
+
+
+
+<!-- ── CART + HAMBURGER ── -->
+<script>
+  // Extensions per color (azul=.jpg, rest=.png)
+  const packImgExt = { azul: 'png', negro: 'png', verde: 'png', gris: 'png' };
+
+  function selectColor(btn) {
+    document.querySelectorAll('.packs-color__opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const color = btn.dataset.color;
+    const ext   = packImgExt[color] || 'png';
+    [1, 2, 3, 4].forEach(n => {
+      const img = document.getElementById('pack-img-' + n);
+      if (img) img.src = `assets/images/pack${n}_${color}_detalle.${ext}`;
+    });
+    // Update stepper states for the new color
+    const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+    packDefs.forEach((def, idx) => {
+      const item = cart.find(i => i.id === `${def.id}-${color}`);
+      renderStepper(idx, item ? item.qty : 0);
+    });
+  }
+
+  function getSelectedColor() {
+    const sel = document.querySelector('.packs-color__opt.selected');
+    return sel ? sel.dataset.color : 'azul';
+  }
+
+  // Stepper config per card index
+  const packDefs = [
+    { id:'pack-01', name:'Pack 01 · rack + control + cable',  price:455000 },
+    { id:'pack-02', name:'Pack 02 · rack + control + estante', price:485000 },
+    { id:'pack-03', name:'Pack 03 · rack + estante',           price:489999 },
+    { id:'pack-04', name:'Pack 04 · rack + play + joystick',   price:479999 },
+  ];
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+    const c = document.getElementById('cart-count');
+    if (c) c.textContent = cart.reduce((s,i)=>s+i.qty,0);
+  }
+
+  function renderStepper(idx, qty) {
+    const wrap = document.getElementById('btn-wrap-' + idx);
+    if (!wrap) return;
+    if (qty <= 0) {
+      const def = packDefs[idx];
+      wrap.innerHTML = `<button class="pack-card__btn" onclick="addPack(${idx},'${def.id}','${def.name}',${def.price})">Agregar al carrito <span>$${def.price.toLocaleString('es-AR')}</span></button>`;
+    } else {
+      wrap.innerHTML = `
+        <div class="pack-stepper">
+          <button class="pack-stepper__btn" onclick="changePack(${idx},-1)">−</button>
+          <span class="pack-stepper__qty">${qty}</span>
+          <button class="pack-stepper__btn" onclick="changePack(${idx},+1)">+</button>
+        </div>`;
+    }
+  }
+
+  function addPack(idx, id, name, price) {
+    const color = getSelectedColor();
+    const colorLabel = { azul:'Azul', negro:'Negro', verde:'Verde', gris:'Gris' }[color] || color;
+    const fullName = `${name} · ${colorLabel}`;
+    const fullId   = `${id}-${color}`;
+    const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+    const ex = cart.find(i => i.id === fullId);
+    if (ex) { ex.qty += 1; } else { cart.push({ id: fullId, name: fullName, price, qty:1, color }); }
+    localStorage.setItem('paso-cart', JSON.stringify(cart));
+    updateCartCount();
+    const item = cart.find(i => i.id === fullId);
+    renderStepper(idx, item ? item.qty : 1);
+  }
+
+  function changePack(idx, delta) {
+    const color = getSelectedColor();
+    const fullId = `${packDefs[idx].id}-${color}`;
+    const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+    const ex = cart.find(i => i.id === fullId);
+    if (!ex) return;
+    ex.qty += delta;
+    if (ex.qty <= 0) {
+      const filtered = cart.filter(i => i.id !== fullId);
+      localStorage.setItem('paso-cart', JSON.stringify(filtered));
+      renderStepper(idx, 0);
+    } else {
+      localStorage.setItem('paso-cart', JSON.stringify(cart));
+      renderStepper(idx, ex.qty);
+    }
+    updateCartCount();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+    // Restore steppers from localStorage
+    const color = getSelectedColor();
+    const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+    packDefs.forEach((def, idx) => {
+      const item = cart.find(i => i.id === `${def.id}-${color}`);
+      if (item && item.qty > 0) renderStepper(idx, item.qty);
+    });
+
+    const hamburger  = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+    const mobileClose = document.getElementById('nav-mobile-close');
+    function close() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow=''; }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''; });
+      if (mobileClose) mobileClose.addEventListener('click', close);
+      mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    }
+  });
+</script>
+
+<!-- ── REDIRIGIR SCROLL VERTICAL → HORIZONTAL ── -->
+<script>
+(function() {
+  const right = document.getElementById('packs-right');
+  if (!right) return;
+
+  // Wheel: redirigir deltaY a scroll horizontal
+  right.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // ya es horizontal, no intervenir
+    e.preventDefault();
+    right.scrollLeft += e.deltaY;
+  }, { passive: false });
+
+})();
+</script>
+
+</body>
+</html>

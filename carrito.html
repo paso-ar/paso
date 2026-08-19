@@ -286,7 +286,7 @@
       <li><a href="producto.html">Producto</a></li>
       <li><a href="accesorios.html">Accesorios</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="sobre-nosotros.html">La marca</a></li>
+    <li><a href="sobre-nosotros.html">La marca</a></li>
       <li><a href="carrito.html">Carrito</a></li>
     </ul>
   </nav>
@@ -383,7 +383,7 @@
             </div>
             <button class="cart-item__remove" onclick="removeItem('${item.id}','${item.color}')">Eliminar</button>
           </div>
-          <div class="cart-item__price">${Cart.formatPrice(item.price * item.qty)}</div>
+          <div class="cart-item__price">${item.price === 0 ? '<span style="color:#2A2623;font-weight:600;">Gratis</span>' : Cart.formatPrice(item.price * item.qty)}</div>
         </div>
       `;
     }).join('');

@@ -480,7 +480,7 @@
             <div class="checkout-summary-item__name">${item.name} ×${item.qty}</div>
             ${item.variant ? `<div class="checkout-summary-item__variant">${item.variant}</div>` : ''}
           </div>
-          <div class="checkout-summary-item__price">${Cart.formatPrice(item.price * item.qty)}</div>
+          <div class="checkout-summary-item__price">${item.price === 0 ? '<span style="font-weight:600;">Gratis</span>' : Cart.formatPrice(item.price * item.qty)}</div>
         </div>`;
     }).join('');
 

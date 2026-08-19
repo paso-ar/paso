@@ -14,6 +14,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* ── SHOP SUB-NAV ── */
+    .shop-subnav {
+      display: flex;
+      border-bottom: 0.5px solid #2A2623;
+      background: #ffffff;
+      padding: 0 48px;
+      position: sticky;
+      top: 61px; /* debajo del navbar */
+      z-index: 99;
+    }
+    .shop-subnav__tab {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(42,38,35,0.4);
+      text-decoration: none;
+      padding: 12px 0;
+      margin-right: 32px;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .shop-subnav__tab:hover { color: #2A2623; }
+    .shop-subnav__tab.active { color: #2A2623; border-bottom-color: #2A2623; }
+
     #navbar { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; background:#ffffff; border-bottom:0.5px solid #2A2623; position:sticky; top:0; z-index:100; }
     .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-weight:500; font-size:30px; letter-spacing:0.05em; line-height:1; color:#b92717; text-decoration:none; }
     .nav-links { display:flex; gap:32px; list-style:none; align-items:center; margin:0; padding:0; }
@@ -24,12 +50,13 @@
     .config-layout { grid-template-columns: 42% 58%; }
     .config-panel { padding: 16px 32px; overflow-y: hidden; }
     .config-acc-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-    .config-acc-card__img-wrap { aspect-ratio: 1/1; height: auto; }
+    .config-acc-card__img-wrap { aspect-ratio: 4/3; height: auto; }
     .config-acc-card__img-wrap img { object-fit: contain; height: 100%; width: 100%; padding: 8px; }
     .config-acc-card__name { font-size: 10px; margin-bottom: 4px; }
     .config-acc-card__price { font-size: 12px; }
     .config-price-orig { font-size: 10px; }
     .config-acc-card__footer { padding: 4px 8px 8px; }
+    .config-acc-card__header { align-items: flex-end; }
     .config-acc-qty-btn { width: 20px; height: 20px; font-size: 13px; border-radius: 50%; }
     .config-acc-qty-num { font-size: 11px; min-width: 16px; }
     .config-footer__total-price { font-size: 17px; }
@@ -79,27 +106,45 @@
         flex-direction: row !important;
         grid-template-columns: none !important;
         overflow-x: auto !important;
-        overflow-y: visible !important;
+        overflow-y: hidden !important;
         scroll-snap-type: x mandatory !important;
         -webkit-overflow-scrolling: touch !important;
         scrollbar-width: none !important;
         gap: 10px !important;
-        padding-bottom: 4px !important;
+        padding: 0 16px 4px !important;
+        align-items: stretch !important;
       }
       .config-acc-grid::-webkit-scrollbar { display: none !important; }
 
-      /* ── CARDS GRANDES ── */
-      .config-acc-card { width: 44vw !important; flex-shrink: 0 !important; scroll-snap-align: start !important; border-radius: 8px !important; overflow: hidden !important; background: #EBEBEB !important; display: flex !important; flex-direction: column !important; }
-      .config-acc-card__img-wrap { width: 100% !important; aspect-ratio: 1/1 !important; height: auto !important; background: #EBEBEB !important; }
+      /* ── CARDS: 70vw, snapped al centro, peek de la siguiente ── */
+      .config-acc-card {
+        width: 38vw !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: start !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;
+        background: #EBEBEB !important;
+        display: flex !important;
+        flex-direction: column !important;
+        border: 0.5px solid rgba(42,38,35,0.12) !important;
+      }
+      .config-acc-card__img-wrap {
+        width: 100% !important;
+        aspect-ratio: 4/3 !important;
+        height: auto !important;
+        background: #EBEBEB !important;
+        flex-shrink: 0 !important;
+      }
       .config-acc-card__img-wrap img { padding: 14px !important; width: 100% !important; height: 100% !important; object-fit: contain !important; }
-      .config-acc-card__body { padding: 8px 10px 12px !important; display: flex !important; flex-direction: column !important; gap: 4px !important; }
-      .config-acc-card__header { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; gap: 6px !important; }
-      .config-acc-card__name { font-size: 11px !important; font-weight: 600 !important; padding: 0 !important; margin: 0 0 4px !important; white-space: normal !important; line-height: 1.3 !important; }
+      .config-acc-card__body { padding: 10px 12px 14px !important; display: flex !important; flex-direction: column !important; gap: 6px !important; flex: 1 !important; }
+      .config-acc-card__header { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; gap: 6px !important; margin-top: auto !important; }
+      .config-acc-card__name { font-size: 11px !important; font-weight: 600 !important; padding: 0 !important; margin: 0 !important; white-space: normal !important; line-height: 1.3 !important; }
       .config-acc-card__price { display: block !important; font-size: 10px !important; color: var(--color-muted) !important; margin: 0 !important; }
       .config-price-badge { display: none !important; }
+      .acc-color-picker { display: none !important; }
       .config-acc-card__qty { display: flex !important; align-items: center !important; gap: 5px !important; flex-shrink: 0 !important; }
-      .config-acc-qty-btn { width: 20px !important; height: 20px !important; font-size: 14px !important; border-radius: 50% !important; }
-      .config-acc-qty-num { font-size: 11px !important; min-width: 12px !important; text-align: center !important; }
+      .config-acc-qty-btn { width: 18px !important; height: 18px !important; font-size: 12px !important; border-radius: 50% !important; }
+      .config-acc-qty-num { font-size: 10px !important; min-width: 12px !important; text-align: center !important; }
 
       /* ── FOOTER FIJO ── */
       .config-footer { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 200 !important; background: var(--color-bg) !important; padding: 10px 16px 14px !important; border-top: 0.5px solid rgba(42,38,35,0.2) !important; }
@@ -147,6 +192,12 @@
       <li><a href="carrito.html">Carrito</a></li>
     </ul>
   </nav>
+<!-- Sub-nav de shop -->
+<nav class="shop-subnav">
+  <a href="shop.html" class="shop-subnav__tab active">Configurar</a>
+  <a href="packs.html" class="shop-subnav__tab">Packs</a>
+</nav>
+
 <main class="config-layout">
 
   <!-- ── LEFT: producto ── -->
@@ -196,14 +247,17 @@
         </div>
       </div>
 
-      <div class="config-acc-card" data-id="control" data-price="24999" data-name="Montaje control remoto">
+      <div class="config-acc-card" data-id="control" data-price="0" data-name="Montaje control remoto">
         <div class="config-acc-card__img-wrap">
           <img src="assets/images/accesorios%20azul/acc-control.png" alt="Montaje control remoto" loading="lazy">
         </div>
         <div class="config-acc-card__body">
           <div class="config-acc-card__name">Montaje control remoto</div>
           <div class="config-acc-card__header">
-            <span class="config-acc-card__price">$24.999</span>
+            <div>
+              <span class="config-acc-card__price" style="text-decoration:line-through;opacity:0.35;">$24.999</span>
+              <span style="font-family:'Poppins',sans-serif;font-size:10px;font-weight:600;color:#2A2623;margin-left:4px;">Gratis</span>
+            </div>
             <div class="config-acc-card__qty">
               <button class="config-acc-qty-btn minus hidden" aria-label="Restar uno">−</button>
               <span class="config-acc-qty-num">0</span>
@@ -304,38 +358,6 @@
 </aside>
 
 <!-- ── FOOTER ── -->
-<footer class="v2home-footer">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;">
-    <div class="footer-left">
-      <div class="footer-logo">.paso</div>
-      <p class="footer-tagline">Hecho para moverse con vos</p>
-    </div>
-    <div class="footer-links">
-      <a href="producto.html">Producto</a>
-      <a href="accesorios.html">Accesorios</a>
-      <a href="shop.html">Shop</a>
-      <a href="sobre-nosotros.html">La marca</a>
-      <a href="carrito.html">Carrito</a>
-      <div class="footer-social" style="justify-content:flex-end;">
-        <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom-copy" style="gap:16px;">
-    <a href="https://www.instagram.com/paso_ar/" target="_blank" class="footer-icon" aria-label="Instagram">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="mailto:info.paso.ar@gmail.com" class="footer-icon" aria-label="Email">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-    </a>
-    <span>© 2026 todos los derechos reservados</span><span>sitio realizado por Studio Blu ·</span><span style="opacity:0.3;">|</span><a href="cookies.html" class="footer-bottom-link">Cookies</a><a href="seguridad.html" class="footer-bottom-link">Seguridad</a>
-  </div>
-</footer>
 
 <script src="cart.js"></script>
   <script>document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());</script>
@@ -626,6 +648,13 @@ function updateVisibility() {
     document.querySelector('.config-visual').style.background = meta.panelBg;
     updateModelColor(key);
     updateVisibility();
+    // En mobile los accesorios siguen el color del producto principal
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('.config-acc-card').forEach(card => {
+        accColors[card.dataset.id] = key;
+        updateAccImage(card);
+      });
+    }
   }
   setColor(colorKey);
   document.querySelectorAll('.config-acc-card').forEach(card => updateAccImage(card));
@@ -789,5 +818,6 @@ function updateVisibility() {
       mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
     }
   </script>
+
 </body>
 </html>
