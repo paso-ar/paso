@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <link rel="icon" type="image/png" href="assets/images/logo png.webp">
   <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
   <meta property="og:title" content="paso · 01">
   <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
-  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.webp">
   <meta property="og:url" content="https://paso-ar.com">
   <meta property="og:type" content="website">
   <title>Accesorios — paso</title>
@@ -23,6 +23,20 @@
     :root { --color-bg: #ffffff; --color-muted: #b92717; --paso-madera: #b92717; }
     body { background: #ffffff; }
     .acc-row__images { grid-template-columns: repeat(4, 1fr) !important; }
+    /* ── GLOBAL COLOR BAR ── */
+    #global-color-bar { display:flex; align-items:center; gap:var(--space-md); padding:20px var(--margin-side); border-bottom:0.5px solid rgba(42,38,35,0.15); flex-wrap:wrap; }
+    .global-color-label { font-family:var(--font-body); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:#9B8065; white-space:nowrap; }
+    .global-color-options { display:flex; gap:8px; }
+    .global-color-btn { display:flex; align-items:center; gap:6px; font-family:var(--font-body); font-size:11px; font-weight:500; color:#2A2623; background:none; border:0.5px solid rgba(42,38,35,0.2); padding:6px 14px; cursor:pointer; transition:all 0.2s; }
+    .global-color-btn:hover { border-color:#2A2623; }
+    .global-color-btn.active { border-color:#2A2623; background:#2A2623; color:#EFE9DC; }
+    .global-color-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .global-color-hint { font-family:var(--font-body); font-size:10px; color:rgba(42,38,35,0.4); font-style:italic; }
+
+    /* celda no-activa cuando hay color global seleccionado */
+    .acc-img-cell.global-dim { opacity:0.35; }
+    .acc-img-cell.global-highlight { outline:1.5px solid #2A2623; outline-offset:-1px; }
+
     .acc-colors-header { display:grid; grid-template-columns: 320px 1fr; border-bottom: 0.5px solid rgba(42,38,35,0.15); padding: 20px 0; }
     .acc-colors-header__spacer { padding-left: var(--margin-side); }
     .acc-colors-header__cols { display:grid; grid-template-columns: repeat(4, 1fr); }
@@ -171,6 +185,27 @@
   </nav>
 <!-- ── LAYOUT ── -->
 <main>
+
+  <!-- ── SELECTOR DE COLOR GLOBAL ── -->
+  <div id="global-color-bar">
+    <span class="global-color-label">Color del soporte</span>
+    <div class="global-color-options">
+      <button class="global-color-btn active" data-color="navy">
+        <span class="global-color-dot" style="background:#1E367B"></span> Azul
+      </button>
+      <button class="global-color-btn" data-color="esmeralda">
+        <span class="global-color-dot" style="background:#2D6A4F"></span> Esmeralda
+      </button>
+      <button class="global-color-btn" data-color="gris">
+        <span class="global-color-dot" style="background:#828282"></span> Gris
+      </button>
+      <button class="global-color-btn" data-color="negro">
+        <span class="global-color-dot" style="background:#222222"></span> Negro
+      </button>
+    </div>
+    <span class="global-color-hint">Podés cambiar el color de cada accesorio individualmente</span>
+  </div>
+
   <div class="acc-list">
 
 
@@ -182,19 +217,19 @@
       </div>
       <div class="acc-row__images">
         <div class="acc-img-cell" data-color="navy" data-color-name="Azul">
-          <img src="assets/images/accesorios%20azul/acc-estante.png" alt="Estante — Azul Navy" loading="eager">
+          <img src="assets/images/accesorios%20azul/acc-estante.webp" alt="Estante — Azul Navy" loading="eager">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="esmeralda" data-color-name="Esmeralda">
-          <img src="assets/images/accesorios%20azul/acc-estante.png" alt="Estante — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="eager">
+          <img src="assets/images/accesorios%20azul/acc-estante.webp" alt="Estante — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="eager">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="gris" data-color-name="Gris">
-          <img src="assets/images/accesorios%20gris/acc-estante-gris.png" alt="Estante — Gris" loading="eager">
+          <img src="assets/images/accesorios%20gris/acc-estante-gris.webp" alt="Estante — Gris" loading="eager">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="negro" data-color-name="Negro">
-          <img src="assets/images/accesorios%20gris/acc-estante-gris.png" alt="Estante — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-estante-gris.webp" alt="Estante — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
       </div>
@@ -208,19 +243,19 @@
       </div>
       <div class="acc-row__images">
         <div class="acc-img-cell" data-color="navy" data-color-name="Azul">
-          <img src="assets/images/accesorios%20azul/acc-control.png" alt="Montaje control remoto — Azul Navy" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-control.webp" alt="Montaje control remoto — Azul Navy" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="esmeralda" data-color-name="Esmeralda">
-          <img src="assets/images/accesorios%20azul/acc-control.png" alt="Montaje control remoto — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-control.webp" alt="Montaje control remoto — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="gris" data-color-name="Gris">
-          <img src="assets/images/accesorios%20gris/acc-control-gris.png" alt="Montaje control remoto — Gris" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-control-gris.webp" alt="Montaje control remoto — Gris" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="negro" data-color-name="Negro">
-          <img src="assets/images/accesorios%20gris/acc-control-gris.png" alt="Montaje control remoto — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-control-gris.webp" alt="Montaje control remoto — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
       </div>
@@ -234,19 +269,19 @@
       </div>
       <div class="acc-row__images">
         <div class="acc-img-cell" data-color="navy" data-color-name="Azul">
-          <img src="assets/images/accesorios%20azul/acc-playbox-azul.png" alt="Soporte play/xbox — Azul Navy" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-playbox-azul.webp" alt="Soporte play/xbox — Azul Navy" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="esmeralda" data-color-name="Esmeralda">
-          <img src="assets/images/accesorios%20azul/acc-playbox-azul.png" alt="Soporte play/xbox — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-playbox-azul.webp" alt="Soporte play/xbox — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="gris" data-color-name="Gris">
-          <img src="assets/images/accesorios%20gris/acc-playbox-gris.png" alt="Soporte play/xbox — Gris" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-playbox-gris.webp" alt="Soporte play/xbox — Gris" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="negro" data-color-name="Negro">
-          <img src="assets/images/accesorios%20gris/acc-playbox-gris.png" alt="Soporte play/xbox — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-playbox-gris.webp" alt="Soporte play/xbox — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
       </div>
@@ -260,19 +295,19 @@
       </div>
       <div class="acc-row__images">
         <div class="acc-img-cell" data-color="navy" data-color-name="Azul">
-          <img src="assets/images/accesorios%20azul/acc-gancho-azul.png" alt="Soporte joystick — Azul Navy" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-gancho-azul.webp" alt="Soporte joystick — Azul Navy" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="esmeralda" data-color-name="Esmeralda">
-          <img src="assets/images/accesorios%20azul/acc-gancho-azul.png" alt="Soporte joystick — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-gancho-azul.webp" alt="Soporte joystick — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="gris" data-color-name="Gris">
-          <img src="assets/images/accesorios%20gris/acc-gancho-gris.png" alt="Soporte joystick — Gris" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-gancho-gris.webp" alt="Soporte joystick — Gris" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="negro" data-color-name="Negro">
-          <img src="assets/images/accesorios%20gris/acc-gancho-gris.png" alt="Soporte joystick — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-gancho-gris.webp" alt="Soporte joystick — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
       </div>
@@ -286,19 +321,19 @@
       </div>
       <div class="acc-row__images">
         <div class="acc-img-cell" data-color="navy" data-color-name="Azul">
-          <img src="assets/images/accesorios%20azul/acc-soporte-azul.png" alt="Soporte de cable — Azul Navy" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-soporte-azul.webp" alt="Soporte de cable — Azul Navy" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="esmeralda" data-color-name="Esmeralda">
-          <img src="assets/images/accesorios%20azul/acc-soporte-azul.png" alt="Soporte de cable — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
+          <img src="assets/images/accesorios%20azul/acc-soporte-azul.webp" alt="Soporte de cable — Esmeralda" style="filter:hue-rotate(-65deg) saturate(0.85) brightness(0.95)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="gris" data-color-name="Gris">
-          <img src="assets/images/accesorios%20gris/acc-soporte-gris.png" alt="Soporte de cable — Gris" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-soporte-gris.webp" alt="Soporte de cable — Gris" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
         <div class="acc-img-cell" data-color="negro" data-color-name="Negro">
-          <img src="assets/images/accesorios%20gris/acc-soporte-gris.png" alt="Soporte de cable — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
+          <img src="assets/images/accesorios%20gris/acc-soporte-gris.webp" alt="Soporte de cable — Negro" style="filter:brightness(0.55) contrast(1.1) saturate(0)" loading="lazy">
           <button class="acc-img-cell__add">Agregar</button>
         </div>
       </div>
@@ -307,14 +342,6 @@
 
 
   </div>
-  <!-- ── PACKS CTA ── -->
-  <a href="packs.html" style="display:flex;align-items:center;justify-content:space-between;padding:32px 64px;border-top:0.5px solid rgba(42,38,35,0.15);text-decoration:none;background:#ffffff;transition:background 0.2s;" onmouseover="this.style.background='#2A2623';this.querySelectorAll('div').forEach(d=>d.style.color='#ffffff')" onmouseout="this.style.background='#ffffff';this.querySelectorAll('div').forEach(d=>d.style.color='')">
-    <div>
-      <div style="font-family:'Poppins',sans-serif;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#9B8065;margin-bottom:6px;">Armá tu setup completo</div>
-      <div style="font-family:'All Round Gothic','Poppins',sans-serif;font-weight:500;font-size:22px;letter-spacing:-0.01em;color:#2A2623;">Packs · ahorrás hasta $14.999</div>
-    </div>
-    <span style="font-family:'Poppins',sans-serif;font-size:20px;color:#2A2623;">→</span>
-  </a>
 </main>
 
 <!-- ── MINI-CART ── -->
@@ -429,6 +456,52 @@
   });
 
   renderMiniCart();
+
+  // ── SELECTOR DE COLOR GLOBAL ──
+  function applyGlobalColor(color) {
+    // Highlight/dim celdas en desktop
+    document.querySelectorAll('.acc-img-cell').forEach(cell => {
+      if (cell.dataset.color === color) {
+        cell.classList.add('global-highlight');
+        cell.classList.remove('global-dim');
+      } else {
+        cell.classList.remove('global-highlight');
+        cell.classList.add('global-dim');
+      }
+    });
+    // En mobile: activa la celda de ese color en cada fila
+    document.querySelectorAll('.acc-row').forEach(row => {
+      const cells = row.querySelectorAll('.acc-img-cell');
+      const target = row.querySelector(`.acc-img-cell[data-color="${color}"]`);
+      if (!target) return;
+      cells.forEach(c => c.classList.remove('mobile-active'));
+      target.classList.add('mobile-active');
+    });
+  }
+
+  document.querySelectorAll('.global-color-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.global-color-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyGlobalColor(btn.dataset.color);
+    });
+  });
+
+  // Cuando el usuario cambia el color de una celda individual, quita el dim
+  document.querySelectorAll('.acc-img-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      cell.classList.remove('global-dim');
+      cell.classList.add('global-highlight');
+      // Quita highlight de los hermanos de la misma fila
+      const row = cell.closest('.acc-row');
+      row.querySelectorAll('.acc-img-cell').forEach(c => {
+        if (c !== cell) { c.classList.remove('global-highlight'); c.classList.add('global-dim'); }
+      });
+    });
+  });
+
+  // Aplicar azul por defecto al cargar
+  applyGlobalColor('navy');
 </script>
   <script>
     const hamburger = document.getElementById("nav-hamburger");
