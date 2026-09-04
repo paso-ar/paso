@@ -827,6 +827,7 @@ function updateVisibility() {
 
   const quantities = {};
   const accColors  = {};
+  const userPickedColors = new Set(); // accesorios cuyo color eligió el usuario a mano
   document.querySelectorAll('.config-acc-card').forEach(card => {
     const id = card.dataset.id;
     quantities[id] = 0;
@@ -845,6 +846,7 @@ function updateVisibility() {
       btn.addEventListener('click', e => {
         e.stopPropagation();
         accColors[id] = btn.dataset.color;
+        userPickedColors.add(id);
         picker.querySelectorAll('.color-option').forEach(b => {
           b.classList.toggle('active', b.dataset.color === btn.dataset.color);
           b.setAttribute('aria-checked', String(b.dataset.color === btn.dataset.color));
@@ -864,6 +866,19 @@ function updateVisibility() {
     document.querySelector('.config-visual').style.background = meta.panelBg;
     updateModelColor(key);
     updateVisibility();
+    // Sincronizar accesorios que el usuario no eligió a mano
+    document.querySelectorAll('.config-acc-card').forEach(card => {
+      const id = card.dataset.id;
+      if (userPickedColors.has(id)) return;
+      accColors[id] = key;
+      updateAccImage(card);
+      updateCardBorder(card);
+      updateAccessoryColor(id, key);
+      card.querySelectorAll('.color-option').forEach(b => {
+        b.classList.toggle('active', b.dataset.color === key);
+        b.setAttribute('aria-checked', String(b.dataset.color === key));
+      });
+    });
   }
   setColor(colorKey);
   document.querySelectorAll('.config-acc-card').forEach(card => updateAccImage(card));
