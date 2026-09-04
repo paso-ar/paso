@@ -1032,7 +1032,7 @@
   </section>
 
   <!-- ── VIDEO ── -->
-  <section style="padding: 10rem 4rem 12rem; display:flex; flex-direction:column; align-items:center; gap:2.4rem; background:#faf8f4;">
+  <section class="producto-video-section" style="padding: 10rem 4rem 12rem; display:flex; flex-direction:column; align-items:center; gap:2.4rem; background:#faf8f4;">
     <div style="width:90%; max-width:1400px; border-radius: clamp(20px, 4vw, 56px); overflow:hidden;">
       <video src="assets/models/video%20del%20video.mp4" autoplay muted loop playsinline style="width:100%; display:block;"></video>
     </div>
@@ -1642,6 +1642,8 @@ animate();
     }
     #how-it-works-pdp .how-btn:hover { background: var(--text); color: var(--bg); }
     @media (max-width: 768px) {
+      .producto-video-section { padding: 6rem 1rem 8rem !important; }
+      .producto-video-section > div { width: 100% !important; border-radius: 20px !important; }
       #how-it-works-pdp { height: 100svh; max-height: none; }
       #how-it-works-pdp .how-aspect { height: 55%; aspect-ratio: 4/3; top: 0; }
       #how-it-works-pdp .how-desc { position: static; width: 100%; transform: none; opacity: 1; margin-top: 2rem; }
