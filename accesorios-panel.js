@@ -468,13 +468,17 @@
     document.getElementById('acc-panel').classList.remove('open');
   }
 
-  function init() {
-    buildPanel();
-    document.querySelectorAll('a[href="accesorios.html"], a[href="accesorios"], a[href="/accesorios"], a[href="/accesorios.html"]').forEach(link => {
-      link.addEventListener('click', e => { e.preventDefault(); openPanel(); });
-    });
+  function isAccLink(el) {
+    if (!el || el.tagName !== 'A') return false;
+    const h = el.getAttribute('href') || '';
+    return h === 'accesorios.html' || h === 'accesorios' || h === '/accesorios' || h === '/accesorios.html';
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (isAccLink(link)) { e.preventDefault(); openPanel(); }
+  }, true); // capture phase — fires before any child handler
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildPanel);
+  else buildPanel();
 })();
