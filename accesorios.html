@@ -295,15 +295,17 @@
       }
       .acc-row__images::-webkit-scrollbar { display: none; }
       .acc-img-cell {
-        display: flex !important;
-        flex-direction: column !important;
+        display: block !important;
+        position: relative !important;
         flex-shrink: 0 !important;
         width: 82px !important;
-        gap: 4px !important;
+        height: 82px !important;
       }
       .acc-img-cell img {
-        width: 82px !important;
-        height: 82px !important;
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
         object-fit: contain !important;
         border-radius: 8px !important;
         background: rgba(42,38,35,0.04) !important;
