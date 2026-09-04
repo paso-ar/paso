@@ -25,15 +25,10 @@ exports.handler = async (event) => {
       currency_id: 'ARS',
     })),
     payer: {
-      name: payer.nombre,
-      surname: payer.apellido,
-      email: payer.email,
-      phone: { number: payer.telefono },
-      address: {
-        street_name: payer.calle,
-        street_number: payer.numero,
-        zip_code: payer.cp,
-      },
+      name: payer.name || payer.nombre || '',
+      surname: payer.surname || payer.apellido || '',
+      email: payer.email || '',
+      phone: { number: String(payer.phone || payer.telefono || '') },
     },
     back_urls: {
       success: 'https://paso-ar.com/orden-confirmada.html',

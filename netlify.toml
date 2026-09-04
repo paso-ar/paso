@@ -1,2 +1,7 @@
 [functions]
   directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/create-preference"
+  to = "/.netlify/functions/create-preference"
+  status = 200
