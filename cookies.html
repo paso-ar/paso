@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <title>Cookies — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-book.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+
+    html { font-size: 62.5%; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f9f8f6; color: #2A2623; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    #navbar { position: fixed; left: 50%; top: 1.6rem; transform: translateX(-50%); z-index: 1000; display: flex; align-items: center; width: max-content; }
+    .nav-bg { position: absolute; pointer-events: none; height: calc(4.4rem + 1.2rem); width: calc(100% + 1.2rem); top: -0.6rem; left: -0.6rem; border-radius: 1.6rem; border: 1px solid rgba(42,38,35,0.12); background: rgba(249,248,246,0.85); backdrop-filter: blur(14px); }
+    .nav-item { position: relative; display: flex; align-items: center; height: 4.4rem; padding: 0 1.6rem; font-size: 1.3rem; font-weight: 500; color: #2A2623; white-space: nowrap; cursor: pointer; border-radius: 1.2rem; font-family: 'Poppins', sans-serif; text-decoration: none; }
+    .nav-logo { font-family: 'All Round Gothic', 'Poppins', sans-serif; font-size: 1.7rem; letter-spacing: 0.04em; color: #b92c1d; }
+
+    .legal-wrap { max-width: 72rem; margin: 0 auto; padding: 14rem 4rem 8rem; }
+    .legal-eyebrow { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #9B8065; margin-bottom: 2.4rem; }
+    .legal-h1 { font-family: 'All Round Gothic', 'Poppins', sans-serif; font-weight: 500; font-size: clamp(3.2rem, 4vw, 5.2rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 4rem; }
+    .legal-section { margin-bottom: 4rem; }
+    .legal-section h2 { font-size: 1.6rem; font-weight: 600; margin-bottom: 1.2rem; }
+    .legal-section p { font-size: 1.4rem; line-height: 1.75; color: rgba(42,38,35,0.65); }
+
+    footer { margin-top: 10rem; position: relative; }
+    .footer-card { position: relative; z-index: 2; background: #f9f8f6; border-radius: 0 0 4.8rem 4.8rem; border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4rem; padding: 6rem 6rem 5rem; border-bottom: 0.5px solid rgba(42,38,35,0.15); }
+    .footer-left { display: flex; flex-direction: column; gap: 3.2rem; max-width: 32rem; }
+    .footer-tagline { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: clamp(2.4rem, 3vw, 3.6rem); line-height: 1.15; letter-spacing: -0.02em; color: #2A2623; }
+    .footer-tagline em { font-style: italic; font-weight: 400; }
+    .footer-cta-btn { display: inline-flex; align-items: center; padding: 1.2rem 2.6rem; background: #2A2623; color: #f9f8f6; border-radius: 10rem; font-size: 1.3rem; font-weight: 500; font-family: 'Poppins',sans-serif; transition: opacity 0.2s; text-decoration: none; }
+    .footer-cta-btn:hover { opacity: 0.8; }
+    .footer-links { display: flex; gap: 5.6rem; }
+    .footer-col h4 { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #b92c1d; margin-bottom: 1.6rem; }
+    .footer-col a { display: block; font-size: 1.4rem; color: #2A2623; opacity: 0.55; margin-bottom: 1rem; transition: opacity 0.2s; text-decoration: none; }
+    .footer-col a:hover { opacity: 1; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2rem 6rem; }
+    .footer-copy { font-size: 1.1rem; color: #2A2623; }
+    .footer-legal { display: flex; gap: 2.4rem; }
+    .footer-legal a { font-size: 1.1rem; color: #2A2623; opacity: 0.45; transition: opacity 0.2s; }
+    .footer-legal a:hover { opacity: 1; }
+
+    
+    /* ── HAMBURGER + MOBILE MENU ── */
+    .nav-hamburger {
+      display: none;
+      position: relative; z-index: 1;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; width: 4.4rem; height: 4.4rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav-hamburger span {
+      display: block; width: 1.6rem; height: 1.5px;
+      background: #2A2623; border-radius: 2px;
+      transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(0.65rem) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-0.65rem) rotate(-45deg); }
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: #faf8f4;
+      z-index: 998;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3.2rem 4rem;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-0.8rem);
+      transition: opacity 0.28s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a {
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      font-size: 1.6rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #2A2623; padding: 1.8rem 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.12);
+      opacity: 0.7; transition: opacity 0.2s; text-decoration: none; display: block;
+    }
+    .mobile-menu a:first-of-type { border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .mobile-menu a:hover { opacity: 1; }
+    .mobile-menu__close {
+      position: absolute; top: 2rem; right: 2.4rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 2.2rem; color: #2A2623; line-height: 1;
+      width: 4rem; height: 4rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex !important; }
+      .nav-item:not(.nav-logo):not(.nav-carrito) { display: none !important; }
+      .legal-wrap { padding: 12rem 2.4rem 6rem; }
+      .footer-card { border-radius: 0 0 1.6rem 1.6rem !important; }
+      .footer-top { flex-direction: column !important; gap: 4rem !important; padding: 4rem 2.4rem 3rem !important; }
+      .footer-links { flex-direction: row !important; gap: 2rem !important; flex-wrap: wrap !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-bg"></div>
+  <a href="index.html" class="nav-item nav-logo">paso</a>
+  <a href="producto.html" class="nav-item">Producto</a>
+  <a href="accesorios.html" class="nav-item">Accesorios</a>
+  <a href="shop.html" class="nav-item">Shop</a>
+  <a href="sobre-nosotros.html" class="nav-item">La marca</a>
+  <a href="carrito.html" class="nav-item nav-carrito" aria-label="Ver carrito"><span id="cart-badge">0</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menú">
+    
+    <a href="producto.html">Producto</a>
+    <a href="accesorios.html">Accesorios</a>
+    <a href="shop.html">Shop</a>
+    <a href="sobre-nosotros.html">La marca</a>
+    <a href="carrito.html">Carrito</a>
+  </div>
+
+
+<div class="legal-wrap">
+  <p class="legal-eyebrow">Legal</p>
+  <h1 class="legal-h1">Política de cookies</h1>
+
+  <div class="legal-section">
+    <h2>¿Qué son las cookies?</h2>
+    <p>Las cookies son pequeños archivos de texto que los sitios web almacenan en tu dispositivo para recordar información sobre tu visita. No contienen datos personales sensibles ni código ejecutable.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Cookies que usamos</h2>
+    <p>Este sitio utiliza únicamente cookies técnicas necesarias para el funcionamiento del carrito de compras. No usamos cookies de seguimiento, publicidad ni análisis de comportamiento de terceros.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Carrito de compras</h2>
+    <p>Guardamos el contenido de tu carrito en el almacenamiento local de tu navegador (localStorage) para que no pierdas tu selección al navegar entre páginas. Estos datos quedan en tu dispositivo y no se comparten con terceros.</p>
+  </div>
+
+  <div class="legal-section">
+    <h2>Contacto</h2>
+    <p>Ante cualquier consulta sobre el uso de datos: <a href="mailto:info.paso.ar@gmail.com" style="text-decoration:underline;">info.paso.ar@gmail.com</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-card">
+    <div class="footer-top">
+      <div class="footer-left">
+        <p class="footer-tagline">Hecho para moverse<br><em>con vos</em></p>
+        <a href="shop.html" class="footer-cta-btn">Comprar</a>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <a href="producto.html">paso · 01</a>
+          <a href="accesorios.html">Accesorios</a>
+          <a href="packs.html">Packs</a>
+        </div>
+        <div class="footer-col">
+          <h4>Marca</h4>
+          <a href="sobre-nosotros.html">Sobre paso</a>
+          <a href="shop.html">Shop</a>
+          <a href="carrito.html">Carrito</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <a href="mailto:info.paso.ar@gmail.com">info.paso.ar@gmail.com</a>
+          <a href="https://www.instagram.com/paso_ar/" target="_blank" rel="noopener">@paso_ar</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 .paso · todos los derechos reservados · sitio realizado por Studio Blu</p>
+      <div class="footer-legal">
+        <a href="cookies.html">Cookies</a>
+        <a href="seguridad.html">Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="cart.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => Cart.updateBadge());</script>
+<script>
+  // Mobile menu
+  (function() {
+    const hamburger = document.getElementById('nav-hamburger');
+    const menu      = document.getElementById('mobile-menu');
+    const closeBtn  = document.getElementById('mobile-menu-close');
+    if (!hamburger || !menu) return;
+    function openMenu()  { hamburger.classList.add('open');    menu.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hamburger.classList.remove('open'); menu.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+
+</body>
+</html>

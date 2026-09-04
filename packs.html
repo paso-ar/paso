@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — Packs | Armá tu setup completo.">
+  <title>Packs — paso</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-book.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-bold.otf') format('opentype'); font-weight:700; font-display:swap; }
+  </style>
+  <style>
+    html, body { height: 100%; overflow: hidden; background: #faf8f6; }
+    body { display: flex; flex-direction: column; }
+
+    /* Todos los elementos fijos no deben comprimir el área de packs */
+    .announcement-bar, #navbar, .shop-subnav { flex-shrink: 0; }
+
+    /* ── SHOP SUB-NAV ── */
+    .shop-subnav {
+      display: flex;
+      border-bottom: 0.5px solid rgba(42,38,35,0.15);
+      background: #faf8f6;
+      padding: 0 48px;
+      position: sticky;
+      top: 72px;
+      z-index: 99;
+    }
+    .shop-subnav__tab {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(42,38,35,0.4);
+      text-decoration: none;
+      padding: 12px 0;
+      margin-right: 32px;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .shop-subnav__tab:hover { color: #2A2623; }
+    .shop-subnav__tab.active { color: #2A2623; border-bottom-color: #2A2623; }
+
+    /* ── NAVBAR píldora flotante ── */
+    html { font-size: 62.5%; }
+    #navbar {
+      position: fixed; left: 50%; top: 1.6rem;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex; align-items: center;
+      width: max-content;
+    }
+    .nav-bg {
+      position: absolute; pointer-events: none;
+      height: calc(4.4rem + 1.2rem);
+      width: calc(100% + 1.2rem);
+      top: -0.6rem; left: -0.6rem;
+      border-radius: 1.6rem;
+      border: 1px solid rgba(42,38,35,0.12);
+      background: #faf8f6;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .nav-hl {
+      position: absolute; pointer-events: none;
+      background: white; border-radius: 1.2rem;
+      height: 4.4rem;
+      transition: width 0.28s cubic-bezier(0.25,0.46,0.45,0.94), left 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+      opacity: 0;
+    }
+    .nav-item {
+      position: relative;
+      display: flex; align-items: center;
+      height: 4.4rem; padding: 0 1.6rem;
+      font-size: 1.3rem; font-weight: 500;
+      color: #2A2623; white-space: nowrap; cursor: pointer;
+      border-radius: 1.2rem; font-family: 'Poppins', sans-serif;
+      text-decoration: none;
+    }
+    .nav-logo { font-family: 'All Round Gothic', 'Poppins', sans-serif; font-size: 1.7rem; letter-spacing: 0.04em; color: #b92c1d; }
+    .nav-item.active { background: rgba(42,38,35,0.08); }
+    .nav-carrito { gap: 4px; }
+
+    /* ── LAYOUT OUTER ── */
+    .packs-scroll-outer {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── FULL PANEL ── */
+    .packs-sticky {
+      flex: 1;
+      display: flex;
+      background: #faf8f6;
+      overflow: hidden;
+    }
+
+    /* ── LEFT PANEL: fixed hero content ── */
+    .packs-left {
+      width: 46%;
+      flex-shrink: 0;
+      border-right: 0.5px solid rgba(42,38,35,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 56px;
+      position: relative;
+    }
+    .packs-left__eyebrow {
+      font-family:'Poppins',sans-serif; font-size:10px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.14em; color:#9B8065;
+    }
+    .packs-left__title {
+      font-family:'Poppins',sans-serif; font-weight:600;
+      font-size: clamp(36px, 4.5vw, 64px);
+      letter-spacing:-0.025em; line-height:1.05;
+      color:#2A2623; margin:0;
+    }
+    .packs-left__title em {
+      font-style:normal; color:rgba(42,38,35,0.28);
+    }
+    .packs-left__sub {
+      font-family:'Poppins',sans-serif; font-size:11px;
+      color:#2A2623; line-height:1.7; max-width:280px;
+    }
+    .packs-left__counter {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .packs-left__num {
+      font-family:'Poppins',sans-serif; font-weight:600;
+      font-size:13px; color:#2A2623; min-width:28px;
+    }
+    .packs-left__progress-track {
+      flex:1; height:1px; background:rgba(42,38,35,0.1); position:relative;
+    }
+    .packs-left__progress-fill {
+      position:absolute; left:0; top:0; height:100%; background:#2A2623;
+      transition: width 0.3s ease;
+    }
+    /* Color selector */
+    .packs-color {
+      margin-bottom: 24px;
+    }
+    .packs-color__label {
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.1em; color:#2A2623;
+      margin-bottom:10px; display:block;
+    }
+    .packs-color__options {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    }
+    .packs-color__opt {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      box-shadow: 0 0 0 2px transparent, 0 0 0 4px transparent;
+      transition: box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .packs-color__opt:hover { box-shadow: 0 0 0 2px #faf8f6, 0 0 0 4px rgba(42,38,35,0.3); }
+    .packs-color__opt.selected { box-shadow: 0 0 0 2px #faf8f6, 0 0 0 4px #2A2623; }
+    .packs-color__swatch { display: none; }
+
+    .packs-left__total {
+      font-family:'Poppins',sans-serif; font-size:11px; color:rgba(42,38,35,0.3);
+    }
+
+    /* ── RIGHT PANEL: native horizontal scroll ── */
+    .packs-right {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    .packs-right::-webkit-scrollbar { display: none; }
+    /* Fade hint on right — shows more cards beyond */
+    .packs-right::after {
+      content:'';
+      position:fixed; right:0; top:0; bottom:0; width:80px;
+      background: linear-gradient(to right, transparent, #faf8f6);
+      pointer-events:none; z-index:2;
+    }
+
+    /* Track: ocupa toda la altura disponible */
+    .packs-track {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      padding-left: 0;
+      padding-right: 0;
+      flex-shrink: 0;
+      width: max-content;
+    }
+
+    /* ── CARDS ── */
+    .pack-card {
+      flex-shrink: 0;
+      width: 260px;
+      border: 0.5px solid rgba(42,38,35,0.15);
+      border-radius: 1.6rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #faf8f6;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .pack-card:first-child { margin-left: 48px; }
+    .pack-card:last-child  { margin-right: 48px; }
+    .pack-card + .pack-card { margin-left: 16px; }
+
+    /* Image area — 65% of card height */
+    .pack-img {
+      flex: 0 0 65%;
+      background: #EDEBE7;
+      position: relative;
+      overflow: hidden;
+    }
+    .pack-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .pack-img__gift {
+      position:absolute; top:10px; left:10px;
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:600;
+      text-transform:uppercase; letter-spacing:0.08em;
+      background:#2A2623; color:#ffffff;
+      padding: 4px 9px;
+    }
+
+    /* Card info — remaining 35% */
+    .pack-info {
+      flex: 1;
+      min-height: 0;
+      padding: 10px 16px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-top: 0.5px solid rgba(42,38,35,0.1);
+    }
+    .pack-info__num {
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.1em; color:#b92717;
+      margin-bottom:6px;
+    }
+    .pack-info__name {
+      font-family:'Poppins',sans-serif; font-weight:600; font-size:11px;
+      letter-spacing:-0.01em; color:#2A2623; margin:0; line-height:1.3;
+      white-space: nowrap;
+    }
+    /* Gift tag inside pack-info */
+    .pack-info__gift {
+      display:inline-block; margin-bottom:8px;
+      font-family:'Poppins',sans-serif; font-size:8px; font-weight:600;
+      text-transform:uppercase; letter-spacing:0.08em;
+      background:#2A2623; color:#ffffff; padding:3px 8px;
+    }
+
+    /* Scroll hint */
+    .packs-scroll-hint {
+      margin-top:16px;
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.1em; color:rgba(42,38,35,0.3);
+      display:flex; align-items:center; gap:6px;
+    }
+    .packs-scroll-hint::after {
+      content:''; display:inline-block;
+      width:20px; height:1px; background:rgba(42,38,35,0.2);
+    }
+
+    /* Button with price baked in */
+    .pack-card__btn {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:11px 20px; margin: auto 16px 14px;
+      background:#faf8f6; border:1px solid #2A2623; color:#2A2623;
+      font-family:'Poppins',sans-serif; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:0.08em; flex-shrink:0;
+      cursor:pointer; transition:background 0.2s, color 0.2s; width:calc(100% - 32px);
+      border-radius:10rem;
+    }
+    .pack-card__btn span { font-weight:600; font-size:11px; letter-spacing:0; text-transform:none; }
+    .pack-card__btn:hover { background:#2A2623; color:#faf8f6; }
+
+    /* Wrap que contiene el botón o el stepper */
+    .pack-card__btn-wrap {
+      margin: auto 16px 14px;
+      flex-shrink: 0;
+    }
+    .pack-card__btn-wrap .pack-card__btn {
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Stepper (aparece al agregar) */
+    .pack-stepper {
+      display:flex; align-items:center; justify-content:space-between;
+      margin: auto 16px 14px; flex-shrink:0;
+      border:0.5px solid #2A2623; width:calc(100% - 32px);
+    }
+    .pack-stepper__btn {
+      background:transparent; border:none; color:#2A2623;
+      font-family:'Poppins',sans-serif; font-size:16px; font-weight:300;
+      cursor:pointer; padding:9px 16px; transition:background 0.2s, color 0.2s;
+      line-height:1;
+    }
+    .pack-stepper__btn:hover { background:#2A2623; color:#ffffff; }
+    .pack-stepper__qty {
+      font-family:'Poppins',sans-serif; font-size:12px; font-weight:600;
+      color:#2A2623; min-width:32px; text-align:center;
+    }
+
+    /* ── NOTE ── */
+    .packs-note {
+      padding: 20px 56px; border-top: 0.5px solid rgba(42,38,35,0.12);
+      font-family:'Poppins',sans-serif; font-size:10px; color:#9B8065; line-height:1.6;
+    }
+    .packs-note a { color:#2A2623; }
+
+    /* ── MOBILE ── */
+    
+    /* ── HAMBURGER + MOBILE MENU ── */
+    .nav-hamburger {
+      display: none;
+      position: relative; z-index: 1;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; width: 4.4rem; height: 4.4rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav-hamburger span {
+      display: block; width: 1.6rem; height: 1.5px;
+      background: #2A2623; border-radius: 2px;
+      transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(0.65rem) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-0.65rem) rotate(-45deg); }
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: #faf8f4;
+      z-index: 998;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3.2rem 4rem;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-0.8rem);
+      transition: opacity 0.28s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a {
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      font-size: 1.6rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #2A2623; padding: 1.8rem 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.12);
+      opacity: 0.7; transition: opacity 0.2s; text-decoration: none; display: block;
+    }
+    .mobile-menu a:first-of-type { border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .mobile-menu a:hover { opacity: 1; }
+    .mobile-menu__close {
+      position: absolute; top: 2rem; right: 2.4rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 2.2rem; color: #2A2623; line-height: 1;
+      width: 4rem; height: 4rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      /* ── RESET LAYOUT FIJO ── */
+      html, body { height: auto !important; overflow: auto !important; }
+      .packs-scroll-outer { display: block !important; overflow: visible !important; min-height: 0 !important; }
+
+      .nav-hamburger { display: flex !important; }
+      #navbar { padding: 0 !important; width: max-content !important; }
+      /* ── NAV ── */
+      .nav-item:not(.nav-logo):not(.nav-carrito) { display:none !important; }
+      .shop-subnav { padding:0 20px !important; top: 56px !important; }
+
+      /* ── LAYOUT: columna, scroll normal ── */
+      .packs-sticky {
+        flex-direction: column !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
+
+      /* ── LEFT: header compacto en la parte superior ── */
+      .packs-left {
+        width: 100% !important;
+        flex-shrink: 0 !important;
+        border-right: none !important;
+        border-bottom: 0.5px solid rgba(42,38,35,0.12) !important;
+        padding: 24px 20px 20px !important;
+        justify-content: flex-start !important;
+        gap: 14px !important;
+        height: auto !important;
+      }
+      .packs-left__title {
+        font-size: clamp(32px, 9vw, 48px) !important;
+        line-height: 1.05 !important;
+      }
+      .br-desktop { display: none !important; }
+      .packs-left__sub { font-size: 10px !important; max-width: none !important; margin: 0 !important; }
+      .packs-color { margin-bottom: 0 !important; }
+      .packs-color__label { margin-bottom: 8px !important; }
+      .packs-scroll-hint { margin-top: 8px !important; font-size: 8px !important; }
+
+      /* ── RIGHT: contenedor simple, sin overflow propio ── */
+      .packs-right {
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .packs-right::after { display: none !important; }
+
+      /* ── TRACK: scroll horizontal directo ── */
+      .packs-track {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        padding: 12px 20px 20px !important;
+        gap: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        align-items: stretch !important;
+        scrollbar-width: none !important;
+      }
+      .packs-track::-webkit-scrollbar { display: none !important; }
+
+      /* ── CARDS: 58vw, snap, peek de la siguiente ── */
+      .pack-card {
+        width: 58vw !important;
+        min-width: 58vw !important;
+        flex-shrink: 0 !important;
+        margin: 0 !important;
+        scroll-snap-align: start !important;
+      }
+      .pack-card:last-child { margin-right: 20vw !important; }
+
+      /* ── IMAGEN ── */
+      .pack-img { flex: 0 0 52% !important; }
+
+      /* ── PACK INFO ── */
+      .pack-info {
+        padding: 10px 14px 6px !important;
+        gap: 3px !important;
+        flex: 1 !important;
+      }
+      .pack-info__num { font-size: 8px !important; margin-bottom: 2px !important; }
+      .pack-info__name { font-size: 10px !important; white-space: normal !important; line-height: 1.2 !important; }
+
+      /* ── BOTÓN ── */
+      .pack-img { flex: 0 0 62% !important; }
+      .pack-card__btn-wrap { margin: 6px 14px 10px !important; }
+      .pack-card__btn { font-size: 8px !important; padding: 9px 12px !important; width: 100% !important; }
+      .pack-card__btn span { font-size: 10px !important; }
+
+      /* ── FOOTER ── */
+      .footer-card { border-radius: 0 0 1.6rem 1.6rem !important; }
+      .footer-top { flex-direction: column !important; gap: 4rem !important; padding: 4rem 2.4rem 3rem !important; }
+      .footer-links { flex-direction: row !important; gap: 2rem !important; flex-wrap: wrap !important; }
+    }
+    /* ── FOOTER ── */
+    footer { margin-top: 10rem; position: relative; }
+    .footer-brand { position: sticky; bottom: 0; height: 30vh; background: #b92c1d; overflow: hidden; z-index: 1; }
+    .footer-word { display: block; text-align: center; font-family: 'All Round Gothic','Poppins',sans-serif; font-weight: 500; font-size: clamp(12rem, 22vw, 30rem); letter-spacing: -0.02em; line-height: 0.85; color: rgba(249,248,246,0.12); user-select: none; padding-top: 3rem; }
+    .footer-card { position: relative; z-index: 2; background: #f9f8f6; border-radius: 0 0 4.8rem 4.8rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4rem; padding: 6rem 6rem 5rem; border-bottom: 0.5px solid rgba(42,38,35,0.15); }
+    .footer-left { display: flex; flex-direction: column; gap: 3.2rem; max-width: 32rem; }
+    .footer-tagline { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: clamp(2.4rem, 3vw, 3.6rem); line-height: 1.15; letter-spacing: -0.02em; color: #2A2623; }
+    .footer-tagline em { font-style: italic; font-weight: 400; }
+    .footer-cta-btn { display: inline-flex; align-items: center; padding: 1.2rem 2.6rem; background: #2A2623; color: #f9f8f6; border-radius: 10rem; font-size: 1.3rem; font-weight: 500; font-family: 'Poppins',sans-serif; transition: opacity 0.2s; text-decoration: none; }
+    .footer-cta-btn:hover { opacity: 0.8; }
+    .footer-links { display: flex; gap: 5.6rem; }
+    .footer-col h4 { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #b92c1d; margin-bottom: 1.6rem; }
+    .footer-col a { display: block; font-size: 1.4rem; color: #2A2623; opacity: 0.55; margin-bottom: 1rem; transition: opacity 0.2s; text-decoration: none; }
+    .footer-col a:hover { opacity: 1; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2rem 6rem; }
+    .footer-copy { font-size: 1.1rem; color: #2A2623; }
+    .footer-legal { display: flex; gap: 2.4rem; }
+    .footer-legal a { font-size: 1.1rem; color: #2A2623; opacity: 0.45; transition: opacity 0.2s; }
+    .footer-legal a:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-bg"></div>
+  <div class="nav-hl" id="nav-hl"></div>
+  <a href="index.html" class="nav-item nav-logo" aria-label="paso inicio">.paso</a>
+  <a href="producto.html" class="nav-item">Producto</a>
+  <a href="accesorios.html" class="nav-item">Accesorios</a>
+  <a href="shop.html" class="nav-item active">Shop</a>
+  <a href="sobre-nosotros.html" class="nav-item">La marca</a>
+  <a href="carrito.html" class="nav-item nav-carrito" aria-label="Carrito">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span id="cart-count">0</span>
+  </a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menú">
+    
+    <a href="producto.html">Producto</a>
+    <a href="accesorios.html">Accesorios</a>
+    <a href="shop.html">Shop</a>
+    <a href="sobre-nosotros.html">La marca</a>
+    <a href="carrito.html">Carrito</a>
+  </div>
+
+<!-- Sub-nav de shop -->
+<nav class="shop-subnav" style="margin-top: 72px;">
+  <a href="shop.html" class="shop-subnav__tab">Configurar</a>
+  <a href="packs.html" class="shop-subnav__tab active">Packs</a>
+</nav>
+
+<!-- STICKY SCROLL SECTION -->
+<div class="packs-scroll-outer" id="packs-scroll-outer">
+  <div class="packs-sticky" id="packs-sticky">
+
+    <!-- LEFT: fixed hero -->
+    <div class="packs-left">
+      <div>
+        <h1 class="packs-left__title">
+          Armá<br class="br-desktop">
+          tu<br class="br-desktop">
+          setup<br>
+          <em>completo.</em>
+        </h1>
+      </div>
+      <div>
+        <p class="packs-left__sub">Elegí tu setup completo y ahorrá hasta $14.999.</p>
+        <div class="packs-color" style="margin-top:20px;">
+          <span class="packs-color__label">Color del set</span>
+          <div class="packs-color__options">
+            <button class="packs-color__opt selected" data-color="navy" onclick="selectColor(this)" style="background:#1E367B;" aria-label="Azul"></button>
+            <button class="packs-color__opt" data-color="negro" onclick="selectColor(this)" style="background:#2A2623;" aria-label="Negro"></button>
+            <button class="packs-color__opt" data-color="esmeralda" onclick="selectColor(this)" style="background:#4A5C3F;" aria-label="Verde"></button>
+            <button class="packs-color__opt" data-color="gris" onclick="selectColor(this)" style="background:#828282;" aria-label="Gris"></button>
+          </div>
+        </div>
+        <div class="packs-scroll-hint">Scrolleá para ver los packs</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: sliding track -->
+    <div class="packs-right" id="packs-right">
+    <div class="packs-track" id="packs-track">
+
+      <!-- Pack 01 -->
+      <div class="pack-card" id="pack-card-0">
+        <div class="pack-img">
+          <img id="pack-img-1" src="assets/images/pack1_azul_detalle.png" alt="Setup · base">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Setup · base</span>
+          <h2 class="pack-info__name">paso · 01 + box · control + soporte · cable</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-0">
+          <button class="pack-card__btn" onclick="addPack(0,'pack-01','Pack 01 · rack + control + cable',455000)">Agregar al carrito <span>$455.000</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 02 -->
+      <div class="pack-card" id="pack-card-1">
+        <div class="pack-img">
+          <img id="pack-img-2" src="assets/images/pack2_azul_detalle.png" alt="Setup · sala">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Setup · sala</span>
+          <h2 class="pack-info__name">paso · 01 + box · control + estante · 01</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-1">
+          <button class="pack-card__btn" onclick="addPack(1,'pack-02','Pack 02 · rack + control + estante',485000)">Agregar al carrito <span>$485.000</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 03 -->
+      <div class="pack-card" id="pack-card-2">
+        <div class="pack-img">
+          <img id="pack-img-3" src="assets/images/pack3_azul_detalle.png" alt="Setup · completo">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Setup · completo</span>
+          <h2 class="pack-info__name">paso · 01 + estante · 01</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-2">
+          <button class="pack-card__btn" onclick="addPack(2,'pack-03','Pack 03 · rack + estante',489999)">Agregar al carrito <span>$489.999</span></button>
+        </div>
+      </div>
+
+      <!-- Pack 04 -->
+      <div class="pack-card" id="pack-card-3">
+        <div class="pack-img">
+          <img id="pack-img-4" src="assets/images/pack4_azul_detalle.png" alt="Setup · gamer">
+        </div>
+        <div class="pack-info">
+          <span class="pack-info__num">Setup · gamer</span>
+          <h2 class="pack-info__name">paso · 01 + soporte · play/xbox + soporte · joystick</h2>
+        </div>
+        <div class="pack-card__btn-wrap" id="btn-wrap-3">
+          <button class="pack-card__btn" onclick="addPack(3,'pack-04','Pack 04 · rack + play + joystick',479999)">Agregar al carrito <span>$479.999</span></button>
+        </div>
+      </div>
+
+    </div><!-- /packs-track -->
+    </div><!-- /packs-right -->
+  </div><!-- /packs-sticky -->
+</div><!-- /packs-scroll-outer -->
+
+
+
+<!-- ── CART + HAMBURGER ── -->
+<script>
+  const packImgName = { navy: 'azul', esmeralda: 'verde', negro: 'negro', gris: 'gris' };
+
+  function selectColor(btn) {
+    document.querySelectorAll('.packs-color__opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const color = btn.dataset.color;
+    const slug  = packImgName[color] || color;
+    [1, 2, 3, 4].forEach(n => {
+      const img = document.getElementById('pack-img-' + n);
+      if (img) img.src = `assets/images/pack${n}_${slug}_detalle.png`;
+    });
+  }
+
+  function getSelectedColor() {
+    const sel = document.querySelector('.packs-color__opt.selected');
+    return sel ? sel.dataset.color : 'navy';
+  }
+
+  // Stepper config per card index
+  const packDefs = [
+    { id:'pack-01', name:'Pack 01 · rack + control + cable',  price:455000 },
+    { id:'pack-02', name:'Pack 02 · rack + control + estante', price:485000 },
+    { id:'pack-03', name:'Pack 03 · rack + estante',           price:489999 },
+    { id:'pack-04', name:'Pack 04 · rack + play + joystick',   price:479999 },
+  ];
+
+  function updateCartCount() {
+    if (typeof Cart !== 'undefined') Cart.updateUI();
+    else {
+      const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+      const c = document.getElementById('cart-count');
+      if (c) c.textContent = cart.reduce((s,i)=>s+i.qty,0);
+    }
+  }
+
+  function addPack(idx, id, name, price) {
+    const color = getSelectedColor();
+    const colorName = { navy:'Azul', negro:'Negro', esmeralda:'Verde', gris:'Gris' }[color] || color;
+    const fullId = `${id}-${color}`;
+    if (typeof Cart !== 'undefined') {
+      Cart.add({ id: fullId, name, color, colorName, price, qty: 1 });
+    } else {
+      const cart = JSON.parse(localStorage.getItem('paso-cart') || '[]');
+      const ex = cart.find(i => i.id === fullId);
+      if (ex) { ex.qty += 1; } else { cart.push({ id: fullId, name, price, qty: 1, color, colorName }); }
+      localStorage.setItem('paso-cart', JSON.stringify(cart));
+    }
+    updateCartCount();
+    // Feedback breve: negro = agregado, vuelve al estado original
+    const btn = document.querySelector(`#btn-wrap-${idx} .pack-card__btn`);
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Agregado <span>$' + price.toLocaleString('es-AR') + '</span>';
+      btn.style.background = '#2A2623';
+      btn.style.color = '#faf8f6';
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 1500);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCartCount();
+
+    const hamburger  = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-menu-close');
+    function close() { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow=''; }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''; });
+      if (mobileClose) mobileClose.addEventListener('click', close);
+      mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+    }
+  });
+</script>
+
+<!-- ── REDIRIGIR SCROLL VERTICAL → HORIZONTAL ── -->
+<script>
+(function() {
+  const right = document.getElementById('packs-right');
+  if (!right) return;
+
+  // Wheel: redirigir deltaY a scroll horizontal (solo desktop)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    right.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      right.scrollLeft += e.deltaY;
+    }, { passive: false });
+  }
+
+})();
+</script>
+
+<script>
+  // nav highlight flotante
+  (function() {
+    const items = document.querySelectorAll('.nav-item:not(.nav-logo)');
+    const hl = document.getElementById('nav-hl');
+    const nav = document.getElementById('navbar');
+    if (!hl || !nav) return;
+    function moveHl(el) {
+      const nr = nav.getBoundingClientRect();
+      const er = el.getBoundingClientRect();
+      hl.style.width = er.width + 'px';
+      hl.style.left  = (er.left - nr.left) + 'px';
+      hl.style.opacity = '1';
+    }
+    items.forEach(item => {
+      item.addEventListener('mouseenter', () => moveHl(item));
+      item.addEventListener('mouseleave', () => { hl.style.opacity = '0'; });
+    });
+  })();
+</script>
+<script src="cart.js"></script>
+<script src="accesorios-panel.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => Cart.updateBadge());</script>
+
+
+</body>
+</html>

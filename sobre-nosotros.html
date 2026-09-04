@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>La marca — paso</title>
+  <meta name="description" content="paso diseña objetos industriales para una forma de vivir más flexible. Piezas móviles, simples y honestas.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-book.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-medium.otf') format('opentype'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-bold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+
+    html { font-size: 62.5%; }
+
+    :root {
+      --color-bg: #faf8f6;
+      --paso-avena: #faf8f6;
+      --paso-madera: #9B8065;
+      --paso-carbon: #2A2623;
+      --color-text: #2A2623;
+      --color-muted: #9B8065;
+      --paso-arcilla: #B88B7A;
+      --paso-salvia: #8C9677;
+      --paso-cielo: #9AAABC;
+      --paso-borgona: #6F2A2A;
+      --font-display: 'All Round Gothic','Poppins',sans-serif;
+      --font-body: 'Poppins',sans-serif;
+      --margin-side: 48px;
+      --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    body { background: #faf8f6; }
+
+    /* ── FLOATING PILL NAV ── */
+    #navbar { position:fixed; left:50%; top:1.6rem; transform:translateX(-50%); z-index:1000; display:flex; align-items:center; width:max-content; }
+    .nav-bg { position:absolute; pointer-events:none; height:calc(4.4rem + 1.2rem); width:calc(100% + 1.2rem); top:-0.6rem; left:-0.6rem; border-radius:1.6rem; border:1px solid rgba(42,38,35,0.12); background:#faf8f6; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+    .nav-item { position:relative; display:flex; align-items:center; height:4.4rem; padding:0 1.6rem; font-size:1.3rem; font-weight:500; color:#2A2623; white-space:nowrap; cursor:pointer; border-radius:1.2rem; font-family:'Poppins',sans-serif; text-decoration:none; }
+    .nav-item:hover { background:rgba(42,38,35,0.06); }
+    .nav-item.active { background:rgba(42,38,35,0.08); }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-size:1.7rem; letter-spacing:0.04em; text-transform:none !important; color: #b92c1d; }
+
+    /* ── NAVBAR ── */
+
+    /* ── INTRO ── */
+    #intro-sticky { background: #faf8f6; }
+
+    /* ── SECCIÓN "LA CASA CAMBIÓ" ── */
+    #sn-spacer { position:relative; height:280vh; }
+    #sn-sticky {
+      position:sticky; top:0;
+      height:100svh; overflow:hidden;
+      background:#faf8f6;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center;
+    }
+    #sn-center {
+      position:absolute; top:50%; left:50%;
+      width:0; height:0; pointer-events:none;
+    }
+    .sn-flt {
+      position:absolute;
+      border-radius:1.6rem; overflow:hidden;
+      transform-origin:center center;
+      will-change:transform,opacity;
+    }
+    .sn-flt img { width:100%; height:auto; display:block; }
+    .sn-flt-tl { width:clamp(11rem,14vw,22rem); }
+    .sn-flt-tc { width:clamp(14rem,18vw,26rem); }
+    .sn-flt-tr { width:clamp(11rem,13vw,20rem); }
+    .sn-flt-bl { width:clamp(13rem,17vw,26rem); }
+    .sn-flt-br { width:clamp(14rem,18vw,28rem); }
+    #sn-inner {
+      position:relative; z-index:2;
+      display:flex; flex-direction:column;
+      align-items:center; gap:2.4rem;
+      max-width:60rem; padding:0 2.4rem;
+      will-change:opacity,transform;
+    }
+    .sn-heading {
+      font-family:'Poppins',sans-serif; font-weight:700;
+      font-size:clamp(2.8rem,4vw,5.2rem);
+      line-height:1.15; letter-spacing:-0.02em;
+      text-align:center; text-wrap:balance; color:#2A2623;
+    }
+    .sn-sub {
+      font-family:'Poppins',sans-serif; font-size:1.4rem; line-height:1.65;
+      color:#2A2623; max-width:46rem; text-align:center;
+    }
+    .sn-intro__title { color: var(--paso-carbon); }
+    .sn-intro p { font-family:var(--font-body); font-size:16px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── TERRITORIO / ARGENTINA ── */
+    .sn-duo { background: #faf8f6; margin-top: 8rem; }
+    .sn-duo, .sn-duo--reverse { border: none !important; }
+    .sn-duo__text { border: none !important; }
+    .sn-duo--reverse .sn-duo__text { border: none !important; }
+    .sn-duo__img { border-radius: 0; overflow: visible !important; }
+    .sn-duo__img img { border-radius: 1.6rem; }
+    .sn-duo .label { font-family:var(--font-body); font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color: #b92717; display:block; margin-bottom:12px; }
+    .sn-duo h2 { font-family:Georgia,serif; font-weight:400; font-style:italic; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; margin-bottom:20px; color: var(--paso-carbon); }
+    .sn-duo p { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── FOTO ANCHA ── */
+    .sn-fullimg { margin-bottom: 80px; }
+    .sn-fullimg img { border-radius: 16px; }
+
+    /* ── MANIFIESTO ── */
+    .sn-manifesto { border-top: none; }
+    .sn-manifesto__title { font-family:var(--font-display); font-weight:400; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; color: var(--paso-carbon); margin-bottom:24px; }
+    .sn-manifesto__title em { color: #b92717; font-style:italic; font-family:Georgia,serif; }
+    .sn-manifesto__text { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); }
+
+    /* ── CIERRE ── */
+    .sn-cierre { border-top: none; }
+    .sn-cierre h2 { font-family:Georgia,serif; font-weight:400; font-style:italic; font-size:clamp(28px,3vw,44px); letter-spacing:-0.01em; line-height:1.15; color: var(--paso-carbon); }
+    .sn-cierre p { font-family:var(--font-body); font-size:13px; line-height:1.7; color: var(--paso-carbon); margin-bottom:12px; }
+    .sn-cierre .btn { border-color: #b92717; color: #b92717; }
+    .sn-cierre .btn:hover { background: #b92717; color: #ffffff; }
+
+    /* ── INTRO ANIMACIÓN ── */
+    #intro-section { position:relative; height:250vh; z-index:1; }
+    #intro-sticky { position:sticky; top:0; height:100vh; overflow:hidden; }
+    #intro-tagline { position:absolute; top:140px; right:var(--margin-side); max-width:340px; font-family:var(--font-display); font-weight:400; font-size:clamp(18px,1.8vw,26px); line-height:1.3; letter-spacing:-0.01em; color:var(--color-text); opacity:0; transform:translateY(12px); transition:opacity 0.6s var(--ease),transform 0.6s var(--ease); }
+    #intro-tagline em { font-style:italic; font-family:Georgia,serif; color: #2A2623; }
+    #intro-tagline.visible { opacity:1; transform:translateY(0); }
+    #intro-word { position:absolute; bottom:var(--margin-side); left:var(--margin-side); font-family:var(--font-display); font-weight:500; font-size:clamp(100px,19vw,260px); letter-spacing:-0.02em; color:var(--color-text); line-height:0.9; display:flex; align-items:flex-end; }
+    .intro-letter { display:inline-block; opacity:0; transform:translateY(20px); animation:letterIn 0.5s var(--ease) forwards; will-change:transform,opacity; }
+    @keyframes letterIn { to { opacity:1; transform:translateY(0); } }
+
+    /* ── HERO MOBILE ONLY ── */
+    #sn-hero-mobile { display: none; }
+
+    /* ── MOBILE ── */
+    
+    /* ── HAMBURGER + MOBILE MENU ── */
+    .nav-hamburger {
+      display: none;
+      position: relative; z-index: 1;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; width: 4.4rem; height: 4.4rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav-hamburger span {
+      display: block; width: 1.6rem; height: 1.5px;
+      background: #2A2623; border-radius: 2px;
+      transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(0.65rem) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-0.65rem) rotate(-45deg); }
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: #faf8f4;
+      z-index: 998;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3.2rem 4rem;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-0.8rem);
+      transition: opacity 0.28s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a {
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      font-size: 1.6rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #2A2623; padding: 1.8rem 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.12);
+      opacity: 0.7; transition: opacity 0.2s; text-decoration: none; display: block;
+    }
+    .mobile-menu a:first-of-type { border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .mobile-menu a:hover { opacity: 1; }
+    .mobile-menu__close {
+      position: absolute; top: 2rem; right: 2.4rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 2.2rem; color: #2A2623; line-height: 1;
+      width: 4rem; height: 4rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex !important; }
+      #navbar { top: 1rem; padding: 0 !important; width: max-content !important; }
+      .nav-item:not(.nav-logo):not(.nav-carrito) { display: none; }
+
+      /* ── INTRO: oculta en mobile (reemplazada por hero propio) ── */
+      #intro-section { display: none !important; }
+
+      /* ── HERO MOBILE ── */
+      #sn-hero-mobile {
+        display: flex !important;
+        position: relative;
+        height: 100svh;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+      }
+      .sn-hero-bg { position: absolute; inset: 0; clip-path: inset(0% 0% 0% 0% round 0px); will-change: clip-path; }
+      .sn-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+      .sn-hero-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to bottom, rgba(42,38,35,0.1) 0%, rgba(42,38,35,0.05) 40%, rgba(42,38,35,0.6) 100%);
+      }
+      .sn-hero-content {
+        position: relative; z-index: 2;
+        padding: 0 24px 48px;
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .sn-hero-eyebrow {
+        font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: rgba(239,233,220,0.65); margin: 0;
+      }
+      .sn-hero-h1 {
+        font-family: 'All Round Gothic', 'Poppins', sans-serif; font-weight: 500;
+        font-size: clamp(36px, 11vw, 56px);
+        line-height: 1.05; letter-spacing: -0.02em;
+        color: #f9f8f6; margin: 0;
+      }
+      .sn-hero-h1 em { font-style: italic; font-family: Georgia, serif; font-weight: 400; }
+
+      /* ── SECCIÓN FLOTANTE: layout estático en mobile ── */
+      #sn-spacer { height: auto !important; }
+      #sn-sticky {
+        position: relative !important;
+        height: auto !important;
+        padding: 40px 0 0 !important;
+        overflow: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+      }
+      /* Texto primero */
+      #sn-inner {
+        order: 1 !important;
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        padding: 0 24px 32px !important;
+        max-width: none !important;
+        gap: 1.2rem !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+      }
+      .sn-heading { font-size: 28px !important; text-align: left !important; }
+      .sn-sub { font-size: 13px !important; text-align: left !important; max-width: none !important; }
+      /* Galería horizontal scrollable */
+      #sn-center {
+        order: 2 !important;
+        position: relative !important;
+        left: auto !important; top: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        gap: 6px !important;
+        padding: 0 24px 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        pointer-events: auto !important;
+      }
+      #sn-center::-webkit-scrollbar { display: none !important; }
+      .sn-flt {
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        flex-shrink: 0 !important;
+        width: 56vw !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+      }
+      .sn-flt img { width: 100% !important; height: 100% !important; object-fit: cover !important; aspect-ratio: 3/4 !important; display: block !important; }
+
+      /* ── DUO: columna, texto arriba, foto abajo ── */
+      .sn-duo { display: flex !important; flex-direction: column !important; gap: 0 !important; padding: 0 !important; margin-top: 0 !important; border-top: none !important; min-height: 0 !important; }
+      .sn-duo--reverse { flex-direction: column !important; }
+      .sn-duo__img,
+      .sn-duo__img[style] { width: calc(100% - 16px) !important; margin: 0 8px 32px !important; padding: 0 !important; aspect-ratio: 4/3 !important; min-height: 0 !important; overflow: hidden !important; border-radius: 12px !important; }
+      .sn-duo--reverse .sn-duo__img { order: 0 !important; }
+      .sn-duo__img img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; display: block !important; transform: none !important; }
+      .sn-duo__text { width: 100% !important; padding: 28px 24px 16px !important; border: none !important; justify-content: flex-start !important; }
+      .sn-duo h2 { font-size: 22px !important; margin-bottom: 8px !important; line-height: 1.2 !important; }
+      .sn-duo p { font-size: 13px !important; line-height: 1.6 !important; max-width: none !important; }
+
+      /* ── CIERRE ── */
+      .sn-cierre { display: flex !important; flex-direction: column !important; padding: 24px 24px 40px !important; gap: 8px !important; min-height: 0 !important; align-items: flex-start !important; }
+      .sn-cierre__left { padding: 0 !important; }
+      .sn-cierre__right { padding: 0 !important; }
+      .sn-cierre h2 { font-size: 22px !important; line-height: 1.2 !important; margin-bottom: 6px !important; }
+      .sn-cierre p { font-size: 13px !important; line-height: 1.6 !important; margin-bottom: 4px !important; color: var(--color-muted) !important; }
+      .sn-cierre div[style] { margin-top: 16px !important; }
+
+      /* ── FOOTER ── */
+      .footer-top { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 1.6rem !important; padding: 3rem 2.4rem 2rem !important; }
+      .footer-left { align-items: center !important; gap: 1.6rem !important; }
+      .footer-links { display: none !important; }
+      .footer-bottom { padding: 1.6rem 2.4rem !important; text-align: center !important; }
+      .footer-copy { text-align: center !important; }
+    }
+    /* ── FOOTER ── */
+    footer { position: relative; }
+    .footer-card { background: #faf8f6; border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4rem; padding: 6rem 6rem 5rem; border-bottom: 0.5px solid rgba(42,38,35,0.15); }
+    .footer-left { display: flex; flex-direction: column; gap: 3.2rem; max-width: 32rem; }
+    .footer-tagline { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: clamp(2.4rem, 3vw, 3.6rem); line-height: 1.15; letter-spacing: -0.02em; color: #2A2623; }
+    .footer-tagline em { font-style: italic; font-weight: 400; }
+    .footer-cta-btn { display: inline-flex; align-items: center; padding: 1.2rem 2.6rem; background: #2A2623; color: #faf8f6; border-radius: 10rem; font-size: 1.3rem; font-weight: 500; font-family: 'Poppins',sans-serif; transition: opacity 0.2s; text-decoration: none; }
+    .footer-cta-btn:hover { opacity: 0.8; }
+    .footer-links { display: flex; gap: 5.6rem; }
+    .footer-col h4 { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #b92c1d; margin-bottom: 1.6rem; }
+    .footer-col a { display: block; font-size: 1.4rem; color: #2A2623; opacity: 0.55; margin-bottom: 1rem; transition: opacity 0.2s; text-decoration: none; }
+    .footer-col a:hover { opacity: 1; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2rem 6rem; }
+    .footer-copy { font-size: 1.1rem; color: #2A2623; }
+    .footer-legal { display: flex; gap: 2.4rem; }
+    .footer-legal a { font-size: 1.1rem; color: #2A2623; opacity: 0.45; transition: opacity 0.2s; }
+    .footer-legal a:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+  <!-- ── NAVBAR ── -->
+  <header id="navbar">
+    <div class="nav-bg"></div>
+    <a href="index.html" class="nav-item nav-logo" aria-label="paso inicio">.paso</a>
+    <a href="producto.html" class="nav-item">Producto</a>
+    <a href="accesorios.html" class="nav-item">Accesorios</a>
+    <a href="shop.html" class="nav-item">Shop</a>
+    <a href="sobre-nosotros.html" class="nav-item active">La marca</a>
+    <a href="carrito.html" class="nav-item nav-carrito" aria-label="Carrito" style="display:flex;align-items:center;gap:4px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span id="cart-count-nav" style="font-size:1.2rem;"></span>
+    </a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menú">
+    
+    <a href="producto.html">Producto</a>
+    <a href="accesorios.html">Accesorios</a>
+    <a href="shop.html">Shop</a>
+    <a href="sobre-nosotros.html">La marca</a>
+    <a href="carrito.html">Carrito</a>
+  </div>
+<main>
+
+  <!-- ── HERO MOBILE ONLY ── -->
+  <section id="sn-hero-mobile">
+    <div class="sn-hero-bg">
+      <img src="assets/images/chciasriendo.png" alt="paso · La marca" fetchpriority="high">
+    </div>
+    <div class="sn-hero-overlay"></div>
+    <div class="sn-hero-content">
+      <p class="sn-hero-eyebrow" style="font-family:'All Round Gothic','Poppins',sans-serif; letter-spacing:0.05em;">.paso</p>
+      <h1 class="sn-hero-h1">Hecho para<br><em>moverse con vos.</em></h1>
+    </div>
+  </section>
+
+  <!-- ── INTRO (igual al home) ── -->
+  <section id="intro-section">
+    <div id="intro-sticky">
+      <p id="intro-tagline">Una marca de objetos<br>hechos para moverse con vos</p>
+      <div id="intro-word">
+        <span class="intro-letter" style="animation-delay:0.15s">p</span>
+        <span class="intro-letter" style="animation-delay:0.28s">a</span>
+        <span class="intro-letter" style="animation-delay:0.41s">s</span>
+        <span class="intro-letter" style="animation-delay:0.54s">o</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. INTRO — La casa cambió ── -->
+  <div id="sn-spacer">
+    <div id="sn-sticky">
+      <!-- fotos flotantes -->
+      <div id="sn-center">
+        <div class="sn-flt sn-flt-tl" id="snf0"><img src="assets/images/cocina-azul.png" alt="" loading="lazy"></div>
+        <div class="sn-flt sn-flt-tc" id="snf1"><img src="assets/images/dormitorio-negro.png" alt="" loading="lazy"></div>
+        <div class="sn-flt sn-flt-tr" id="snf2"><img src="assets/images/living-verde-2.png" alt="" loading="lazy"></div>
+        <div class="sn-flt sn-flt-bl" id="snf3"><img src="assets/images/balcon-negro.png" alt="" loading="lazy"></div>
+        <div class="sn-flt sn-flt-br" id="snf4"><img src="assets/images/accesroioshome7.png" alt="" loading="lazy"></div>
+      </div>
+      <!-- texto central -->
+      <div id="sn-inner">
+        <h2 class="sn-heading">La casa cambió</h2>
+        <p class="sn-sub">Trabajamos donde antes descansábamos, comemos donde antes leíamos y nos reunimos en espacios que no estaban pensados para eso. Pero muchos objetos siguen respondiendo a ideas viejas.</p>
+        <p class="sn-sub"><strong>.paso diseña desde ese problema.</strong></p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ── 5. BLOQUE: Territorio ── -->
+  <div class="sn-duo">
+    <div class="sn-duo__text">
+      <h2>Diseño claro,<br>temperatura local</h2>
+      <p>paso vive entre la precisión del diseño industrial y la calidez de una casa real. Tomamos referencias contemporáneas y las traducimos a objetos cercanos, funcionales y pensados para convivir con el uso cotidiano</p>
+    </div>
+    <div class="sn-duo__img" style="padding:2rem 4rem 2rem 0; aspect-ratio:16/9; overflow:hidden;">
+      <img src="assets/images/paso en horizontal.png" alt="paso · 01" loading="lazy" style="border-radius:1.6rem; width:100%; height:100%; object-fit:cover;">
+    </div>
+  </div>
+
+  <!-- ── 6. BLOQUE: Argentina ── -->
+  <div class="sn-duo sn-duo--reverse">
+    <div class="sn-duo__text">
+      <h2>Fabricado en<br>Argentina</h2>
+      <p>Diseñamos desde una forma de habitar concreta: espacios más pequeños, usos más flexibles y objetos que necesitan adaptarse a distintas situaciones durante el día. paso nace desde esa lógica</p>
+    </div>
+    <div class="sn-duo__img" style="padding:2rem 4rem 2rem 0; aspect-ratio:16/9; overflow:hidden;">
+      <img src="assets/images/playbalcon.webp" alt="paso · 01 en balcón" loading="lazy" style="border-radius:1.6rem; width:100%; height:100%; object-fit:cover;">
+    </div>
+  </div>
+
+
+  <!-- ── 8. CIERRE ── -->
+  <div class="sn-cierre">
+    <div class="sn-cierre__left">
+      <h2>Diseño industrial<br>para la vida cotidiana</h2>
+    </div>
+    <div class="sn-cierre__right">
+      <p>paso combina movilidad, claridad estructural y uso real en objetos pensados para convivir naturalmente con una casa contemporánea</p>
+      <p>No buscamos seguir tendencias ni decorar espacios.<br>Diseñamos piezas que funcionan, se mueven y permanecen</p>
+      <div style="margin-top:var(--space-xl);">
+        <a href="producto.html" style="display:inline-flex; align-items:center; padding:1.2rem 2.6rem; background:#faf8f6; color:#2A2623; border:1px solid #2A2623; border-radius:10rem; font-size:1.3rem; font-weight:500; font-family:'Poppins',sans-serif; text-decoration:none; transition:background 0.2s, color 0.2s;">Ver paso · 01</a>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-card">
+    <div class="footer-top">
+      <div class="footer-left">
+        <p class="footer-tagline">Hecho para moverse<br><em>con vos</em></p>
+        <a href="shop.html" class="footer-cta-btn">Comprar</a>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Producto</h4>
+          <a href="producto.html">paso · 01</a>
+          <a href="accesorios.html">Accesorios</a>
+          <a href="packs.html">Packs</a>
+        </div>
+        <div class="footer-col">
+          <h4>Marca</h4>
+          <a href="sobre-nosotros.html">Sobre paso</a>
+          <a href="shop.html">Shop</a>
+          <a href="carrito.html">Carrito</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <a href="mailto:info.paso.ar@gmail.com">info.paso.ar@gmail.com</a>
+          <a href="https://www.instagram.com/paso_ar/" target="_blank" rel="noopener">@paso_ar</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 .paso · todos los derechos reservados · sitio realizado por Studio Blu</p>
+      <div class="footer-legal">
+        <a href="cookies.html">Cookies</a>
+        <a href="seguridad.html">Seguridad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="cart.js"></script>
+<script src="accesorios-panel.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());</script>
+<script src="main.js"></script>
+<script src="scroll.js"></script>
+<script>
+  const introSection = document.getElementById('intro-section');
+  const introTagline = document.getElementById('intro-tagline');
+  const letters = Array.from(document.querySelectorAll('.intro-letter'));
+
+  setTimeout(() => {
+    letters.forEach(l => { l.style.opacity='1'; l.style.transform='translateY(0)'; l.style.animation='none'; });
+  }, 1200);
+
+  function onScroll() {
+    if (window.innerWidth <= 768) return;
+    const rect = introSection.getBoundingClientRect();
+    const scrollable = introSection.offsetHeight - window.innerHeight;
+    const scrolled = Math.max(0, -rect.top);
+    const progress = Math.min(1, scrolled / scrollable);
+
+    if (progress > 0.05) introTagline.classList.add('visible');
+    else introTagline.classList.remove('visible');
+
+    const exitStart = 0.45;
+    if (progress > exitStart) {
+      const exitP = (progress - exitStart) / (1 - exitStart);
+      letters.forEach((l, i) => {
+        const stagger = i * 0.18;
+        const lp = Math.max(0, Math.min(1, (exitP - stagger) / (1 - stagger)));
+        l.style.transform = `translateY(${-lp * 130}%)`;
+        l.style.opacity = String(1 - lp);
+      });
+    } else {
+      letters.forEach(l => { l.style.transform='translateY(0)'; l.style.opacity='1'; });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ── SOLAPA: 90% → 100% ── */
+  const snCard = document.getElementById('sn-intro-card');
+  function onCardScroll() {
+    if (window.innerWidth <= 768) return;
+    const rect = snCard.getBoundingClientRect();
+    const winH = window.innerHeight;
+    const p = Math.min(1, Math.max(0, 1 - rect.top / winH));
+    const w = 90 + p * 10;
+    snCard.style.width = `${w}%`;
+    snCard.style.marginLeft = `${(100 - w) / 2}%`;
+    snCard.style.borderRadius = `${48 * (1 - p)}px ${48 * (1 - p)}px 0 0`;
+  }
+  window.addEventListener('scroll', onCardScroll, { passive: true });
+  onCardScroll();
+</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const nav = document.getElementById('cart-count-nav');
+      if (nav) nav.textContent = Cart.count() || '';
+    });
+  </script>
+
+  <script>
+  (function(){
+    const spacer = document.getElementById('sn-spacer');
+    const inner  = document.getElementById('sn-inner');
+    if (!spacer || !inner) return;
+
+    const fltData = [
+      { el: document.getElementById('snf0'), tx: -0.28, ty: -0.20 },
+      { el: document.getElementById('snf1'), tx: -0.34, ty:  0.12 },
+      { el: document.getElementById('snf2'), tx:  0.28, ty: -0.20 },
+      { el: document.getElementById('snf3'), tx: -0.22, ty:  0.30 },
+      { el: document.getElementById('snf4'), tx:  0.38, ty:  0.08 },
+    ];
+    const delays = [0, 0.08, 0.16, 0.24, 0.32];
+
+    function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
+
+    if (window.innerWidth > 768) {
+      inner.style.opacity   = '0';
+      inner.style.transform = 'translateY(2.4rem)';
+    }
+
+    function setFlt(f, ft) {
+      const dist = 1 + (1 - ft) * 0.5;
+      const tx = f.tx * window.innerWidth  * dist;
+      const ty = f.ty * window.innerHeight * dist;
+      f.el.style.transform = `translate(calc(${tx}px - 50%), calc(${ty}px - 50%)) scale(${ft})`;
+    }
+    if (window.innerWidth > 768) fltData.forEach(f => setFlt(f, 0));
+
+    function update() {
+      if (window.innerWidth <= 768) return;
+      const rect       = spacer.getBoundingClientRect();
+      const scrollable = spacer.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+
+      const innerT = easeOut3(Math.max(0, Math.min(1, (p - 0.18) / 0.16)));
+      inner.style.opacity   = innerT;
+      inner.style.transform = `translateY(${(1 - innerT) * 2.4}rem)`;
+
+      fltData.forEach((f, i) => {
+        const start = 0.04 + delays[i];
+        const ft    = easeOut3(Math.max(0, Math.min(1, (p - start) / 0.20)));
+        setFlt(f, ft);
+        f.el.style.opacity = ft;
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', () => {
+      fltData.forEach(f => setFlt(f, parseFloat(f.el.style.opacity) || 0));
+    }, { passive: true });
+    update();
+  })();
+  </script>
+
+<script>
+/* ── HERO MOBILE SCROLL COMPRESSION ── */
+(function(){
+  const bg      = document.querySelector('.sn-hero-bg');
+  const overlay = document.querySelector('.sn-hero-overlay');
+  const hero    = document.getElementById('sn-hero-mobile');
+  if (!bg || !hero) return;
+  function easeOut(t) { return 1 - Math.pow(1 - t, 2); }
+  function update() {
+    if (window.innerWidth > 768) return;
+    const raw  = Math.min(1, window.scrollY / (hero.offsetHeight * 0.6));
+    const prog = easeOut(raw);
+    const side   = prog * 7;
+    const top    = prog * 1.5;
+    const radius = prog * 56;
+    const clip   = `inset(${top}% ${side}% 0% ${side}% round ${radius}px)`;
+    bg.style.clipPath      = clip;
+    if (overlay) overlay.style.clipPath = clip;
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+
+<script>
+  (function() {
+    const hamburger = document.getElementById('nav-hamburger');
+    const menu      = document.getElementById('mobile-menu');
+    const closeBtn  = document.getElementById('mobile-menu-close');
+    if (!hamburger || !menu) return;
+    function openMenu()  { hamburger.classList.add('open');    menu.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hamburger.classList.remove('open'); menu.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+
+</body>
+</html>

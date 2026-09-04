@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/logo png.png">
+  <meta name="description" content="paso · 01 — soporte de TV | Hecho para moverse con vos.">
+  <meta property="og:title" content="paso · 01">
+  <meta property="og:description" content="paso · 01 Diseñado y fabricado en Argentina.">
+  <meta property="og:image" content="https://paso-ar.com/assets/images/paso en horizontal.png">
+  <meta property="og:url" content="https://paso-ar.com">
+  <meta property="og:type" content="website">
+  <title>Checkout — paso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-book.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-medium.otf') format('opentype'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'All Round Gothic'; src:url('assets/fonts/Fontspring-DEMO-allroundgothic-bold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+
+    html { font-size: 62.5%; }
+    body { background:#faf8f6; }
+    :root { --color-bg:#faf8f6; }
+
+    /* ── FLOATING PILL NAV ── */
+    #navbar { position:fixed; left:50%; top:1.6rem; transform:translateX(-50%); z-index:1000; display:flex; align-items:center; width:max-content; }
+    .nav-bg { position:absolute; pointer-events:none; height:calc(4.4rem + 1.2rem); width:calc(100% + 1.2rem); top:-0.6rem; left:-0.6rem; border-radius:1.6rem; border:1px solid rgba(42,38,35,0.12); background:#faf8f6; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+    .nav-item { position:relative; display:flex; align-items:center; height:4.4rem; padding:0 1.6rem; font-size:1.3rem; font-weight:500; color:#2A2623; white-space:nowrap; cursor:pointer; border-radius:1.2rem; font-family:'Poppins',sans-serif; text-decoration:none; }
+    .nav-item:hover { background:rgba(42,38,35,0.06); }
+    .nav-item.active { background:rgba(42,38,35,0.08); }
+    .nav-logo { font-family:'All Round Gothic','Poppins',sans-serif; font-size:1.7rem; letter-spacing:0.04em; text-transform:none !important; color: #b92c1d; }
+
+    /* ── LAYOUT ── */
+    .checkout-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── STEPS ── */
+    .checkout-steps {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .checkout-step {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(42,38,35,0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .checkout-step.active { color: #2A2623; }
+    .checkout-step.done { color: #b92717; }
+    .step-sep { color: rgba(42,38,35,0.2); }
+    .checkout-step__num { font-family: var(--font-body); font-weight: 500; font-size: 13px; }
+
+    /* ── FORM ── */
+    .form-section__title {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: clamp(22px, 3vw, 36px);
+      letter-spacing: -0.01em;
+      color: #2A2623;
+      margin-bottom: 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2A2623;
+    }
+    .form-input, .form-select {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: #2A2623;
+      border: none;
+      border-bottom: 0.5px solid rgba(42,38,35,0.3);
+      padding: 10px 0;
+      background: none;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus { border-bottom-color: #2A2623; }
+    .form-select { cursor: pointer; }
+
+    /* ── SHIPPING & PAYMENT OPTIONS ── */
+    .option-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      border: 0.5px solid rgba(42,38,35,0.2);
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+    }
+    .option-row:has(input:checked) { border-color: #2A2623; }
+    .option-row input[type="radio"] { margin-top: 2px; accent-color: #b92717; }
+    .option-row__title { font-family: var(--font-body); font-size: 13px; font-weight: 500; color: #2A2623; margin-bottom: 3px; }
+    .option-row__sub { font-family: var(--font-body); font-size: 11px; color: #9B8065; }
+
+    /* ── BUTTONS ── */
+    .btn-v2 {
+      display: inline-block;
+      padding: 12px 28px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 10rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-v2--primary { background: #faf8f6; color: #2A2623; border: 1px solid #2A2623; }
+    .btn-v2--primary:hover { background: #2A2623; color: #faf8f6; }
+    .btn-v2--outline { background: none; border: 1px solid rgba(42,38,35,0.4); color: #2A2623; }
+    .btn-v2--outline:hover { background: #2A2623; color: #faf8f6; }
+    .btn-row { display: flex; gap: 12px; margin-top: 28px; }
+
+    /* ── SUMMARY ── */
+    .checkout-summary {
+      position: sticky;
+      top: 88px;
+      border: 0.5px solid rgba(42,38,35,0.15);
+      border-radius: 1.6rem;
+      padding: 28px;
+      background: rgba(42,38,35,0.04);
+    }
+    .checkout-summary__title {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: #2A2623;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 0.5px solid rgba(42,38,35,0.1);
+    }
+    .checkout-summary-item {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.08);
+    }
+    .checkout-summary-item__img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: transparent;
+    }
+    .checkout-summary-item__name { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: #2A2623; }
+    .checkout-summary-item__variant { font-family: var(--font-body); font-size: 10px; color: #9B8065; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .checkout-summary-item__price { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: #2A2623; }
+    .checkout-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #2A2623;
+      padding: 8px 0;
+    }
+    .checkout-total-row.final { font-weight: 600; font-size: 15px; border-top: 0.5px solid rgba(42,38,35,0.15); margin-top: 8px; padding-top: 14px; }
+
+    
+    /* ── HAMBURGER + MOBILE MENU ── */
+    .nav-hamburger {
+      display: none;
+      position: relative; z-index: 1;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; width: 4.4rem; height: 4.4rem;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav-hamburger span {
+      display: block; width: 1.6rem; height: 1.5px;
+      background: #2A2623; border-radius: 2px;
+      transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(0.65rem) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-0.65rem) rotate(-45deg); }
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: #faf8f4;
+      z-index: 998;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3.2rem 4rem;
+      opacity: 0; pointer-events: none;
+      transform: translateY(-0.8rem);
+      transition: opacity 0.28s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a {
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      font-size: 1.6rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #2A2623; padding: 1.8rem 0;
+      border-bottom: 0.5px solid rgba(42,38,35,0.12);
+      opacity: 0.7; transition: opacity 0.2s; text-decoration: none; display: block;
+    }
+    .mobile-menu a:first-of-type { border-top: 0.5px solid rgba(42,38,35,0.12); }
+    .mobile-menu a:hover { opacity: 1; }
+    .mobile-menu__close {
+      position: absolute; top: 2rem; right: 2.4rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 2.2rem; color: #2A2623; line-height: 1;
+      width: 4rem; height: 4rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex !important; }
+      #navbar { top: 1rem; padding: 0 !important; width: max-content !important; }
+      .nav-item:not(.nav-logo) { display: none; }
+      .checkout-wrap { grid-template-columns: 1fr !important; padding: 100px 16px 60px !important; gap: 32px !important; }
+      .form-row { grid-template-columns: 1fr !important; }
+      .checkout-steps { gap: 6px !important; margin-bottom: 24px !important; flex-wrap: wrap !important; }
+      .checkout-step { font-size: 10px !important; gap: 4px !important; }
+      .step-sep { font-size: 10px !important; }
+      .form-section__title { font-size: 22px !important; margin-bottom: 20px !important; }
+      .btn-row { flex-direction: column !important; gap: 8px !important; }
+      .btn-v2 { width: 100% !important; text-align: center !important; }
+      .checkout-summary { position: static !important; padding: 20px !important; }
+      .checkout-summary-item { grid-template-columns: 44px 1fr auto !important; gap: 10px !important; }
+      .checkout-summary-item__img { width: 44px !important; height: 44px !important; }
+
+      .footer-card { border-radius: 0 0 1.6rem 1.6rem !important; }
+      .footer-top { flex-direction: column !important; gap: 4rem !important; padding: 4rem 2.4rem 3rem !important; }
+      .footer-links { flex-direction: row !important; gap: 2rem !important; flex-wrap: wrap !important; }
+    }
+    /* ── FOOTER ── */
+    footer { margin-top: 10rem; position: relative; }
+    .footer-brand { position: sticky; bottom: 0; height: 30vh; background: #b92c1d; overflow: hidden; z-index: 1; }
+    .footer-word { display: block; text-align: center; font-family: 'All Round Gothic','Poppins',sans-serif; font-weight: 500; font-size: clamp(12rem, 22vw, 30rem); letter-spacing: -0.02em; line-height: 0.85; color: rgba(249,248,246,0.12); user-select: none; padding-top: 3rem; }
+    .footer-card { position: relative; z-index: 2; background: #f9f8f6; border-radius: 0 0 4.8rem 4.8rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 4rem; padding: 6rem 6rem 5rem; border-bottom: 0.5px solid rgba(42,38,35,0.15); }
+    .footer-left { display: flex; flex-direction: column; gap: 3.2rem; max-width: 32rem; }
+    .footer-tagline { font-family: 'Poppins',sans-serif; font-weight: 600; font-size: clamp(2.4rem, 3vw, 3.6rem); line-height: 1.15; letter-spacing: -0.02em; color: #2A2623; }
+    .footer-tagline em { font-style: italic; font-weight: 400; }
+    .footer-cta-btn { display: inline-flex; align-items: center; padding: 1.2rem 2.6rem; background: #2A2623; color: #f9f8f6; border-radius: 10rem; font-size: 1.3rem; font-weight: 500; font-family: 'Poppins',sans-serif; transition: opacity 0.2s; text-decoration: none; }
+    .footer-cta-btn:hover { opacity: 0.8; }
+    .footer-links { display: flex; gap: 5.6rem; }
+    .footer-col h4 { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #b92c1d; margin-bottom: 1.6rem; }
+    .footer-col a { display: block; font-size: 1.4rem; color: #2A2623; opacity: 0.55; margin-bottom: 1rem; transition: opacity 0.2s; text-decoration: none; }
+    .footer-col a:hover { opacity: 1; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 2rem 6rem; }
+    .footer-copy { font-size: 1.1rem; color: #2A2623; }
+    .footer-legal { display: flex; gap: 2.4rem; }
+    .footer-legal a { font-size: 1.1rem; color: #2A2623; opacity: 0.45; transition: opacity 0.2s; }
+    .footer-legal a:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<header id="navbar">
+  <div class="nav-bg"></div>
+  <a href="index.html" class="nav-item nav-logo" aria-label="paso">.paso</a>
+  <a href="producto.html" class="nav-item">Producto</a>
+  <a href="accesorios.html" class="nav-item">Accesorios</a>
+  <a href="shop.html" class="nav-item">Shop</a>
+  <a href="sobre-nosotros.html" class="nav-item">La marca</a>
+  <a href="carrito.html" class="nav-item" aria-label="Carrito">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span id="cart-count-nav" style="margin-left:4px;font-size:1.2rem;"></span>
+  </a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menú">
+  
+  <a href="producto.html">Producto</a>
+  <a href="accesorios.html">Accesorios</a>
+  <a href="shop.html">Shop</a>
+  <a href="sobre-nosotros.html">La marca</a>
+  <a href="carrito.html">Carrito</a>
+</div>
+
+<main class="checkout-wrap">
+
+  <!-- ── FORMULARIO ── -->
+  <div>
+    <div class="checkout-steps" aria-label="Pasos del checkout">
+      <div class="checkout-step active" id="step-indicator-1">
+        <span class="checkout-step__num">01</span> Datos
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-2">
+        <span class="checkout-step__num">02</span> Dirección
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-3">
+        <span class="checkout-step__num">03</span> Envío
+      </div>
+      <span class="step-sep">·</span>
+      <div class="checkout-step" id="step-indicator-4">
+        <span class="checkout-step__num">04</span> Pago
+      </div>
+    </div>
+
+    <!-- Paso 1 -->
+    <div id="step-1">
+      <div class="form-section__title">Datos personales</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-input" type="text" id="nombre" autocomplete="given-name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="apellido">Apellido</label>
+          <input class="form-input" type="text" id="apellido" autocomplete="family-name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" autocomplete="email" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="telefono">Teléfono</label>
+        <input class="form-input" type="tel" id="telefono" autocomplete="tel" required>
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(2)">Continuar → Dirección</button>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div id="step-2" style="display:none;">
+      <div class="form-section__title">Dirección de envío</div>
+      <div class="form-group">
+        <label class="form-label" for="calle">Calle y número</label>
+        <input class="form-input" type="text" id="calle" autocomplete="street-address" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="piso">Piso / Depto (opcional)</label>
+          <input class="form-input" type="text" id="piso">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cp">Código postal</label>
+          <input class="form-input" type="text" id="cp" autocomplete="postal-code" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="provincia">Provincia</label>
+          <select class="form-select" id="provincia" required>
+            <option value="">Seleccioná</option>
+            <option>Buenos Aires (CABA)</option>
+            <option>Buenos Aires (provincia)</option>
+            <option>Córdoba</option>
+            <option>Santa Fe</option>
+            <option>Mendoza</option>
+            <option>Rosario</option>
+            <option>Otra</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="localidad">Localidad</label>
+          <input class="form-input" type="text" id="localidad" autocomplete="address-level2" required>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(1)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(3)">Continuar → Envío</button>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div id="step-3" style="display:none;">
+      <div class="form-section__title">Opciones de envío</div>
+      <label class="option-row">
+        <input type="radio" name="envio" value="estandar" checked>
+        <div>
+          <div class="option-row__title">Envío estándar — <span style="color:#2A8048; font-weight:600;">Gratis</span></div>
+          <div class="option-row__sub">5–7 días hábiles · Todo el país</div>
+        </div>
+      </label>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(2)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="goToStep(4)">Continuar → Pago</button>
+      </div>
+    </div>
+
+    <!-- Paso 4 -->
+    <div id="step-4" style="display:none;">
+      <div class="form-section__title">Pago</div>
+      <div style="margin-bottom: 32px;">
+        <p style="font-family:var(--font-body); font-size:13px; line-height:1.7; color:var(--color-text); margin-bottom:20px;">
+          Al confirmar tu compra vas a ser redirigido a <strong>Mercado Pago</strong>, donde podés pagar con:
+        </p>
+        <ul style="font-family:var(--font-body); font-size:13px; line-height:2; color:#2A2623; padding-left:0; list-style:none; margin-bottom:20px;">
+          <li>· Tarjeta de crédito — hasta 12 cuotas sin interés</li>
+          <li>· Tarjeta de débito</li>
+          <li>· Transferencia bancaria</li>
+          <li>· Cuenta de Mercado Pago</li>
+        </ul>
+        <p style="font-family:var(--font-body); font-size:11px; color:#9B8065; letter-spacing:0.03em;">
+          Tus datos de pago son procesados de forma segura por Mercado Pago · paso nunca accede a tu información bancaria.
+        </p>
+      </div>
+      <div class="btn-row">
+        <button class="btn-v2 btn-v2--outline" onclick="goToStep(3)">← Volver</button>
+        <button class="btn-v2 btn-v2--primary" onclick="completarCompra()">Completar compra</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESUMEN ── -->
+  <div class="checkout-summary">
+    <div class="checkout-summary__title">Tu pedido</div>
+    <div id="checkout-items"></div>
+    <div id="checkout-totals"></div>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+
+
+<script src="cart.js"></script>
+<script src="accesorios-panel.js"></script>
+<script>
+  let currentStep = 1;
+
+  const STEP_FIELDS = {
+    1: ['nombre','apellido','email','telefono'],
+    2: ['calle','cp','provincia','localidad'],
+  };
+
+  function validateStep(step) {
+    const fields = STEP_FIELDS[step];
+    if (!fields) return true;
+    let ok = true;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const empty = !el.value.trim();
+      el.style.borderBottomColor = empty ? '#b92717' : '';
+      if (empty) ok = false;
+    });
+    if (!ok) {
+      let msg = document.getElementById('step-error');
+      if (!msg) {
+        msg = document.createElement('p');
+        msg.id = 'step-error';
+        msg.style.cssText = 'font-family:var(--font-body);font-size:11px;color:#b92717;margin-top:-8px;margin-bottom:12px;letter-spacing:0.03em;';
+        const btnRow = document.querySelector(`#step-${step} .btn-row`);
+        btnRow.parentNode.insertBefore(msg, btnRow);
+      }
+      msg.textContent = 'Completá todos los campos para continuar.';
+    } else {
+      const msg = document.getElementById('step-error');
+      if (msg) msg.remove();
+    }
+    return ok;
+  }
+
+  function goToStep(n) {
+    if (n > currentStep && !validateStep(currentStep)) return;
+    document.getElementById(`step-${currentStep}`).style.display = 'none';
+    document.getElementById(`step-indicator-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-indicator-${currentStep}`).classList.add('done');
+    currentStep = n;
+    document.getElementById(`step-${n}`).style.display = 'block';
+    document.getElementById(`step-indicator-${n}`).classList.remove('done');
+    document.getElementById(`step-indicator-${n}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function completarCompra() {
+    const btn = document.querySelector('#step-4 .btn-v2--primary');
+    btn.textContent = 'Procesando...';
+    btn.disabled = true;
+
+    const external_reference = 'P' + Date.now().toString().slice(-6);
+    localStorage.setItem('paso-last-order', external_reference);
+
+    const { total: smartTotalAmount, pack: appliedPack } = Cart.smartTotal();
+    const payload = {
+      external_reference,
+      total: smartTotalAmount,
+      pack_applied: appliedPack,
+      items: Cart.items.map(item => ({
+        id: item.id,
+        name: item.name,
+        qty: item.qty,
+        price: item.price,
+      })),
+      payer: {
+        name:    document.getElementById('nombre')?.value || '',
+        surname: document.getElementById('apellido')?.value || '',
+        email:   document.getElementById('email')?.value || '',
+        phone:   document.getElementById('telefono')?.value || '',
+      },
+      shipping: {
+        street: document.getElementById('calle')?.value || '',
+        zip:    document.getElementById('cp')?.value || '',
+      },
+    };
+
+    try {
+      const res = await fetch('/api/create-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error al crear preferencia');
+      window.location.href = data.init_point;
+    } catch (err) {
+      // En prototipo sin backend, redirigir directo a confirmación
+      if (err instanceof TypeError || err.message.includes('fetch')) {
+        localStorage.removeItem('paso-cart');
+        window.location.href = 'orden-confirmada.html';
+      } else {
+        alert('Hubo un problema al procesar el pago. Intentá de nuevo.');
+        btn.textContent = 'Completar compra';
+        btn.disabled = false;
+      }
+    }
+  }
+
+  const itemImgMap = {
+    'paso-01':     { navy: 'assets/images/render-azul.png', esmeralda: 'assets/images/render-azul.png', gris: 'assets/images/render-gris.png', negro: 'assets/images/render-gris.png' },
+    'pack-01':     { navy: 'assets/images/pack1_azul_detalle.png', esmeralda: 'assets/images/pack1_verde_detalle.png', negro: 'assets/images/pack1_negro_detalle.png', gris: 'assets/images/pack1_gris_detalle.png' },
+    'pack-02':     { navy: 'assets/images/pack2_azul_detalle.png', esmeralda: 'assets/images/pack2_verde_detalle.png', negro: 'assets/images/pack2_negro_detalle.png', gris: 'assets/images/pack2_gris_detalle.png' },
+    'pack-03':     { navy: 'assets/images/pack3_azul_detalle.png', esmeralda: 'assets/images/pack3_verde_detalle.png', negro: 'assets/images/pack3_negro_detalle.png', gris: 'assets/images/pack3_gris_detalle.png' },
+    'pack-04':     { navy: 'assets/images/pack4_azul_detalle.png', esmeralda: 'assets/images/pack4_verde_detalle.png', negro: 'assets/images/pack4_negro_detalle.png', gris: 'assets/images/pack4_gris_detalle.png' },
+    'acc-estante': {
+      navy:      'assets/images/accesorios%20azules/sin%20fondo/estanteazulsinfondo.png',
+      esmeralda: 'assets/images/accesorios%20verde/sin%20fondo/estanteverdesinfondo.png',
+      negro:     'assets/images/accesorios%20negro/sin%20fondo/estantenegrosinfondo.png',
+      gris:      'assets/images/accesorios%20gris/sin%20fondo/estantegrissinfondo.png',
+    },
+    'acc-control': {
+      navy:      'assets/images/accesorios%20azules/sin%20fondo/bozcontrolremotoazulsinfondo.png',
+      esmeralda: 'assets/images/accesorios%20verde/sin%20fondo/boxcontrolremotoverdesinfondo.png',
+      negro:     'assets/images/accesorios%20negro/sin%20fondo/boxcontrolremotonegrosinfondo.png',
+      gris:      'assets/images/accesorios%20gris/sin%20fondo/boxcontrolremotogrissinfondo.png',
+    },
+    'acc-play': {
+      navy:      'assets/images/accesorios%20azules/sin%20fondo/playazulsinfondo.png',
+      esmeralda: 'assets/images/accesorios%20verde/sin%20fondo/playverdesinfondo.png',
+      negro:     'assets/images/accesorios%20negro/sin%20fondo/playnegrosinfondo.png',
+      gris:      'assets/images/accesorios%20gris/sin%20fondo/playgrissinfondo.png',
+    },
+    'acc-gancho': {
+      navy:      'assets/images/accesorios%20azules/sin%20fondo/ganchoplayazulsinfondo.png',
+      esmeralda: 'assets/images/accesorios%20verde/sin%20fondo/ganchoplayverdesinfondo.png',
+      negro:     'assets/images/accesorios%20negro/sin%20fondo/ganchoplaynegrosinfondo.png',
+      gris:      'assets/images/accesorios%20gris/sin%20fondo/ganchoplaygrissinfondo.png',
+    },
+    'acc-soporte': {
+      navy:      'assets/images/accesorios%20azules/sin%20fondo/ganchocableazulsinfondo.png',
+      esmeralda: 'assets/images/accesorios%20verde/sin%20fondo/ganchoparacableverdesinfondo.png',
+      negro:     'assets/images/accesorios%20negro/sin%20fondo/ganchocablenegrosinfondo.png',
+      gris:      'assets/images/accesorios%20gris/sin%20fondo/ganchocablegrissinfondo.png',
+    },
+  };
+
+  function renderSummary() {
+    const nav = document.getElementById('cart-count-nav');
+    if (nav) nav.textContent = Cart.count();
+
+    document.getElementById('checkout-items').innerHTML = Cart.items.map(item => {
+      const baseId = item.id.replace(/-(navy|esmeralda|negro|gris)$/, '');
+      const m = itemImgMap[baseId];
+      const src = m ? (m[item.color] || m['navy']) : null;
+      return `
+        <div class="checkout-summary-item">
+          ${src ? `<img class="checkout-summary-item__img" src="${src}" alt="${item.name}">` : `<div class="checkout-summary-item__img"></div>`}
+          <div>
+            <div class="checkout-summary-item__name">${item.name} ×${item.qty}</div>
+            ${item.variant ? `<div class="checkout-summary-item__variant">${item.variant}</div>` : ''}
+          </div>
+          <div class="checkout-summary-item__price">${item.price === 0 ? '<span style="font-weight:600;">Gratis</span>' : Cart.formatPrice(item.price * item.qty)}</div>
+        </div>`;
+    }).join('');
+
+    const { total, pack, savings } = Cart.smartTotal();
+    document.getElementById('checkout-totals').innerHTML = `
+      ${pack ? `<div style="font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;color:#2A8048;margin-bottom:10px;">· ${pack} aplicado — Ahorrás ${Cart.formatPrice(savings)}</div>` : ''}
+      <div class="checkout-total-row"><span>Subtotal</span><span>${Cart.formatPrice(total)}</span></div>
+      <div class="checkout-total-row"><span>Envío</span><span style="color:#2A8048; font-weight:500;">Gratis</span></div>
+      <div class="checkout-total-row final"><span>Total</span><span>${Cart.formatPrice(total)}</span></div>`;
+  }
+
+  renderSummary();
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const path = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('#navbar .nav-item').forEach(a => {
+      if (a.getAttribute('href') === path) a.classList.add('active');
+    });
+  });
+</script>
+<script>
+  // Mobile menu
+  (function() {
+    const hamburger = document.getElementById('nav-hamburger');
+    const menu      = document.getElementById('mobile-menu');
+    const closeBtn  = document.getElementById('mobile-menu-close');
+    if (!hamburger || !menu) return;
+    function openMenu()  { hamburger.classList.add('open');    menu.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hamburger.classList.remove('open'); menu.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  })();
+</script>
+
+</body>
+</html>
