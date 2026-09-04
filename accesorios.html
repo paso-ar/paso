@@ -157,8 +157,8 @@
     /* imágenes pegadas al texto */
     .acc-row__images { display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 0 !important; justify-content: flex-start !important; }
     .acc-img-cell { background: #faf8f4 !important; padding: 10px !important; aspect-ratio: 1 / 1 !important; height: auto !important; width: 100px !important; flex-shrink: 0 !important; border-left: none !important; }
-    .acc-img-cell img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: clamp(8px, 1vw, 12px) !important; transition: opacity 0.3s !important; }
-    .acc-img-cell .img-hover { position: absolute !important; inset: 0 !important; opacity: 0 !important; width: 100% !important; height: 100% !important; border-radius: clamp(8px, 1vw, 12px) !important; object-fit: cover !important; }
+    .acc-img-cell img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: clamp(8px, 1vw, 12px) !important; transition: opacity 0.3s !important; }
+    .acc-img-cell .img-hover { opacity: 0 !important; }
     .acc-img-cell:hover .img-hover { opacity: 1 !important; }
     .acc-img-cell:hover .img-default { opacity: 0 !important; }
     .acc-img-cell__add { display: none !important; }
