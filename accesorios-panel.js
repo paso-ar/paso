@@ -470,7 +470,7 @@
 
   function init() {
     buildPanel();
-    document.querySelectorAll('a[href="accesorios.html"]').forEach(link => {
+    document.querySelectorAll('a[href="accesorios.html"], a[href="accesorios"], a[href="/accesorios"], a[href="/accesorios.html"]').forEach(link => {
       link.addEventListener('click', e => { e.preventDefault(); openPanel(); });
     });
   }
