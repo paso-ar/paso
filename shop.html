@@ -864,11 +864,6 @@ function updateVisibility() {
     document.querySelector('.config-visual').style.background = meta.panelBg;
     updateModelColor(key);
     updateVisibility();
-    // Al cambiar el color del producto, sincronizar todos los accesorios
-    document.querySelectorAll('.config-acc-card').forEach(card => {
-      accColors[card.dataset.id] = key;
-      updateAccImage(card);
-    });
   }
   setColor(colorKey);
   document.querySelectorAll('.config-acc-card').forEach(card => updateAccImage(card));
